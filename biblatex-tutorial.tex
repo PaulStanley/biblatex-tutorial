@@ -1,0 +1,61 @@
+\documentclass[nobib]{tufte-book}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{rotating}
+\usepackage{etoolbox}
+\usepackage{xparse}
+\usetikzlibrary{trees}
+\newcommand{\package}[1]{\textsf{#1}}
+\newcommand{\biblatex}{\package{biblatex}}
+\newcommand{\bibtex}{\package{bib\TeX}}
+\newcommand{\gives}{\ensuremath{\rightarrow}}
+\usepackage[utf8]{inputenc}
+\newcommand{\angled}[1]{\ensuremath{\langle}{\normalfont\itshape #1\/}\ensuremath{\rangle}}
+\usepackage{booktabs}
+\newenvironment{pseudoverb}{\begin{list}{}{}\ttfamily\item}{\end{list}}
+\DeclareDocumentCommand{\cs}{O {} O {} m}
+{\begingroup
+  \ttfamily
+\textbackslash
+  #3%
+  \ifblank{#2}%
+    {\ifblank{#1}
+      {}
+      {\{#1\}}}
+    {[#1]}%
+  \ifblank{#2}
+    {}
+    {\{#2\}}%
+  \endgroup}
+\usepackage{fancyvrb}
+\DefineShortVerb{\|}
+
+\tikzstyle{every picture}+=[remember picture]  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% INCLUSIONS
+%
+\includeonly{introduction,
+             database,
+			customize1,
+             bibstyles,
+			 citationcommands,
+			 bibliographyformat}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\include{introduction}
+
+\include{database}
+
+\include{customize1}
+
+\include{bibstyles}
+
+\include{citationcommands}
+
+\include{bibliographyformat}
+
+\end{document}

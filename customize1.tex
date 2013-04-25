@@ -1,0 +1,184 @@
+\chapter{Customization: A Short Tour}
+
+We are about to dive into the details of using \biblatex. As we go
+through them, we are going to be thinking a bit about
+customization. Before we do that, a stern lecture is in order.
+
+\textsf{Biblatex} is highly customizable. That, in the end, is
+its point. At one extreme, if you are setting out to write a
+bibliography style you might be customizing a great deal. But at that
+point, of course, it gets very complicated. If you are trying to do
+anything as complicated as that you will really want to understand the
+internals of \biblatex---which will involve reading the (excellent)
+manual carefully, and also looking at some of the source code. This
+document is not trying to teach you how to do that. But there are lots
+of customizations that are well within the reach of the `ordinary'
+user, and it does make sense to discuss them.
+
+In order to keep things simple, I am going quite often to
+explain \emph{how} to obtain a certain commonly needed change, without
+necessarily explaining exactly why it works---what internal mechanism
+is in play. Some people are happy
+with this. Others find it frustrating. For them, I've included a
+chapter which aims to give at least a few pointers.
+
+However, to avoid frustration, you may need to understand some of the
+common ways in which changes are made, so that you can include the
+right commands in the right way. The final section of this chapter
+explains the bare minimum that you need to know.
+
+Finally, do bear in mind that, with \biblatex\ there are often several
+ways to achieve a particular result. You may find other suggestions
+elsewhere about how to get \biblatex\ to do something, and they may
+well be just as good (or better!) than the ways I have
+suggested. Generally, I've tried to keep things as simple as possible.
+
+\section{The common methods}
+
+\paragraph{Using an option.} Many `customizations' can be achieved
+simply by setting one of \biblatex's package options. This is done
+when you load \biblatex. For instance, to change the way the
+bibliography is sorted, you might set the \verb|sorting| option to
+\verb|none|, by loading
+\begin{verbatim}
+\usepackage[style=numeric,
+            sorting=none]{biblatex}
+\end{verbatim}
+
+Apart from the package itself, some commands also have options. For
+instance, there are a number of options that can be given to the
+\cs{printbibliography} command to affect how the bibliography is
+printed.
+
+\paragraph{Redefining a command.} It's quite common for a change to be
+made by redefining a command. For instance, in many cases \biblatex\
+uses a command to insert a piece of punctuation, so that if you want
+to change the punctuation, you can redefine the command to produce a
+different punctuation mark.
+
+For instance, there's a command called \cs{multicitedelim} which
+inserts the punctuation between multiple citations. Styles set it
+differently, but it's usually a comma or a semicolon. Suppose, for
+some really odd reason we wanted to make it `AND'. To do this, you use \cs{renewcommand}.
+\begin{verbatim}
+\renewcommand{\multicitedelim}{AND\space}
+\end{verbatim}
+
+It's (usually) best to do this in the `preamble' of your document, and
+obviously after \biblatex\ has been loaded: so these redefinitions
+should usually come between the
+\cs{usepackage[}\angled{options}\texttt{]\{biblatex\}} and
+\cs{begin\{document\}}.
+
+\paragraph{Punctuation.} At this point, one feature of
+bibliography-bashing is worth attention. If you do much of it, you
+will find yourself spending quite a bit of time fiddling with
+punctuation. It's not easy, but \biblatex\ has some rather
+sophisticated ways of helping you.
+
+When setting punctuation in biblatex commands, it's often best
+\emph{not} to use punctuation marks directly: for although they will
+work, they don't `play' nicely with some of the clever tricks
+\biblatex\ uses to keep punctuation straight. Instead, when engaged in
+customization, use the various commands that \biblatex\ offers.
+
+\begin{margintable}
+\begin{tabular}{lll}
+\toprule
+\cs{adddot}       &  \textbf{.} & (abbreviation dot) \\
+\cs{addperiod}    & \textbf{.}  & (regular period) \\
+\cs{addcomma}     & \textbf{,}  \\
+\cs{addcolon}     & \textbf{:}  \\
+\cs{addsemicolon} & \textbf{;}  \\
+\cs{addexclam} 	  & \textbf{!}  \\
+\cs{addquestion}  & \textbf{?}  \\
+\cs{addspace}     &             & (regular space) \\
+\cs{addnbspace}   &             & (unbreakable space) \\
+\bottomrule
+\end{tabular}
+\caption{The \textbackslash add... commands\label{addcommands}}
+\end{margintable}
+
+The commands\marginnote{There are also various commands which add a
+  possibly bewildering range of different spaces, of different widths
+  and propensities to break (or not): see the \biblatex\ documentation
+  at ***.} (see table \ref{addcommands}) all take the form
+\cs{add...}. Where they often have the edge on simply using
+punctuation marks directly, is that they are context sensitive: they
+will not add marks if it is inappropriate (for instance, they won't
+add a comma after a question-mark), and they will remove unnecessary
+white space before the mark. The best way to think of them is as
+`context-sensitive' punctuation.
+
+\paragraph{Bibliography strings.} Apart from the bits of
+bibliographical information assembled from the database, all sorts
+of bits of text get printed in a bibliography: `ed.', `vol.', `pp.'
+and so on. These are handled by \biblatex\ using bibliography
+strings. One quite common customisation is to change these. This is
+done using the command
+\begin{quotation}
+\ttfamily
+\cs{DefineBibliographyStrings}%
+  \{\angled{language}\}\\%
+  \quad\{\angled{bibstring} = \angled{definition},\\
+  \quad \angled{bibstring} = \angled{definition} \}
+\end{quotation} For
+instance, if we decided that instead of printing `edited by' or `ed
+by', \biblatex\ would produce `conjured by' we could alter the
+\verb|byeditor| string:
+\begin{verbatim}
+\DefineBibliographyStrings{english}% or your language
+    { byeditor = {conjured by}, }
+\end{verbatim}
+
+\paragraph{Field formats.} Internally, when it prints some data from
+the \verb|.bib| file, \biblatex\ passes the data through a filter that
+is defined for that field and entry-type. Although there are some
+extra complexities about fields that hold names or lists, the basic
+filter is set up using a command \cs{DeclareFieldFormat}. The basic
+structure of this is
+\begin{pseudoverb}
+\cs{DeclareFieldFormat}[\angled{entrytype}]\{\angled{field}\}\{\angled{format}\}
+\end{pseudoverb}
+The \angled{format} should just be the definition of a command which
+accepts a single input (\texttt{\#1}). At its simplest, it
+might simply print this:
+\begin{pseudoverb}
+\cs{DeclareFieldFormat}\{title\}\{\#1\}
+\end{pseudoverb}
+would just print the field, whereas
+\begin{pseudoverb}
+\cs{DeclareFieldFormat}\{title\}\{***\#1***\}
+\end{pseudoverb}
+would print the title surrounded by three asterisks, or
+\begin{pseudoverb}
+\cs{DeclareFieldFormat}\{title\}\{\cs{textsc}\{\#1\}\}
+\end{pseudoverb}
+would print the title in small capitals.
+
+\paragraph{Hooks.} There are a number of `hooks' offered by \biblatex\
+at which it is made relatively easy to insert user-defined commands
+which might do something useful. For instance \cs{AtEveryCitekey} allows
+one to execute some code whenever a source is about to be cited, at a
+time when its data is available but has not yet been handled;
+\cs{AtEveryBibitem} offers a similar facility in relation to the
+printing of bibliography items. Particularly useful, sometimes, is the
+hook \cs{AtDataInput}, which is executed when data is first `read in'
+to become available for citation. From time to time you may be
+encouraged to use these hooks for various purposes.
+
+\paragraph{Source mapping.} In fact, \biblatex\ can `get at' the data
+even before it is read in---indeed, while it is being processed by
+\package{biber}. The facilities providing for source mapping enable
+one to play various useful tricks with the \verb|.bib| file. This is
+such a useful facility that it is described in depth in chapter *.
+
+\paragraph{Deeper and darker.}
+All these techniques (options, redefinition of `hook' commands, and
+the redefinition of bibliography strings) are fairly simple, and
+intended for regular use. Some customizations take us deeper: into the
+internal workings of \biblatex. These things include the redefinition
+of citation commands, the redefinition of things called bibmacros, and
+ultimately the rewriting of bibliography drivers. Although we may
+touch on these from time to time, I'm not going to go into depth about
+them until chapter [x].

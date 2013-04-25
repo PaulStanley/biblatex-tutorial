@@ -1,0 +1,240 @@
+\chapter{The database file}
+
+This chapter is intended as a \emph{basic} introduction to database files. It deals only with commonly used types of source, leaving the more obscure corners to later. Again, it comes in two parts: a section which starts from the ground up, for those who have no \bibtex\ or \biblatex\ experience, and a shorter introduction for people who already know \bibtex, which just concentrates on what is \emph{different} about \biblatex.
+
+\section{From ground up}
+
+The \package{biber} program, which constructs citations, can read a number of different formats; but only one is (at the moment) really fully supported, and that is the format you should use. It is a format originally developed for \bibtex. It is simple. It can be written by hand, or produced with the assistance of specialised software.
+
+The \bibtex\ format database file conventionally has the suffix \verb|.bib|. It is a `plain text' file which (with \package{biber}) can use any unicode characters.
+
+It consists of a number of ``entries'', each of which relates to a particular bibliographical source: each entry consists of an \emph{entrytype specifier} which explains what sort of source it is: like book, or article; a \emph{key} which uniquely identifies the source and which you will use for citations; and a set of \emph{fields} which contain bibliographical data about the work. The basic structure of such a record is shown in figure \ref{basic:source:eg}.
+
+\begin{figure*}
+\strut\vspace{2ex}
+
+\begin{minipage}[t]{1.5in}
+\sffamily
+\noindent
+\tikz{\node(typekey){type};}
+
+\vspace{10ex}
+
+\noindent
+\tikz{\node(fieldkey){fields};}
+
+\end{minipage}
+\begin{minipage}[t]{3in}
+\ttfamily
+\tikz{
+  \node(entrytype)
+       [text height=10pt, text depth=2pt, fill=red!50]{@book};
+   \node(brace)[text height=10pt, text depth=2pt, xshift=5ex]{\{};
+   \node(entrykey)
+        [text height=10pt, text depth=2pt, fill=green!50,xshift=13ex]{nussbaum95};
+   \node(keycomma)
+        [circle, draw, xshift=23ex, yshift=-5pt, line width=1pt]{,};}
+\quad\tikz{\node(authornode)[text height=10pt, text depth=2pt, fill=blue!40]{author = \{Nussbaum, Martha C.\}} ;
+  \node(authorcomma)[circle, draw, xshift=22ex, yshift=-5pt, line width=1pt]{,} ;}\\
+\quad\tikz{\node(titlenode)[text height=10pt, text depth=2pt, fill=blue!40]{title = \{Poetic Justice\}} ;
+  \node(titlecomma)[circle, draw, xshift=18ex, yshift=-5pt, line width=1pt]{,} ;}\\
+\quad\tikz{\node(publishernode)[text height=10pt, text depth=2pt, fill=blue!40]{publisher = \{Beacon Press\}} ;
+  \node(publishercomma)[circle, draw, xshift=20ex, yshift=-5pt, line width=1pt]{,} ;}\\
+\quad\tikz{\node(locationnode)[text height=10pt, text depth=2pt, fill=blue!40]{location = \{Boston\}} ;
+  \node(locationcomma)[circle, draw, xshift=15ex, yshift=-5pt, line width=1pt]{,} ;}\\
+\quad\tikz{\node(datenode)[text height=10pt, text depth=2pt, fill=blue!40]{date = \{1995\}} ;
+  \node(datecomma)[circle, draw, xshift=11.5ex, yshift=-5pt, line width=1pt]{,} ;}\\
+\tikz{\node(finalbrace)[text height=10pt, text depth=2pt]{\}};}
+\end{minipage}
+\begin{minipage}[t]{1in}
+\raggedright
+\sffamily
+\noindent
+\tikz{\node(keykey){key};}
+
+
+\vspace{10ex}
+\noindent
+fields separated by commas
+\end{minipage}
+\begin{tikzpicture}[overlay]
+\path[-stealth] (typekey.south) edge [out=-90, in=180] (entrytype.west) ;
+\path[-stealth] (fieldkey.east) edge [out=0, in=180] (authornode.west) ;
+\path[-stealth] (fieldkey.east) edge [out=0, in=180] (titlenode.west) ;
+\path[-stealth] (fieldkey.east) edge [out=0, in=180] (publishernode.west) ;
+\path[-stealth] (fieldkey.east) edge [out=0, in=180] (locationnode.west);
+\path[-stealth] (fieldkey.east) edge [out=0, in=180] (datenode.west) ;
+\path[-stealth] (keykey.west) edge [out=180, in=45] (entrykey.north east) ;
+\end{tikzpicture}
+\caption{A basic source record\label{basic:source:eg}}
+\end{figure*}
+
+The \emph{entrytype} specifier (\verb|@book|) in figure \ref{basic:source:eg}) says what type of source this is. A large number of different types are supported, which we will look at in due course; indeed, in the end, the question is really what types are supported by the particular style you are using, since styles can define any type they like. But in this chapter we are going to look at just four types:
+\begin{description}
+\item[book] which is used for an entry which consists of a complete physical book.
+\item[article] which is used for journal articles.
+\item[inbook] which is used for a self-contained chapter in a book.
+\item[incollection] which is used for a self-contained paper in a collection of papers.
+\end{description}
+
+The entry type specifier is not case sensitive: \verb|@book|, \verb|@Book| and \verb|@BOOK| all mean the same thing.
+
+A source record, if you squint at it, takes the basic form
+\begin{center}\verb|@entrytype{...}|\end{center}The very first thing within the braces is the \verb|key|. This does not have to take any particular form, but it does need to be \emph{unique} to the particular source, and it should be something memorable enough and short enough to be practical for you, since you will be using it in documents you write.
+
+{\newcommand{\romcom}{{\normalfont , }}
+Although a \verb|key| can include quite a range of characters, there are some that you can or must avoid. You should avoid: {\ttfamily \textquotedbl\romcom @\romcom \textquotesingle\romcom \textbackslash\romcom \#\romcom \{\romcom \}\romcom \textasciitilde\romcom \%\romcom \textunderscore\romcom \&\romcom \$\romcom ,\romcom {\normalfont and }\^{}}; nor may a key include spaces. It's a good idea to be more-or-less consistent in the form your keys take, and to use common sense. For instance, \texttt{nussbaum:1985} or \texttt{nussbaum:poetic} might be quite good keys, but \texttt{nb} could easily clash with others keys, \texttt{nussbaum:1985:poetic-justice} is arguably too long, and \texttt{nbpoj85} may be hard to remember or work with. Use your common sense.
+
+Immediately after the \verb|key| place a comma. The rest of the source record consists of a set of fields and values entered (usually)\footnote{Occasionally neither braces nor quote marks are needed.} in either the form
+\begin{center}\texttt{field = "value",}\end{center}
+or in the form
+\begin{center}\texttt{field = \{value\},}\end{center}
+since these must be separated by commas but it is permissible (though not required) to have a comma after the last one, I always make sure a comma is added to every field: it makes editing easier.
+
+You can use whitespace freely between fields and labels to keep things neat: as far as \package{biber} is concerned
+\begin{verbatim}
+   author = {Allen, Sidney},
+   title  = {Vox Latina},
+\end{verbatim}
+is just the same as
+\begin{verbatim}
+author={Allen, Sidney},title={Vox Latina}
+\end{verbatim}
+but for human consumption it helps to keep things tidy.
+
+Within a field you can use any unicode characters, and you can included \LaTeX\ code too, if you need to (though it's sometimes a bad idea, especially in name fields, for reasons we will come to). Similarly, just as when you are writing \LaTeX\, you can break lines and end up with just a single space, which also helps you to arrange things neatly.
+
+If one looks at the fields defined in figure \ref{basic:source:eg} one can see that they are mostly self-explanatory. It's important to appreciate that they are intended as data sources: the raw material from which \biblatex\ will construct citations, not the citations themselves. So generally you should enter as much information as you have, because while \biblatex\ can ignore (or alter) information it has, it cannot invent information it doesn't have. For example, if entering a name you should, if you can, give the full name. Perhaps your currently-preferred citation system uses initials only. That doesn't matter, because \biblatex\ can extract the initials if it knows the full name; but it can never guess the full name from initials, and if you ever decided to use a system which needed the full name, you would be lost.
+
+\section{Field types}
+
+When you read the \biblatex\ manual, you will see that it distinguishes between five types of fields: name fields, list fields, verbatim fields, date fields and other fields. This is not actually a very helpful distinction from the user's point of view, and I'd suggest that you think of fields in this way:
+\begin{itemize}
+\item \emph{Names} These \emph{are} special, and worth thinking about separately. Typical name fields are \texttt{author} and \texttt{editor} fields.
+\item \emph{Dates} Again, the \emph{are} special, and worth considering specially. Typical name fields are \texttt{date} and \texttt{urldate}.
+\item \emph{Other bibliographical fields}, like \texttt{title}, \texttt{journaltitle}, \texttt{url} or \texttt{isbn}. These are all fields that will contain material which might (depending on your style) find its way into your printed bibliography.
+\item \emph{Meta-data} fields, like \texttt{keywords} and \texttt{options}, in which you provide information about your source which may be used to help format it, but is not expected to find its way directly into print.
+\end{itemize} 
+
+\subsection{Names}
+
+Names turn out to be rather complex things. Suppose I have the advantage of being called Quentin William Ffortescue von Rumplestiltskin, Jr. I probably care about all the parts of this name; but bibliographical software is particularly interested in the last name which will be used for sorting (Rumplestiltskin) and the first names which will, if necessary, be used for sorting (Quentin William Ffortescue), and from which the initials (Q.\,W.\,F.) will be constructed; but it may also need to know how to print my surname including its `von' part, and to include the `Jr.' after my name.
+
+All this can be done. It can even (usually) be inferred. It \emph{usually} doesn't matter whether a name is entered as \verb|John Smith| or \verb|Smith, John|. If in doubt, the following rules will keep you straight. (Not all of them is strictly necessary; but they are quite simple.)
+
+\begin{enumerate}
+\item Always enter initials with full stops. If it sees \verb|A. Author|, or \verb|Author, A.|, \biblatex\footnote{\package{Biber}, actually.} knows that \verb|A| is an initial. If it sees \verb|A Smith| it might think that `A' is a (very short) name. Since this \emph{can} matter, usually when you least expect it, always include the initial.
+\item Always put any \emph{von} (or equivalent, such as \emph{van} or \emph{de la}) \emph{before} the last name, as shown above.
+\item For names \emph{without Jr.\ or numbers} use \emph{either} `ordinary' name order \emph{or} \angled{last name}, \angled{first name or initials}. So \verb|von Author, A.| or \verb|A. von Author|. I highly recommend consistency in this. And in fact I strongly recommend that you use the Last, First format, which avoids mistakes with \ldots
+\item If there is a `junior part' (like Jr.\ or III), you \emph{must} use the `backwards' form:\begin{center}von Rumplestiltskin, Jr., Quentin William Ffortescue\end{center}
+\item If what looks like two words should actually be treated as one, then enclose them in braces. For instance, if a last name is double-barrelled but not hyphenated, it needs to go in braces. The hyphenated \verb|Homburg-Williams| will be fine, but we don't want Mr.\ J. Homburg Williams to find himself as J.\ H.~Williams, so make it \verb|{Homburg Williams}, J.|.
+\item Similarly some names are not made to be broken at all. In particular, institutions, which sometimes claim authorship or something close to it. If the University of Oxford publishes a report, \biblatex\ will be inclined to think of it as `of Oxford, U'. Avoid this by enclosing the whole name in (extra) braces:
+\begin{center}
+\verb|author = {{University of Oxford}}|
+\end{center}
+\item For accented characters, either use unicode or enclose the accented letters in braces: \verb|{Victor, Paul {\'E}mile}|. Of these techniques, the use of unicode accented characters --- which \package{biber} can handle, unlike \bibtex\ is much to be preferred. If you do have to use \TeX\ accents, enclose the character in question (but only that character) in braces.
+\end{enumerate} 
+
+Often academic works have multiple authors or editors. In that case, enter all the names separated by `and' (\emph{not} commas).
+\begin{center}
+\ttfamily
+Ardman, A. \textbf{and} Baptiste, B. \textbf{and} Carruthers, C.
+\end{center}
+
+You can also put \verb|and others| yourself. But be careful. How many authors' names get printed is heavily style-dependent. Some styles only want one or two authors before printing `et al'; others may want four or five, or always print every name. It's easy for \biblatex\ to truncate names if it has more than it needs, but impossible for it to guess who wrote a paper if it hasn't been told, so as always, enter all the information you have available. So, within reason, it's probably better to include all the names.
+
+\subsection{Dates}
+
+With \biblatex\ always use dates in the form \verb|YYYY-MM-DD|. Do the 28 February 2012 is \verb|2012-02-28|. In general, most \biblatex\ styles will work with less-than-complete dates, and of course in many cases you won't know the full date (for instance, the date when a book was published): so \verb|2012| is a valid date, as is \verb|2012-02| (February 2012).
+
+Occasionally you need to enter a range of dates. In that case, use the a forward slash to separate the range: February to March 2012 is \verb|2012-02/2012-03|.
+
+\subsection{Data fields}
+
+Data fields other than name fields do not normally present such difficulties, but there are a few points to bear in mind.
+
+Some such fields (for instance the \verb|publisher| field) are in fact \emph{lists}: in such cases, if you need more than one entity mentioned, use \emph{and} between them, as with names.
+
+Data fields may be important for sorting. For example, although in most cases the primary sorting is done using the \verb|author| or \verb|editor| field, the \verb|title| field may sometimes come into play. This can pose additional challenges, because it is possibl, especially if the field includes some \LaTeX\ command, to confuse the sorting algorithm. In general, enclose \LaTeX\ commands (other than accented letters) in \emph{two} sets of braces, and use unicode to deal with accented letters wherever possible. So, for instance, we would enter:
+\begin{center}
+\verb|title = {The {{\LaTeX}} Companion}|
+
+or
+
+\verb|title  = {{\`A} l'ombre des jeune filles en fleurs}|
+
+or
+
+\verb|title    = Du côté de chez Swann|
+\end{center}
+
+Data fields may be modified. For instance, some style files capitalize only the first word of a title, so that an entry of
+\begin{center}
+\verb|The German Law of Obligations|
+\end{center}
+would become
+\begin{center}
+The german law of obligations
+\end{center}
+Where you know that a particular letter must never be changed, you should `protect' it with braces:
+\begin{center}
+\verb|The {G}erman Law of Obligations|
+\end{center}
+Otherwise it's best to enter titles, at least if you write in English, with `significant words capitalised', since \biblatex\ can easily remove all but the first capital, but cannot be expected to identify `significant words'.\footnote{In other words, if asked to capitalise the first letters of \texttt{The \{G\}erman law of obligations} it would end up with \emph{The German Law Of Obligations}, which is not correct.} As noted above, some styles put titles into `sentence case' --- with only the first word capitalised. If you don't want that, the right thing to do is not to attempt to outfox the style by manually protecting every capital with braces, because that makes your database file useless if you ever do want such changes. The right thing to do is to choose a different style, or modify it, to preserve your capitalization.
+
+\subsection{Metadata}
+
+There is a wide variety of metadata that you may, for various reasons, include in a file, including options to guide \biblatex\ in formatting citations, and keywords and so forth to help structure biographies. In general there is no particular difficulty with this sort of information. It is just plain text, still included in braces, and (sometimes) a comma-separated list.
+
+\section{Fields}
+
+The remainder of this chapter is going to take a look at four of the commonly used types of entry: books, articles, and the \verb|incollection| and \verb|inbook| types. This is not intended to be a complete formal description of every possibility. For that you can consult the documentation. It is supposed to give practical guidance, especially for neophytes. Most of what is said should seem like common sense for anyone who has ever written an academic bibliography.
+
+\subsection{Books}
+
+The bare minimum for any book is some sort of title. \emph{The Bible} is a book, timeless as it is and un-named as its author customarily remains. Most books, however, have more information, and most bibliographical styles require more information to be provided, if it is available. Typically aim to record the following:
+
+\paragraph{The author(s) name(s)} in the |author| field. If there is an |editor| but no |author| leave the field blank.
+
+\paragraph{The editor(s) name(s)} in the |editor| field. If there is no editor, leave the field blank. If there is both an author and an editor, included the editor's name as well as the author's.
+
+\paragraph{The title} in the |title| field. Mostly this is easy, but some works exist to annoy us. Dr Edwin Poppie-Cocke has just completed `Grammatical Solecisms: Dangling Participles and Misplaced Modifiers`, which is volume 234 of his treatise on `Elementary Stylistics'. What, exactly, is its title? For our purposes, we divide it into three:
+\begin{itemize}
+\item The |maintitle|, which is the title of the multi-volume treatise.
+\item The |title|, which is the particular title of the book.
+\item The |subtitle|.
+\end{itemize}
+We therefore enter:
+\begin{verbatim}
+@book{poppycocke:2013,
+  author    = {Poppie-Cocke, Edwin},
+  maintitle = {Elementary Stylistics},
+  title     = {Grammatical Solecisims},
+  subtitle  = {Dangling Participles and Misplaced Modifiers},
+}
+\end{verbatim}
+It is better to divide title and sub-title in this way because, although it would work if we didn't, some citation styles use the title when referring back to the work on second and subsequent citations, and the title alone, without subtitle, is usually sufficient for this purpose, and less of a mouthful.
+
+Where you have a multiple volume work, you have two choices. (1) You can have a single entry in your database for the work in question with all its volumes. This would normally be appropriate where you are dealing with one work, published at one time, which happened to be subdivided. In that case, enter the number of volumes in the |volumes| field -- and remember to identify the particular volume you are referring to when you cite the work. (2) You may have separate entries for each volume, where each volume is effectively a separate work. That is normally appropriate where the volumes are published at different times. In that case, put the volume in the |volume| field. Some works have `parts' instead of, or as well as, volumes: in that case put the part in the |part| field.
+
+Some self-contained works are published as part of a series. If you want to record that information, put the series in the |series| field.
+
+\paragraph{The edition} in the |edition| field. This is usually omitted for the first edition. If this is a number, just enter the cardinal number: |{2}|, not |second| or |2nd| --- the right suffix will be added by \biblatex. If it's something more involved like `revised' or `corrected', type that.
+
+\paragraph{The date of publication} In the |date| field. The year will usually suffice. The older \bibtex\ style was to enter the date in the |year| field. That will work fine, but it's probably better to use |date|, which is `correct'. In some cases you will want to record two dates: the date of original publication, and the date of the particular edition you are referring to. In that case, put the date of the particular edition in the |date| field, and the date of original publication in the |origdate| field.
+
+\paragraph{The place of publication} in the |address| field.
+
+\paragraph{The publisher's name} in the |publisher| field.
+
+In some disciplines it is not customary to print the publisher's name, or the place of publication, or both, and you may think that's pretty sensible since in most cases they are of no interest. Even so, unless you are very certain that you will never want this information, it's better to fill it in. It's always fairly straightforward to tell \biblatex\ not to use information that it has available --- but impossible to tell it to create information you haven't provided. So, if you think of the future, it's best to include both.
+
+\newthought{Those fields cover most books} but there are other pieces of information that you may sometimes need or want to record.
+
+\paragraph{Translators, adapters, revisers.} It is usual to have an author, and common to have an editor as well. It's not uncommon to have other people who should be credited: translators, redactors, commentators and the like. For these, \biblatex\ provides appropriate fields. There are fields for |translator|, |annotator| or |commentator|, into which you can put the name(s). If you have some oddity, you can make use of two odd fields called |editora| and |editorb|. These are `generic' fields, into which you can put names. If you do that, you also need to fill in the |editoratype| (or |editorbtype| ...) fields, with the `role' of the person. Biblatex recognises as possible `roles': editor, compiler, founder, reviser and collaborator, and the enigmatic figures of `redactor' and `continuator' too! You can add others as well, though it's not a totally straightforward task.\footnote{Consult the \biblatex\ documentation at 2.3.6, 3.8 and 4.9.1.}
+
+\paragraph{Electronic publication.}
+
+\paragraph{ISBNs}
+
+\paragraph{Other information}

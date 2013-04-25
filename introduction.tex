@@ -1,0 +1,186 @@
+\chapter{What is \package{biblatex}?}
+
+This chapter exists in two quite different versions. If you are \emph{entirely new to automated bibliography tools in \LaTeX}, then you should read the first section. If you already have experience of using automated bibliography tools in \LaTeX, such as bibtex and natbib, then you should read the second section.
+
+\section{For the true neophyte}
+
+\subsection{The basic idea}
+
+Academic papers usually cite sources. The exact form of these citations varies: different disciplines have different practices, and different publishers and journals too. But the underlying idea is similar: there are references in the text (or footnotes) of the paper which enable the reader to identify a source for a particular statement. This could be a number in a list of references (like [1]), or a combination of author and year (like Author 2014), or even a footnote which identifies the source.\footnote{Like: Author, `Paper Title' in \emph{Learned Journal}, Vol.\ 10 (2014), p.\ 111.} Alongside this there is a bibliography: a list of all the sources which have been cited, which will enable the reader to look up the source in a library, and sometimes provide (in itself) some useful information about the source.
+
+It is, of course, possible to produce all these indications entirely `by hand': typing out references, bibliographies and so forth. But there are disadvantages to doing that:
+\begin{itemize}
+\item It is time-consuming. If you write lots of papers, you will probably find yourself citing the same sources again and again. It's annoying to have to keep looking up and typing out the same data. You have to spend time doing things like organising your bibliography into the proper order.
+\item It is error-prone. Every time you type data up, you risk making a mistake: either a mistake of substance (typing `Stanely' for `Stanley'), or in the way the data is formatted.
+\item It is annoying. Each citation system has its own picky requirements. One wants the titles of articles in double quotes, ``Like this''. Another wants them in single quotes, `Like this'. Another wants them in italics \emph{Like this}. There are specialists who revel in such details: but for the average person they are just a nuisance, and it would be nice to have a system which took care of these details for you.
+\item The details sometimes change as you write. For instance, if you use a system where references are numbered, adding a reference will often change all the numbering. Or if you use a traditional system which uses abbreviations such as `ibid' or `op.\ cit.', adding a reference to one footnote can change others. In such systems it's not possible to finalize references until the document is complete: and every change can easily introduce errors.
+\end{itemize}
+
+The idea of a citation system is to \emph{separate content from presentation}. You record the important details about a source in a database file: the author(s), title, date, publisher and so forth. As you write, you use a short reference to indicate the work you want to cite at that point in your paper. And then you let the computer take care of extracting the information from your database and inserting and formatting it into your paper. And in fact, in many fields, you can find existing databases which you can borrow from which will contain data you need.
+
+This is what \biblatex\ does. You maintain a database which contains the works you may want to cite. The database can be large: it needn't include only the works that you want to cite in a particular paper -- it can be as large as you like. It can be in any order. All that matters is that it contains the information that is needed to `construct' the citations.
+
+As you write your paper, you insert commands to tell \biblatex\ that you want to cite particular sources drawn from that database.
+
+Then, when you are done, as part of the compilation of your \LaTeX\ source, you get \biblatex\ to extract the relevant information, format it, and construct the citations and bibliography in proper format.
+
+\subsection{In practice}
+
+In practice, getting all this to happen involves a number of different tools and programs, which all have to work together.
+
+You are going to start with two files:\footnote{At least two, since your \LaTeX\ source could \cs{include} or \cs{input} more than one file, and your database may consist of more than one file too.} a database file and your \LaTeX\ source file.
+
+The database file conventionally has the suffix \texttt{.bib}, and consists of a set of records containing information about the sources you may wish to cite. The format of such a file is described in []. It is a plain text file, which you can either produce by hand (using a text editor, such as the one you use to write \LaTeX\ source code) or can be maintained by one of a number of available `helper' programs (which we consider in chapter []).
+
+The \LaTeX\ source file conventionally has the suffix \texttt{.tex} and contains all your text, marked up in \LaTeX\ format. It also contains:
+\begin{itemize}
+\item A\marginnote{\cs{uspackage[style=...]\{biblatex\}}}line that loads \biblatex\ and tells it what `style' to use for citations and bibliography.
+\item One\marginnote{\cs{addbibresource\{file.bib\}}} or more lines which tell \biblatex\ what file(s) to use as the database from which information is to be extracted.
+\item One\marginnote{\cs{cite\{...\}}} or more commands which tell \biblatex\ that you want to \cs{cite} a particular source at that point in your text.
+\item (Usually)\marginnote{\cs{printbibliography}} one or more commands that tell \biblatex\ to print a bibliography at that point in the document.
+\end{itemize}
+
+The next task is to get the various tools to cooperate together to get to the end result that you need. In general that requires at least the following things to happen:
+\begin{itemize}
+\item Run \LaTeX\ first on the source file. At this point no citations are produced. Instead \biblatex\ \emph{records} a list of the sources that you have cited.
+\item Run another program which reads the list that has been produced, analyses the database, and extracts the relevant information into a format that \biblatex\ can work with. There is a choice of programs that you might use for this, but in this handbook we will be assuming that you will use a program called \package{biber}.
+\item Run \LaTeX\ again, to `read in' the data that has now been put in digestible form, and produce the citations and bibliography.
+\item (Sometimes), run \LaTeX\ yet \emph{again} to finalize cross-references.
+\end{itemize}
+
+This `pattern' (\LaTeX, \package{biber}, \LaTeX, (\LaTeX)) is repeated whenever you need to compile your document.\footnote{Not quite true.}
+
+\subsection{A quick demonstrationi\label{neophyte:example}}
+
+Why not try a quick example. I assume for these purposes that you have a fully-equipped and functional \TeX\ system, and have installed the pre-requisites for \biblatex. If you are in any doubt about that, have a look at Appendix [].
+
+First, let's set up our `database'. It's not going to be much: just a single book.
+
+Open a text editor, and produce a new file \texttt{handbook.bib}:
+\begin{verbatim}
+@book{nussbaum,
+  author = "Marth C. Nussbaum",
+  title = "Poetic Justice",
+  subtitle = "The Litererary Imagination and Public Life",
+  publisher = "Beacon Press",
+  location = "Boston",
+  date = "1995",
+}
+\end{verbatim}
+
+Now open a text editor or your \LaTeX\ editor, and create a small test file (I'll call mine \texttt{test.tex}):
+
+\begin{verbatim}
+\documentclass{article}
+\usepackage[style=numeric]{biblatex}
+\addbibresource{handbook.bib}
+\begin{document}
+
+As Nussabum comments: ``The utilitarian picture of human
+beings and of rationality is familiar enough in theory''
+\cite[17]{nussbaum}
+
+\printbibliography
+\end{document}
+\end{verbatim}
+
+Now, run \LaTeX\ on the file, once. If you look at the resulting typeset document, it should look something like figure \ref{nussbaum1}.
+
+\begin{figure}
+\fbox{\includegraphics[width=\linewidth,]{./examples/nussbaum1.pdf}}
+\caption{Before running \package{biber}}\label{nussbaum1}
+\end{figure}
+
+Now, from a terminal window opened in the same directory, run
+\begin{verbatim}
+biber test
+\end{verbatim}
+
+Hopefully, you will see a number of messages marked as `INFO', ending with \texttt{INFO -- Output to test.bbl}.
+
+Now run \LaTeX\ again on the source file \verb|test.tex|. And if all is going well, you should now see output like figure \ref{nussbaum2}.
+
+\begin{figure}
+\fbox{\includegraphics[width=\linewidth,]{./examples/nussbaum2.pdf}}
+\caption{After running \package{biber} and \LaTeX}\label{nussbaum2}
+\end{figure}
+
+As you can see, the citation data has been pulled into the bibliography.
+
+\subsection{What next}
+
+There is still quite a bit to learn, of course. To some extent it's up to you how you go from here, but the following chapters take what I think is a reasonably logical order. But you might like to look at Appendix [] before going further: it may help you to set up your \LaTeX\ work environment in a way that is a \biblatex\ friendly as possible.
+
+\section{For the more experienced}
+
+From the user's perspective, the basic pattern followed by \biblatex\ is similar to the one you will be accustomed to if you use \bibtex\ with \verb|.bst| files, or citation packages such as \package{natbib}:
+\begin{itemize}
+\item Your bibliographical data is still stored in \verb|.bib| files, which have largely the same format as \bibtex\ files. (But \biblatex\ recognises additional entry types and fields.)
+\item You still generate citation and bibliography data by running \LaTeX\, then an external program (either \bibtex\ itself or a more powerful replacement, \package{biber}, and then \LaTeX\ again (sometimes twice).
+\end{itemize}
+
+There are a few, largely cosmetic, changes to the commands that you need to included in your document to ``set up'' the bibliography. (See page \pageref{bibtex:simple:eg}.)
+
+\subsection{Differences}
+
+So, what are the main differences?
+\begin{itemize}
+\item There is a big difference in the essential way in which \biblatex\ and traditional \bibtex-based systems work. In particular, in \biblatex\ the external program is used to prepare data: the formatting and output of that data is largely handled using \LaTeX\ code.
+\item The practical consequence of that is that \biblatex\ can do things that traditional \bibtex\ cannot: in particular it can respond dynamically to context in a way that traditional \bibtex\ cannot.
+\item This means that \biblatex\ can be used for citation systems (such as traditional humanities-style systems) for which \bibtex\ alone is unsuited. In a nutshell it is a more powerful and flexible system.
+\item In addition, the \package{biber} program -- which is recommended to replace \bibtex\ in sorting and handling the bibliographical data itself -- is more flexible and powerful than \bibtex\ is, and doesn't suffer from some of the \bibtex's historical limitations.
+\end{itemize}
+
+You may well be asking: should I use \biblatex. Most users probably fall anto one of three groups.
+
+Some people \emph{need} to stick with traditional \bibtex. For instance, if you are submitting work to a journal which has a \bibtex\ style which it requires you to use, then you should \emph{not} switch to \biblatex.
+
+Some people \emph{don't need} to switch. If you have existing \bibtex\ styles which work for you, and which do everything you need, then there is no reason to switch. You can. But you don't need to. The existing programs have the advantage of stability in such cases. On the other hand, switching will accustom you to \biblatex\ and put its more powerful features at your disposal.
+
+Some people \emph{need} \biblatex. This is probably true if you work in the humanities and need sophisticated and complex styles such as traditional footnote-based citations systems, or if you want to cite non-standard sources.
+
+\subsection{The required changes}
+
+The main differences between using \biblatex\ and `standard' \bibtex\ are as follows:
+
+\begin{itemize}
+\item You need to load \biblatex\ as a package using \cs{usepackage}.
+\item Instead of \cs{bibliographystyle}, you specify the style to be used as an option when loading \biblatex:\\
+\centerline{\cs{usepackage[style=\ldots]\{biblatex\}}}
+\item Instead of specifying the \verb|.bib| file as an argument to the \cs{bibliography} command, you use the command \cs{addbibresource\{\}} to identify the file(s). You specify the file(s) to be used completely, including their \verb|.bib| suffixes. So if your bibliography file is called \verb|mybib.bib|, you have\\
+\centerline{\cs{addbibresource\{mybib\textbf{.bib}\}}}
+\item Instead of \cs{bibliography}, you use \cs{printbibliography} at the point where the bibliography should be printed.
+\end{itemize}
+
+One important point to understand: existing \bibtex\ styles cannot be directly used by \biblatex. The `standard' styles in \biblatex\ do not precisely correspond to the standard styles in \bibtex.\footnote{There is, however, a project to provide \biblatex\ styles that are identical to the standard \bibtex\ ones.}
+
+\subsection{An example}
+
+Find an existing \verb|.bib| file of your own (or, if you are pushed to find one, make use of a standard file such as \verb|biblatex-examples.bib|, which will be installed with \verb|biblatex|).
+
+Try the following sample document:
+
+\begin{verbatim}
+\documentclass{article}
+\usepackage[backend=bibtex,style=numeric]{biblatex}
+\addbibresource{biblatex-examples.bib}% <= use your filename
+\begin{document}
+\nocite{*} % Or use some citations: don't use \nocite{*}
+           % if your database is long, because it will
+           % print everything in it!
+
+\printbibliography
+\end{document}
+\end{verbatim}
+
+If you run \LaTeX, \bibtex, and \LaTeX again, you should find that a numbered bibibliography is produced. Now see if you can get it to work with \package{biber}. Replace line 2 with
+\begin{center}
+\cs{usepackage[backend=biber,style=numeric]\{biblatex\}}
+\end{center}
+and delete \verb|.aux|, \verb|.bbl| and \verb|.blg| files. Now run \LaTeX, \package{biber} and \LaTeX\ again. You should generate the same document. (You might also like to try the sample document suggested for complete neophytes, which is at page \pageref{neophyte:example}.)
+
+\subsection{The \package{natbib} package}
+
+Many \LaTeX\ users use the \package{natbib} package. This is a sort of ``half-way house'' between \bibtex\ and \biblatex. It's somewhat more flexible than a pure \bibtex\ solution, and has (in particular) a wider range of citation commands to deal with author\slash year citation systems. But it still uses \bibtex\ under the hood, and it doesn't have \biblatex's flexibility.
+
+Biblatex has a \package{natbib} ``compatibility mode''. If you load \biblatex\ with the option \texttt{natbib} (or \texttt{natbib\allowbreak =\allowbreak true}), then it will let you use some \package{natbib}-like citation commands, like \cs{citet} and \cs{citep}. However, the ``compatibility'' is really only skin-deep; it hardly\footnote{It does modify the punctuation used to separate an author's name from the year to match the \package{natbib} default.} extends beyond the citation commands, and the actual formatting of the citations (which will depend on the style you specify) will be determined by \biblatex.

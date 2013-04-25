@@ -1,0 +1,175 @@
+\chapter{The Bibliography}
+
+Citations written, we come to the actual printing of the
+bibliography. The magic command is:
+\begin{center}
+\cs{printbibliography}
+\end{center}
+And, for simple cases, it may even be as simple as that! But there are
+quite a number of refinements.
+
+The refinements can be classified as follows:
+\begin{itemize}
+\item Changes to the way the bibliography is headed: what is it
+  called? Is it treated as if it were a new chapter, or a new section?
+  How is the heading printed? Is it included in the table of contents?
+\item Changes to the appearance of the bibliography items: what font
+  are they printed in? Are they indented? How? How much?
+\item Changes to the way the bibliography is sorted.
+\item Selection of the material to be printed in the bibliography: are
+  all sources cited, or only some? How are they selected?
+\item Provisions for creating multiple bibliographies, such as
+  different bibliographies for different chapters, or different
+  bibliographies for different topics.
+\end{itemize}
+The last two items overlap a bit, because in one sense producing
+multiple biographies is a matter of selecting what works go in which
+bibliography. It's simpler, however, to defer most discussion of this
+to a chapter of its own. We are also going to leave sorting for a
+separate discussion. So this chapter is really going to concentrate on
+three points: headings, the physical format of the bibliography, and
+the ways we can select material for inclusion or exclusion.
+
+\section{Headings}
+
+In a \LaTeX\ document, a heading is more than just its words: a heading command (such as \cs{chapter} or \cs{section}) doesn't just print its text, formatted a certain way. It may add a number, and advance a counter. It may change what gets printed in the running headers or footers.
+
+Let's start with the actual title. A default\footnote{The default is
+`Bibliography' for books and articles, and `References' for articles.} will be set by the
+\verb|heading| option, described below; but by far the easiest way to
+control it is using the \verb|title| option in the
+\cs{printbibliography} command.
+
+So, for instance, if we wanted to call our bibliography `List of
+Sources Cited', we could
+\begin{center}
+\cs{printbibliography[title=\{List of Sources\}]}
+\end{center}
+
+This is fairly straightforward. Beyond that, some degree of complexity
+lurks.
+
+It's all fairly easy if you want to have the bibliography title
+treated as if it were a chapter heading (for the \verb|book| and
+\verb|report| classes) or a section heading (for the \verb|article|
+class). This is, after all, the ordinary case, and \biblatex\ then
+provides you with the following options:
+\begin{itemize}
+\item If \marginnote{\gives\ {\large\textbf{References}}\\(not in table of contents)}you want the heading inserted, but without any number and
+  without being added to the table of contents, you're all set. This
+  is what \biblatex\ will do by default.
+\item If\marginnote{\gives\ {\large\textbf{References}}\\(in table of contents)} you want the heading added to the table of contents, but you
+  don't want it numbered, then add the option \verb|heading=bibintoc|
+  to your \cs{printbibliography} command.
+\item If\marginnote{\gives\ {\large\textbf{6.\ References}}\\(in table
+    of contents)}you want the heading numbered and added to the table of
+  contents, then add the option \verb|heading=bibnumbered| to your
+  \cs{printbibliography} command.
+\end{itemize}
+
+It's also easy enough if you want the bibliography dealt with at
+\emph{one level below} the default: in other words, you want it
+treated as a section (in the \verb|book| or \verb|report| classes) or
+as a sub-section (in the \verb|article| class:
+\begin{itemize}
+\item To have just the heading (no table of contents or numbering),
+  choose the option \verb|heading=subbibliography|.
+\item To have the heading included in the table of contents, but not
+  numbered, choose the option \verb|heading=subbibintoc|.
+\item To have the heading numbered and included in the table of
+  contents, choose the option \verb|heading=subbibnumbered|.
+\end{itemize}
+
+Finally (and perhaps easiest of all), if you want no heading at all,
+just choose \verb|heading=none|.
+
+These are all the options that \biblatex\ gives you by
+default. Combined with \verb|title=...| (to overrride the default
+titles) this will usually
+suffice. If, however, you want to define a special heading for your
+bibliography, you will need to proceed as follows:
+\begin{enumerate}
+\item Define a bibliography heading style using
+\begin{center}
+  \cs[\angled{title}][\angled{definition}]{defbibheading\{\angled{name}\}}\end{center} The
+  \angled{title} is the default title for your heading. The definition
+  part is a complete set of commands to create a heading and anything
+  (such as the marking of headers and footers, table of contents, and
+  so forth) that needs to go with
+  it. It takes the form of a macro definition which assumes it will be passed
+  the title of the bibliography as its single paramenter, \#1.
+\item Use the name of the \verb|heading| you have defined as the
+  \verb|heading| option to your \cs{printbibliography} command.
+\end{enumerate}
+
+So, for instance, suppose we wanted to set up our bibliography to be
+formatted as a subsection, but without any number; we also want it
+added to the table of contents, and we want it to mark both recto and
+verso pages. The default title is to be `Works Cited':
+\begin{verbatim}
+\defbibheading{myheading}[Works Cited]{%
+  \subsection*{#1}%
+  \addcontentsline{toc}{subsection}{#1}%
+  \markboth{#1}{#1}}
+\end{verbatim}
+
+There's one tiny trick to bibliography headings. It's normally best to
+do all your customization in the preamble of your document, before you
+(or \LaTeX) gets to \cs[document]{begin}. But for bibliography
+headings (and title, and notes) it's actually safest to set them up
+after \cs[document]{begin}.
+
+\section{Bibliography Format}
+
+The appearance of a bibliography is largely controlled by a
+pre-defined bibliography environment. You can change the default by
+defining a modified bibliography environment of your own, and then
+passing the name of that environment as
+\begin{center}
+\cs{printbibliography[env=\angled{your environment}]}
+\end{center}
+
+The environment needs to be set up in advance, for that purpose, you
+use the command \cs{defbibenvironment}:
+\begin{center}
+\ttfamily
+\cs{defbibenvironment}{\angled{name}}\{\angled{start}\}\{\angled{end}\}\{\angled{per-item}\}
+\end{center}
+
+The way this works is as follows:
+\begin{description}
+\item[\angled{name}] is the name you choose to refer to this style of
+  environment: it's what you will use with the option \texttt{env=} to
+  typeset a bibliography using this environment.
+\item[\angled{start}] is code to be executed at the beginning of the
+  bibliography, before any entries are printed. It's customary (though
+  not essential) to set a bibliography using a list environment of
+  some sort, and this lets you set that up.
+\item[\angled{item}] is code to be executed at the beginning of each
+  \emph{entry} in the bibliography: for instance \cs{item}.
+\item[\angled{end}] is code to be executed at the end of the
+  bibliography, for instance to end the environment you began with
+  \angled{start}.
+\end{description}
+
+Let's give a practical example. People writing CVs (resum\'es)
+sometimes want to number the items while using a non-numeric
+bibliography style, such as verbose or author-year. Suppose you loaded
+the \verb|authoryear| style, but then defined a bibliography
+environment as follows:
+\begin{verbatim}
+\defbibenvironment{myenv}
+  {\begin{enumerate}}
+  {\end{enumerate}}
+  {\item}
+\end{verbatim}
+Now, using
+\begin{pseudoverb}
+\cs{printbibliography}\relax[env=myenv,heading=myheading]
+\end{pseudoverb}
+we get
+
+\begin{figure}
+\includegraphics[width=\textwidth]{cotton-springer-myenv.pdf}
+\caption{Customized bibliography environment\label{custom-env}}
+\end{figure}
