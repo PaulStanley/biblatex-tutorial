@@ -1,6 +1,8 @@
 \chapter{The database file}
 
-This chapter is intended as a \emph{basic} introduction to database files. It deals only with commonly used types of source, leaving the more obscure corners to later. Again, it comes in two parts: a section which starts from the ground up, for those who have no \bibtex\ or \biblatex\ experience, and a shorter introduction for people who already know \bibtex, which just concentrates on what is \emph{different} about \biblatex.
+This chapter is intended as a basic introduction to database files. It deals only with commonly used types of source, leaving the more obscure corners to the manual. It starts from the ground up, for those who have no \bibtex\ or \biblatex\ experience. Those who are familiar with \bibtex\ already can probably skim the first part, but should read the later parts fairly carefully because \biblatex\, with \package{biber} is slightly different and considerably more powerful than \bibtex.
+
+This chapter gives examples of some |.bib| files and output they will produce. Do bear in mind that the precise form of the output is \emph{dependent on the style chosen}: the examples are intended to help illustrate the general principles, but different styles might select from and format the data in different ways. The rest of the book is all about how to control such output. This chapter is about the input, and the examples are only there to give colour.
 
 \section{From ground up}
 
@@ -165,7 +167,7 @@ or
 
 or
 
-\verb|title    = Du côté de chez Swann|
+\verb|title    = {Du côté de chez Swann}|
 \end{center}
 
 Data fields may be modified. For instance, some style files capitalize only the first word of a title, so that an entry of
@@ -186,6 +188,15 @@ Otherwise it's best to enter titles, at least if you write in English, with `sig
 
 There is a wide variety of metadata that you may, for various reasons, include in a file, including options to guide \biblatex\ in formatting citations, and keywords and so forth to help structure biographies. In general there is no particular difficulty with this sort of information. It is just plain text, still included in braces, and (sometimes) a comma-separated list.
 
+Of these various fields, two stand out for special mention at this point.
+
+\paragraph{Specifying hyphenation patterns}\marginnote{\newcommand{\english}{{\normalfont (English)}}The language options are: \ttfamily american \english, australian \english, austrian, brazil, british \english, canadian \english, canadien {\normalfont(French)}, catalan, czech, danish, dutch, finnish, french, german, greek, italian, naustrian, ngerman, norsk, nynorsk, portugues, russian, spanish, swedish.}Different languages are hyphenated in different ways. If you are writing a document in English, but cite a book whose title is in French, \LaTeX\ will have trouble hyphenating it correctly. You can specify the language in the |hyphenation| field. Then, \emph{provided you set the package option} |babel=hyphen|, the entry will be hyphenated using the appropriate language.
+
+\paragraph{Keywords} The |keywords| field enables you to provide one or more keywords (separated by commas). These can be useful if you want to separate out different kinds of source. For instance, if you wanted to produce different bibliographies by topic for an annotated bibliography, you could assign sources to particular topics using keywords. This subject is considered in more detail in [??] below.
+
+Other meta-data fields include |options|, |sorttitle|, |labeltitle|, |indextitle| and |indexsorttitle|. These are all used for specialised purposes to enable you to over-ride defaults in the way that \biblatex\ would construct citations, sort the bibliography, or index an entry. They are discussed later in this book, where their use is explained.
+
+
 \section{Fields}
 
 The remainder of this chapter is going to take a look at four of the commonly used types of entry: books, articles, and the \verb|incollection| and \verb|inbook| types. This is not intended to be a complete formal description of every possibility. For that you can consult the documentation. It is supposed to give practical guidance, especially for neophytes. Most of what is said should seem like common sense for anyone who has ever written an academic bibliography.
@@ -198,7 +209,7 @@ The bare minimum for any book is some sort of title. \emph{The Bible} is a book,
 
 \paragraph{The editor(s) name(s)} in the |editor| field. If there is no editor, leave the field blank. If there is both an author and an editor, included the editor's name as well as the author's.
 
-\paragraph{The title} in the |title| field. Mostly this is easy, but some works exist to annoy us. Dr Edwin Poppie-Cocke has just completed `Grammatical Solecisms: Dangling Participles and Misplaced Modifiers`, which is volume 234 of his treatise on `Elementary Stylistics'. What, exactly, is its title? For our purposes, we divide it into three:
+\paragraph{The title} in the |title| field. Mostly this is easy, but some works exist to annoy us. Dr Edwin Poppie-Cocke has just completed `Grammatical Solecisms: Dangling Participles and Misplaced Modifiers`, which is volume 234 of his treatise on `Elementary Stylistics'. What, exactly, is its title? For our purposes,\footnote{This is a simplification: there is also a \texttt{titleaddon} field that can be used to print something after the title in a different font. And \texttt{maintitle} can also have its own \texttt{mainsubtitle} and \texttt{maintitleaddon} too! Happily, these are rarely needed.} we divide it into three:
 \begin{itemize}
 \item The |maintitle|, which is the title of the multi-volume treatise.
 \item The |title|, which is the particular title of the book.
@@ -215,26 +226,250 @@ We therefore enter:
 \end{verbatim}
 It is better to divide title and sub-title in this way because, although it would work if we didn't, some citation styles use the title when referring back to the work on second and subsequent citations, and the title alone, without subtitle, is usually sufficient for this purpose, and less of a mouthful.
 
-Where you have a multiple volume work, you have two choices. (1) You can have a single entry in your database for the work in question with all its volumes. This would normally be appropriate where you are dealing with one work, published at one time, which happened to be subdivided. In that case, enter the number of volumes in the |volumes| field -- and remember to identify the particular volume you are referring to when you cite the work. (2) You may have separate entries for each volume, where each volume is effectively a separate work. That is normally appropriate where the volumes are published at different times. In that case, put the volume in the |volume| field. Some works have `parts' instead of, or as well as, volumes: in that case put the part in the |part| field.
+Where you have a multiple volume work, you have two choices. (1) You can have a single entry in your database for the work in question with all its volumes. This would normally be appropriate where you are dealing with one work, published at one time, which happened to be subdivided. In that case, enter the number of volumes in the |volumes| field -- and remember to identify the particular volume you are referring to when you cite the work.\footnote{There is also a \texttt{mvbook} entry-type, which is specifically designed for multiple-volume works. It's probably better, though not compulsory, to use it for such works: see the \biblatex\ manual 2.1.1.} (2) You may have separate entries for each volume, where each volume is effectively a separate work. That is normally appropriate where the volumes are published at different times. In that case, put the volume in the |volume| field. Some works have `parts' instead of, or as well as, volumes: in that case put the part in the |part| field.
 
 Some self-contained works are published as part of a series. If you want to record that information, put the series in the |series| field.
 
 \paragraph{The edition} in the |edition| field. This is usually omitted for the first edition. If this is a number, just enter the cardinal number: |{2}|, not |second| or |2nd| --- the right suffix will be added by \biblatex. If it's something more involved like `revised' or `corrected', type that.
 
-\paragraph{The date of publication} In the |date| field. The year will usually suffice. The older \bibtex\ style was to enter the date in the |year| field. That will work fine, but it's probably better to use |date|, which is `correct'. In some cases you will want to record two dates: the date of original publication, and the date of the particular edition you are referring to. In that case, put the date of the particular edition in the |date| field, and the date of original publication in the |origdate| field.
+\paragraph{Publication information} 
 
-\paragraph{The place of publication} in the |address| field.
+In the |date| field. The year will usually suffice. The older \bibtex\ style was to enter the date in the |year| field. That will work fine, but it's probably better to use |date|, which is `correct'. In some cases you will want to record two dates: the date of original publication, and the date of the particular edition you are referring to. In that case, put the date of the particular edition in the |date| field, and the date of original publication in the |origdate| field.
 
-\paragraph{The publisher's name} in the |publisher| field.
+The place of publication should be specified in the |location| field. You can also use a field called |address|, which is provided for backward compatibility purposes (it was the field used in the `original' \bibtex.)
+
+The publisher's name goes in the |publisher| field. This is a `list field', so that you can have more than one publisher, in which case you enter them as
+\begin{center}
+\ttfamily
+publisher = \{Publisher A \textbf{and} Publisher B \textbf{and} Publisher C\},
+\end{center}
 
 In some disciplines it is not customary to print the publisher's name, or the place of publication, or both, and you may think that's pretty sensible since in most cases they are of no interest. Even so, unless you are very certain that you will never want this information, it's better to fill it in. It's always fairly straightforward to tell \biblatex\ not to use information that it has available --- but impossible to tell it to create information you haven't provided. So, if you think of the future, it's best to include both.
 
-\newthought{Those fields cover most books} but there are other pieces of information that you may sometimes need or want to record.
+\newthought{Those fields cover the basic bibliographical data applicable to most books} but there are other pieces of information that you may sometimes need or want to record.
 
-\paragraph{Translators, adapters, revisers.} It is usual to have an author, and common to have an editor as well. It's not uncommon to have other people who should be credited: translators, redactors, commentators and the like. For these, \biblatex\ provides appropriate fields. There are fields for |translator|, |annotator| or |commentator|, into which you can put the name(s). If you have some oddity, you can make use of two odd fields called |editora| and |editorb|. These are `generic' fields, into which you can put names. If you do that, you also need to fill in the |editoratype| (or |editorbtype| ...) fields, with the `role' of the person. Biblatex recognises as possible `roles': editor, compiler, founder, reviser and collaborator, and the enigmatic figures of `redactor' and `continuator' too! You can add others as well, though it's not a totally straightforward task.\footnote{Consult the \biblatex\ documentation at 2.3.6, 3.8 and 4.9.1.}
+\paragraph{Short titles and shorthands} If a title is being printed in a bibliography, it makes sense to print it in its entirety, even if it is very long. But some citation schemes (such as those that refer to works by author and title) make repeated use of titles, and if the title is very long such repeated references can become tiresome. It may make sense, in such cases, to abbreviate the title of the work on second and subsequent citation, so that -- say -- P.\ Kempees, \emph{A Systematic Guide to the Case-Law of the European Court of Human Rights 1960--1994} can become `Kempees, \emph{Systematic Guide}'. In such cases, you can specify a |shorttitle|.
 
-\paragraph{Electronic publication.}
+The \emph{shorthand} is a related, but subtly different idea. In some works (for instance, commentaries or monographs devoted to the study of a small number of books) or \emph{for} there may be such frequent reference to a particular source that it makes sense to have an abbreviation for it. For instance, in this book, it makes sense to cite the \biblatex\ manual specially. In such a case you can define a special citation form, called a `shorthand', which will be used to cite the work in question. The package will also keep track of shorthands and you can print a list of them, similarly to a bibliography, using the command |\printshorthands| where you want the list to be produced. (In general, since this book does not deal extensively with shorthands; many of the principles that apply to formatting the bibliography apply to the list of shorthands, and the manual explains things fairly clearly.) A shorthand is included in the |shorthand| field.
 
-\paragraph{ISBNs}
+Shorthands may be summarized in a list of shorthands. They need not, therefore, be self-explanatory; the reader will encounter them frequently, and (if they are not standard in the field) can be expected to look them up. They should be fairly rare --- reserved for special cases. Short titles on the other hand will not appear in any separate list, and you should be careful to make sure that they will be immediately identifiable to any reader from the bibliography, and reserve them for cases where the title is long. In a specialist work on Wittgenstein it may be sensible to define \emph{PI} as an abbreviation for \emph{Philosophical Investigations}, but it wouldn't make sense to define that as a short title, or indeed to define any short title for general use. And in the example given above, `Systematic Guide' makes a good short title, but `SGCL60--94' would be quite confusing. It is usually better not to define any short title or shorthand until you are sure that you need them.
 
-\paragraph{Other information}
+\paragraph{Translators, adapters, revisers.} It is usual to have an author, and common to have an editor as well. It's not uncommon to have other people who should be credited: translators, commentators and the like. There are dedicated fields for |translator|, |annotator| or |commentator|, into which you can put the name(s). If you have some oddity, you can make use of upt to two fields called |editora| and |editorb|. These are `generic' fields, into which you can put names. If you do that, you also need to fill in the |editoratype| (or |editorbtype| ...) fields, with the `role' of the person. Biblatex recognises as possible roles: `editor', `compiler', `founder', `reviser' and `collaborator', and the enigmatic figures of `redactor' and `continuator' too. You can add others as well, though it's not a totally straightforward task.\footnote{Consult the \biblatex\ documentation at 2.3.6, 3.8 and 4.9.1.}
+
+The result, as the following example (whose output is shown in figure \ref{redactors}) shows, can in theory include a very large number of different roles, where that is needed.
+
+\begin{verbatim}
+@book{team,
+  author      = {Author, Arnold},
+  editor      = {Editor, Edwin},
+  translator  = {Translator, Theodore},
+  commentator = {Commentator, Cuthbert},
+  editora     = {Redaktor, Richard},
+  editoratype = {redactor},
+  editorb     = {Collaborator, Christopher},
+  editorbtype = {collaborator},
+  title       = {Team Players},
+  date        = {2013},
+  publisher   = {Pubco},
+  address     = {Oxbridge},
+\end{verbatim}
+
+\begin{figure}
+\fbox{\includegraphics[width=\textwidth]{./examples/database1-rev.pdf}}
+\caption{Bibliographical entry showing author, editor, commentator, translator, redactor and collaborator\label{redactors}}
+\end{figure}
+
+\paragraph{Electronic publication} Works which were, in the past, exclusively printed are now often published electronically, either as well as or instead of paper publication. The \biblatex\ package tries to reflect that.
+
+One possibility is that the work is available on the internet, at a \URL. In that case, you can specify a \URL\ in the |url| field. Many bibliographic schemes require that the \emph{date} on which that \URL\ was last checked is also given, and that date should therefore be included in the |urldate| field.
+
+A second possibility is that the work is available in a specialised electronic repository, such as arXiv or JSTOR. If that is the case, you can make use of the |eprint|, |eprinttype| and |eprintclass| fields to provide a reference for the work. The details are explained in the \biblatex\ manual\footnote{Manual 3.11.7.} Not every bibliographic style will use these details (and they can always be `turned off')\footnote{by setting the option \texttt{eprint = false} when loading \biblatex.}.
+
+Finally, you can if you wish, provide a Digital Object Identifier \smallcaps{doi}, which may provide a more permanent record of an electronic source than a \URL, since \smallcaps{doi}s do not change.\marginnote{\url{http:\\www.doi.org}}
+
+\paragraph{ISBNs} If you think it is ever likely to be used, you can included a book's \smallcaps{isbn} (International Standard Book Number) in the |isbn| field. As with \smallcaps{doi}s, not every style will print \smallcaps{isbn}s (and they can always be turned off\footnote{by setting the option \texttt{isbn = false} when loading \biblatex.}.)
+
+\paragraph{Other information} The \biblatex\ package allows quite a wide range of other information to be included in a |.bib| file, though not all of it will be used in all styles. For instance, it is possible to include information about the original language of a book, its original title, the title of a reprint and so forth. Since most of this information is of interest only in narrow fields of unusual cases, the reader is referred to the manual for details. Three fairly common fields are, however, worth noting:
+\begin{itemize}
+\item |pubstate| is used to provide information about the publication state of a work that has not yet been `properly' published. Standard styles should recognise (in decreasing ratio of hope to expectation) |inpreparation|, |submitted|, |forthcoming|, |inpress| and |prepublished| as valid options here, and print appropriate indications.
+\item |note| and |addendum| may be used to provide necessary bibliographical information, in a free form, which would otherwise not have a `home', such as `reprinted with corrections from the 1724 edition'. The difference is that |note| will usually get printed somewhere in the middle of an entry, while |addendum| gets printed at the end (though the precise position depends on the particular style). So
+\begin{verbatim}
+@book{generic,
+  author   = {Author, Albert},
+  ...
+  note     = {with a note},
+  addendum = {and an addendum},
+}
+\end{verbatim}
+produces something like figure \label{addendum}.
+
+\begin{figure}\fbox{\includegraphics[width=\textwidth]{./examples/database2-rev.pdf}}
+\caption{Note and addendum\label{addendum}}
+\end{figure}
+\item |annotation| may be used to provide a lengthy annotation, for instance for use in annotated bibliographies.
+\end{itemize}
+
+\subsection{Articles}
+
+The article is the next basic form. Indeed, for most academic work it is probably the most common. It is entered into the database using the |article| entry type.
+
+In general an article (as opposed to its reference) has only two significant parts: the author(s) and title. Those are formatted just as for books.\footnote{Except that \texttt{maintitle} is not used. The \texttt{subtitle} field could, however, be used.}
+
+\begin{verbatim}
+@article{mueck,
+  author  = {Mueck, A. O. and
+             Seeger, H. and
+             Wallwiener, D.},
+  title   = {Comparison of the Proliferative Effects
+             of Estradiol and Conjugated Equine
+             Estrogens on Human Breast Cancer Cells
+             and Impact of Continuous Combined
+             Progestogen Addition},
+}
+\end{verbatim}
+
+That, as figure \ref{mueck} shows, gets us only part of the way: we have the \emph{article}'s title and authors, but we still need to provide the details of the journal in which it is published.
+
+\begin{figure}
+\fbox{\includegraphics[width=\textwidth]{./examples/database3.pdf}}
+\caption{Article with author and title, but reference missing.\label{mueck}}
+\end{figure}
+
+The publication details are entered using fields for:
+\begin{itemize}
+\item |journaltitle| for the name of the journal.\footnote{For backwards compatibility reasons, \texttt{journal} will work too, but prefer \texttt{journaltitle}.} (There is also a |journalsubtitle| field, though it is very seldom required.)
+\item |series| for the journal's series (if any).
+\item |volume| for the journal volume (if any).
+\item |number| for the journal number (if any).
+\item |issue| for the journal's issue (if any) (such as `Spring' -- there are also |issuetitle| and |issuesubtitle| fields, which can be used where a particular issue has a special title which ought to be cited.
+\item |month| for the journal's month, if that matters for citation. This should be either an integer (1 = January, and so forth) \emph{or} a three letter code which should be entered \emph{without} braces: |jan| not |{jan}|. Frankly it's better to put the month, if it matters, in the |issue| field.
+\item |pages| for the pages occupied by the article in question.
+\item |date| for the date of the publication.
+\end{itemize}
+
+So we can complete our partial citation:
+\begin{verbatim}
+@article{mueck,
+  ...
+  journaltitle = {Climacteric},
+  volume       = {6},
+  pages        = {221--227},
+  date         = {2003},
+}
+\end{verbatim}
+
+And producing the result along the lines shown in figure \ref{mueck2}.
+
+ \begin{figure}
+\fbox{\includegraphics[width=\textwidth]{./examples/database4.pdf}}
+\caption{Article\label{mueck2}}
+\end{figure} 
+
+\paragraph{Other information} Information such as \smallcaps{doi}, \smallcaps{issn} (the equivalent of \smallcaps{isbn} for journals) and \smallcaps{annotations} is the same as for articles.
+
+\subsection{Collections and Parts of Books}
+
+Papers are often published in books --- collected papers, \emph{festschriften}, and collections devoted to a particular topic.
+
+For such works, \biblatex\ provides two entry types: |inbook| and |incollection|. The boundaries between them are slightly hazy. In theory a |book| is a work which has, as a work, one or more `authors' who take collective responsibility for it, and |inbook| is the entry-type corresponding to a discrete and self-contained part of that, whereas a |collection| is an assembly of disparate contributions which will have an editor or editors, but no author(s) as such, and |incollection| corresponds to a discrete part of that. In practice --- as it lies on the shelf --- a |collection| is a book. At any rate precise differences don't matter, and you may in practice use the |book| entry type for a |collection| without it having any practical effect, and an |inbook| type for an |incollection| piece in the same way. So everything said about the |book| type above can be assumed to apply to the |collection| type, and everything said here about |inbook| can be assumed to apply to |incollection| as well.
+
+In practical terms, for both |inbook| and |incollection| types you have two choices:
+\begin{itemize}
+\item You can include all the information in a single entry. In that case |author| and |title| are assumed to refer to the author of the discrete unit that is being cited, while |bookauthor|, |editor|, and |booktitle| refer to the larger work. You add either |pages| or |chapter| to indicate the part of the book occupied by the discrete unit.
+\item You can separately specify the information for the larger work (as |book| or |collection|, using all the fields given above). You then specify the |author| and |title| of the sub-unit, together with |pages| or |chapter|, and use the |crossref| field to link the individual entry to the larger work.
+\end{itemize}
+
+So, for instance, using the first method we might have:
+\begin{verbatim}
+@inbook{sedley:skulls,
+  title        = {Skulls and Crossbones},
+  author       = {Sedley, Stephen},
+  bookauthor   = {Sedley, Stephen},
+  booktitle    = {Ashes and Sparks},
+  booksubtitle = {Essays on Law and Justice},
+  date         = {2011},
+  publisher    = {Cambridge UP},
+  location     = {Cambridge},
+  pages        = {131--138},
+}
+\end{verbatim}
+
+Alternatively, you could set things up as follows:
+\begin{verbatim}
+@book{sedley:ashes,
+  title        = {Ashes and Sparks},
+  subtitle     = {Essays on Law and Justice},
+  author       = {Sedley, Stephen},
+  date         = {2011},
+  publisher    = {Cambridge UP},
+  location     = {Cambridge},
+}
+@inbook{sedley:skulls,
+  title        = {Skulls and Crossbones},
+  author       = {Sedley, Stephen},
+  pages        = {131--138},
+  crossref     = {sedley:ashes},
+}
+\end{verbatim}
+
+A citation of |\cite{sedley:ashes}| will produce exactly the same output in either case. My fairly strong advice is to prefer the second method, because it is more flexible -- it enables citation of the whole book separately, and it enables you easily to add additional chapters or papers as units of their own without difficulty. It also means that, once a certain threshold is reached, the entire book will be added to the bibliography, which is often a convenience to readers. (By default, the `parent' work is added to the bibliography if two `children' are cited. You can change this number by giving a value to |mincrossrefs| in the options to biblatex. So to set it to include the parent only when four `children' are cited, you would include |mincrossrefs = 4| when loading \biblatex.
+
+\section{A summary by type of literature}
+
+The preceding section of the chapter has surveyed the |book|, |article|, |inbook| and |incollection| types, and indirectly |collection| too, in some detail (though without exploring every tiny corner, for which the manual is invaluable). There are many other types -- some supported by the standard styles, and some used by specialist styles (for instance, styles for legal citation or which include support for citing sound recordings). Rather than work relentlessly through them, table \ref{entry:summary} suggests what type you might use to cite a number of different types of literature. Where the entry type is marked by an asterisk, that means that it is not supported in the standard styles, and you should probably be looking for a specialised style that does support it.
+
+%\begin{table}
+%\begin{tabular}{lll}
+%\toprule
+%source & suggested entry type \\
+%\midrule
+%article (journal) & article \\
+%article (in collection) & inbook or incollection \\
+%article (in newspaper) & article & some styles offer special formatting \\
+%article (unpublished) & article & use pubstate \\
+%book & book \\
+%thesis & thesis \\\bottomrule
+%\end{tabular}
+%\caption{Sources and entry types\label{entry:summary}}
+%\end{table}
+
+\section{Replacing text}
+
+One curse of bibliography generation is the abbreviation. Suppose you have a journal called the `New York University Legal Studies Quarterly'. Sometimes you will be told not to abbreviate it at all. Sometimes you will be told to abbreviate it to `NY University Legal Studies Q'; sometimes to `NYU Legal Studies Q'. And so forth. (Slightly similar problems can apply with publishers: is it `Oxford Univ.\ Press' or `OUP' or `Oxford University Press' or `Oxford UP'?)
+
+If you work in a field where this is not a problem --- where standard abbreviations are absolutely set in stone --- then you are in clover. In other fields, some element of flexibility is needed. There are two ways you can achieve this, and one way that you can make your life as difficult as possible.
+
+If you want to make your life difficult, be sure to enter articles in a radically inconsistent way, using different forms of the journal name or publisher. So, at the very least, be consistent.
+
+The two ways you can make your life easy are as follows.
+
+First, you can use \emph{strings} in the |.bib| file. To do this, define a string at the top of the file as follows
+\begin{verbatim}
+@string{NYULSQ = "NY University Legal Studies Q"}
+\end{verbatim}
+and then, in the |journaltitle| field, simply put |NYULSQ| (without braces)
+\begin{verbatim}
+@article{...
+  journaltitle = NYULSQ,
+  ...
+}
+\end{verbatim}
+the string definition will be substituted for the abbreviation before processing. That means that if you want to change all the entries to read `NYU Legal Studies Q', you just have to change one line (in the |string| definition.
+
+The alternative is to be, at least, completely consistent. Then you can use the power of |biber| to search for and replace strings in your file. For instance, suppose that throughout your file you had entered the above-mentioned (fictitious) journal as |NYU Legal Studies Q|, but you are now writing a paper in which the proper abbreviation is `NYU Leg Studs Q'. The following lines, placed in the preamble to your file, will accomplish the necessary change:\label{datamap}
+
+\begin{verbatim}
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{                % for .bib files
+    \map[overwrite=true]{                % (over-writing if need be)
+      \step[fieldsource=journaltitle,    % if the journaltitle field
+            match={NYU Legal Studies Q}, % reads "NYU Legal Studies Q"
+            replace={NYU Leg Studs Q}]   % replace it with "NYU Leg Studs Q"
+    }
+  }
+}
+\end{verbatim}
+
+A sourcemap directive is a powerful thing. It tells \package{biber} to carry out certain changes to the input file data before outputting them for \LaTeX\ to use. In this case, it tells it to apply to any |.bib| file\footnote{Don't suppose that \texttt{datatype = bibtex} means that the \bibtex\ \emph{program} can do this. It's a \package{biber} technique only!} It tells biber to apply this step to |.bib| files.} a filtering step where it examines the |journaltitle| field in any source and, if it matches |NYU Legal Studies Q| to replace it with |NYU Leg Studs Q|. This does not actually change your |.bib| \emph{file}; but it alters the data as it passes from that file into \LaTeX\ for typesetting.
+
+As you can see, this trick will only work if you have been \emph{consistent} in the way you have named journals and publishers. But so long as you are consistent, it's a powerful technique.

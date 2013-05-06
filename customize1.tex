@@ -64,12 +64,6 @@ some really odd reason we wanted to make it `AND'. To do this, you use \cs{renew
 \renewcommand{\multicitedelim}{AND\space}
 \end{verbatim}
 
-It's (usually) best to do this in the `preamble' of your document, and
-obviously after \biblatex\ has been loaded: so these redefinitions
-should usually come between the
-\cs{usepackage[}\angled{options}\texttt{]\{biblatex\}} and
-\cs{begin\{document\}}.
-
 \paragraph{Punctuation.} At this point, one feature of
 bibliography-bashing is worth attention. If you do much of it, you
 will find yourself spending quite a bit of time fiddling with
@@ -92,6 +86,7 @@ customization, use the various commands that \biblatex\ offers.
 \cs{addsemicolon} & \textbf{;}  \\
 \cs{addexclam} 	  & \textbf{!}  \\
 \cs{addquestion}  & \textbf{?}  \\
+\cs{addslash}     & \textbf{\slash} \\
 \cs{addspace}     &             & (regular space) \\
 \cs{addnbspace}   &             & (unbreakable space) \\
 \bottomrule
@@ -170,7 +165,8 @@ encouraged to use these hooks for various purposes.
 \paragraph{Source mapping.} In fact, \biblatex\ can `get at' the data
 even before it is read in---indeed, while it is being processed by
 \package{biber}. The facilities providing for source mapping enable
-one to play various useful tricks with the \verb|.bib| file. This is
+one to play various useful tricks with the \verb|.bib| file. We've
+already seen an example of this on page \pageref{datamap}. This is
 such a useful facility that it is described in depth in chapter *.
 
 \paragraph{Deeper and darker.}
@@ -182,3 +178,25 @@ of citation commands, the redefinition of things called bibmacros, and
 ultimately the rewriting of bibliography drivers. Although we may
 touch on these from time to time, I'm not going to go into depth about
 them until chapter [x].
+
+\section{Where to put customizations}
+
+This all depends on whether your customizations are `one off' or
+intended to be used in all your documents.
+\begin{itemize}
+\item For one off customizations:
+\begin{itemize}
+\item customization by options should go in the options that you list
+  when loading \biblatex.
+\item most other customizations should go in the document preamble, after
+  \biblatex\ has been loaded but before |\begin{document}|. In a \emph{very
+  few} cases it's better to put them at some other point. Where that is so
+  I specifically mention it.
+\end{itemize}
+\item If you want a standard set of options to apply to all your
+  documents, put them in a file called |biblatex.cfg|, which should be put in your
+  \emph{local} \textsc{texmf} tree at |/tex/latex/biblatex|. If there is such
+  a file it will be loaded after biblatex. It can be used to redefine commands
+  and to set (most, but not all) bibliography options, using \cs{ExecuteBibliographyOptions}\braced{\angled{options}}. You cannot, however, set the bibliography style there: that at least you must do when you load \biblatex.
+\item If you get to the point that you are developing a comprehensive style, you will want to write |.bbx|, |.lbx| and |.cbx| files which can be loaded as a style. That, however, is beyond the scope of this book.
+\end{itemize}

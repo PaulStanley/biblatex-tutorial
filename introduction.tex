@@ -59,9 +59,9 @@ First, let's set up our `database'. It's not going to be much: just a single boo
 Open a text editor, and produce a new file \texttt{handbook.bib}:
 \begin{verbatim}
 @book{nussbaum,
-  author = "Marth C. Nussbaum",
+  author = "Nussbaum, Martha C.",
   title = "Poetic Justice",
-  subtitle = "The Litererary Imagination and Public Life",
+  subtitle = "The Literary Imagination and Public Life",
   publisher = "Beacon Press",
   location = "Boston",
   date = "1995",
@@ -76,8 +76,8 @@ Now open a text editor or your \LaTeX\ editor, and create a small test file (I'l
 \addbibresource{handbook.bib}
 \begin{document}
 
-As Nussabum comments: ``The utilitarian picture of human
-beings and of rationality is familiar enough in theory''
+As Nussabum comments \cite{nussbaum}: ``The utilitarian picture of human
+beings and of rationality is familiar enough in theory''.
 \cite[17]{nussbaum}
 
 \printbibliography
@@ -90,6 +90,8 @@ Now, run \LaTeX\ on the file, once. If you look at the resulting typeset documen
 \fbox{\includegraphics[width=\linewidth,]{./examples/nussbaum1.pdf}}
 \caption{Before running \package{biber}}\label{nussbaum1}
 \end{figure}
+
+The reference `[\textbf{nussbaum}]' appears in square brackets because although \LaTeX\ can `see' that there is going to be a citation, it doesn't yet have access to the data that will enable it to construct that citation, since \package{biber} has not been run.
 
 Now, from a terminal window opened in the same directory, run
 \begin{verbatim}
@@ -105,8 +107,7 @@ Now run \LaTeX\ again on the source file \verb|test.tex|. And if all is going we
 \caption{After running \package{biber} and \LaTeX}\label{nussbaum2}
 \end{figure}
 
-As you can see, the citation data has been pulled into the bibliography.
-
+As you can see, the citation data has been pulled into the bibliography. If the output remains unchanged (it looks like figure \ref{nussbaum1}) that is because \package{biber} has not successfully run. That is \emph{probably} because there is some error in your |.bib| file, so go back and check that. Any time you see this, you should ask yourself these questions:\marginnote{\textit{Debugging}\\1. \texttt{\textbackslash bibresource} specified?\\2. Run \LaTeX\, \package{biber}, \LaTeX?\\3. \package{biber} was error-free?\\4. Cite key is correct?\\5. \texttt{.bib} file contains source?\\6. Entry in \texttt{.bib} file is valid?} (1) have I told \biblatex\ where to find the bibliography file (using |\addbibresource{}|? (2) Have I run \LaTeX\ then \package{biber} then \LaTeX\ again? (3) Did \package{biber} report any errors? (4) Is my citation \emph{key} correct (e.g., you haven't typed |nusbaum| for |nussbaum| in the \LaTeX\ source? (5) Does the |.bib| file include that citation? (6) Is the syntax of the citation correct?
 \subsection{What next}
 
 There is still quite a bit to learn, of course. To some extent it's up to you how you go from here, but the following chapters take what I think is a reasonably logical order. But you might like to look at Appendix [] before going further: it may help you to set up your \LaTeX\ work environment in a way that is a \biblatex\ friendly as possible.

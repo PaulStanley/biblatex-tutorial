@@ -1,4 +1,5 @@
 \documentclass[nobib]{tufte-book}
+\usepackage[utf8]{inputenc}
 \usepackage{tikz}
 \usepackage{graphicx}
 \usepackage{enumitem}
@@ -31,11 +32,15 @@
 \usepackage{fancyvrb}
 \DefineShortVerb{\|}
 
+\newcommand{\URL}{\smallcaps{url}}
+\newcommand{\braced}[1]{\texttt{\{}#1\texttt{\}}}
+
 \tikzstyle{every picture}+=[remember picture]  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % INCLUSIONS
 %
-\includeonly{introduction,
+\includeonly{frontmatter,
+             introduction,
              database,
 			customize1,
              bibstyles,
@@ -43,9 +48,17 @@
 			 bibliographyformat}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\title{Biblatex}
+
+%\subtitle{A guide for the perplexed}
+
+\author{Paul Stanley}
 
 \begin{document}
 
+\frontmatter
+\include{frontmatter}
+\mainmatter
 \include{introduction}
 
 \include{database}
