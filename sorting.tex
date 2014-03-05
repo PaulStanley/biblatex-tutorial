@@ -1,0 +1,207 @@
+\chapter{Sorting}
+
+A bibliography style will usually define a sorting scheme which is
+appropriate for that style. For instance, consider the following works:
+
+\begin{itemize}
+\item
+  Smith, J. (2000) \emph{Zoology for the Amateur}. Oxbridge: Pubco.
+\item
+  Smith, J. (1999) \emph{Professional Zoology}. Yarvard: Aldus.
+\item
+  Smith, J. (2010) \emph{Amateur Zoology}. Camford: Otherco.
+\end{itemize}
+
+In an author/year system, it would make sense to put the works in that
+order. On the other hand, in an author/title system, it would probably
+make sense to list them as
+
+\begin{itemize}
+\item
+  Smith, J. \emph{Amateur Zoology}. Camford: Otherco 2010.
+\item
+  Smith, J. \emph{Professional Zoology}. Yarvard: Aldus 1999.
+\item
+  Smith, J. \emph{Zoology for the Amateur}. Oxbridge: Pubco 2000.
+\end{itemize}
+
+In an ``alphanumeric'' system, the correct order will normally be one
+that make sense of the labels.
+
+\begin{itemize}
+\item
+  {[}Smi00{]} Smith J. \emph{Zoology for the Amateur} \ldots{}
+\item
+  {[}Smi10{]} Smith J. \emph{Amateur Zoology} \ldots{}
+\item
+  {[}Smi99{]} Smith J. \emph{Professional Zoology} \ldots{}
+\end{itemize}
+
+A numeric system may either sort its bibliography in some way (usually
+along the lines of the author/title system) or has the bibliography in
+the order of citation in the text -- a system that is conveniently and
+inaccurately described as involving an \emph{unsorted} bibliography, and
+which one achieves by loading biblatex with the option
+\texttt{sorting=none}.
+
+Biblatex allows for a wide variety of sorting schemes, and there is
+considerable flexibility to define new schemes. But that largely lies
+outside the scope of this book, which is aimed at the ordinary user. So
+what we are going to do is to describe the common schemes, explain how
+you can make simple and reasonable changes to them, and pay a bit of
+attention to some special fields in the \texttt{.bib} file that can be
+used to influence sorting.
+
+\section{The built-in schemes}
+
+The following are the basic schemes, and a basic definition of what they
+are intended to achieve. (Note that individual bibliography styles may
+produce their own schemes.)
+
+\begin{itemize}
+\item
+  Unsorted (\texttt{sorting=none}) --- a misnomer, really, in so far as
+  it suggests that the bibliography might appear in some sort of random
+  order. The bibliography will be printed in the order the works are
+  first cited in the text.
+\item
+  Name/Title/Year (\texttt{sorting=nty}). Works are first sorted by the
+  name of the author (or editor), so all works by Albert Aardvark appear
+  before anything written by Benjamin Badger. Within each name, the
+  works are sorted by title. And if titles are identical, then the
+  earlier in time is placed first.
+\end{itemize}
+
+Aardvark, A. My life. 2000. Badger, B. Memoirs. 2005. Badger, B. Memoirs
+(2nd ed). 2010. Badger, B. Memories. 1999. Badger, B. Recollection.
+2005.
+
+\begin{itemize}
+\item
+  Name/Year/Title (\texttt{sorting=nyt}). Works are first sorted by the
+  name of the author (or editor), so that all works by Albert Aardvark
+  appear before anything written by Benjamin Badger. Within each name,
+  the works are sorted first by year and then, if there is more than one
+  work in any given year, alphabetically by title.
+\end{itemize}
+
+Aardvark, A. (2000). My Life. Badger, B. (1999) Memories. Badger, B.
+(2005) Memoirs. Badger, B. (2005) Recollection. Badger, B. (2010)
+Memoirs (2nd ed).
+
+\begin{itemize}
+\item
+  Name/Year/Volume/Title (\texttt{sorting=nyvt}). The same as
+  Name/Year/Title, except that the volume is considered before title.
+\item
+  Year/Name/Title (\texttt{sorting=ynt} or \texttt{sorting=ydnt}). Sorts
+  by the year first, then the name, then the title (can be useful for
+  producing a chronologically organized bibliography). The difference
+  between \texttt{ynt} and \texttt{ydng} is that \texttt{ynt} works
+  upwards (2013 comes after 2000), whereas \texttt{ydnt} works downwards
+  (2000 comes after 2013).
+\end{itemize}
+
+\begin{itemize}
+\item[1999]
+  -- Badger, B. Memories.
+\item[2000]
+  -- Aardvark, A. My Life.
+\item[2001]
+  -- Badger, B. Memoirs.
+\item[2002]
+  -- Badger, B. Recollection.
+\item[2003]
+  -- Badger, B. Memoirs (2nd ed).
+\end{itemize}
+
+\begin{itemize}
+\item
+  Alphabetic Lable/Name/Year/Title (\texttt{sorting=anyt}). Sorts
+  principally by the alphabetic label --- and obviously therefore
+  intended only for alphabetic styles. The \biblatex~manual says that it
+  then sorts by name, year and title: but so long as the labels are
+  unique, as would usually be the case, these will never need to be
+  consulted.{[}Footnote: there is also a style \texttt{anyvt} which
+  considers volume information.{]}
+\end{itemize}
+
+{[}Aar00{]} A. Aardvark. My Life. 2000. \\
+{[}Bad05a{]} B. Badger. Memoirs.
+2005.\\
+{[}Bad05b{]} B. Badger. Recollection. 2005. \\{[}Bad10{]} B. Badger.
+Memoirs. 2nd ed. 2010. \\{[}Bad99{]} B. Badger. Memories. 1999.
+
+\begin{itemize}
+\item
+  Debugging (\texttt{sorting=debug}) this order citations by their
+  \emph{key}, and is (as its name suggests) exclusively intended for
+  styles which are used for debugging \texttt{.bib} files.
+\end{itemize}
+
+\section{Ad hoc manipulations in the \texttt{.bib} file.}
+
+Most of the time, Biblatex and Biber will sort quite well, but there are
+occasions when you may need to intervene.
+
+\emph{Helping out the sorting} The first, and most common, is when for
+some reason the name field that should be printed is inappropriate for
+sorting, and you need to specify a slightly different version for
+sorting purposes only. This can happen for two main reasons:
+
+  You may just want a different name. For instance, suppose you have an
+  ``institutional'' author:
+
+  author = \{\{The Magoo Trust\}\}
+
+Biblatex is going to try to sort this under T for ``The'' --- but you
+might think it better to have it sorted under M. In such a case, you can
+specify a \texttt{sortname}
+
+\begin{verbatim}
+sortname = {{Magoo Trust The}}
+\end{verbatim}
+
+Similar things can happen with titles (indeed, it's more common there)
+
+\begin{verbatim}
+title = {The General Principles of EC Law}
+sortitle = {General Principles of EC Law The}
+\end{verbatim}
+
+  If you have used a LaTeX command in a field this may confuse the
+  sorting, and you can use an `unvarnished' version for sorting
+
+  |title = \{\TeX\{\}ing\} sortitle = \{Texing\}|
+
+You can set \texttt{sortname}, \texttt{sorttitle}, and \texttt{sortyear}
+fields for these purposes.
+
+\emph{Fiddling with the order} The second change you might sometimes
+want to make is something which more drastically manipulates the order.
+
+Take, for instance (and this is actually the commonest example probably)
+a book with no author or one with no date. In a name/title/year system,
+the authorless book gravitates to the top of the list, and in a
+year/name/title system, the dateless work ends up at the end of the
+list. Suppose you want the reverse?
+
+The trick is this. Every entry in your \texttt{.bib} file is assumed to
+have a field called \texttt{presort} magically set to \texttt{mm}. And,
+as the name suggests, that is the first field that gets sorted. So if
+you set \texttt{presort} to something higher in the alphabet than
+\texttt{mm} (like, say, \texttt{aa}) the work in question will magically
+appear (alongside everything else with the same presort code) above the
+rest of the list; and if you set it to something lower in the alphabet
+than \texttt{mm} (like, say, \texttt{zz}) it will drop to the bottom.
+
+The \texttt{presort} field could be used --- and in the past sometimes
+was --- for other purposes, and in particular for producing topic-based
+bibliographies (for instance by giving all primary sources a presort of
+\texttt{aa}, to move them to the top of the list). With Biblatex there
+are, frankly, better ways of achieving that sort of result.
+
+In desperation you can also use \texttt{sortkey} to fix absolutely and
+unequivocally the `key' by which a work will be sorted. Generally
+speaking, though, this is a counsel of desperation, and it is hard to
+think of a real-life situation in which it would be advised.

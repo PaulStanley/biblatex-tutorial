@@ -1,14 +1,15 @@
 \documentclass{article}
 \pagestyle{empty}
 \usepackage{mathptmx}
-\usepackage%OPTIONS
+\usepackage[style=authoryear]%
      {biblatex}
 \addbibresource{bl-tutorial-eg.bib}
 \addbibresource{biblatex-examples.bib}
+\defbibheading{noheading}[Error!]{}
 \begin{document}
 
 \nocite{cotton,reese}
 
-\printbibliography{title=""}
+\printbibliography[heading=noheading]
 
 \end{document}

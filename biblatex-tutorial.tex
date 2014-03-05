@@ -1,4 +1,4 @@
-\documentclass[nobib,draft]{tufte-book}
+\documentclass[nobib]{tufte-book}
 \usepackage[utf8]{inputenc}
 \usepackage{tikz}
 \usepackage{graphicx}
@@ -42,11 +42,12 @@
 \includeonly{frontmatter,
              introduction,
              database,
-	     customize1,
+	         customize1,
              bibstyles,
              citationcommands,
              bibliographyformat,
-             subdivisions}
+             subdivisions,
+			 sorting}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title{Biblatex}
@@ -73,5 +74,7 @@
 \include{bibliographyformat}
 
 \include{subdivisions}
+
+\include{sorting}
 
 \end{document}

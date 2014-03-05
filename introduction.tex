@@ -58,7 +58,7 @@ First, let's set up our `database'. It's not going to be much: just a single boo
 
 Open a text editor, and produce a new file \texttt{handbook.bib}:
 \begin{verbatim}
-@book{nussbaum,
+@book{nussbaum:95,
   author = "Nussbaum, Martha C.",
   title = "Poetic Justice",
   subtitle = "The Literary Imagination and Public Life",
@@ -76,9 +76,8 @@ Now open a text editor or your \LaTeX\ editor, and create a small test file (I'l
 \addbibresource{handbook.bib}
 \begin{document}
 
-As Nussabum comments \cite{nussbaum}: ``The utilitarian picture of human
+As Nussabum comments \cite[17]{nussbaum:95}: ``The utilitarian picture of human
 beings and of rationality is familiar enough in theory''.
-\cite[17]{nussbaum}
 
 \printbibliography
 \end{document}
