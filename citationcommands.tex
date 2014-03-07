@@ -419,11 +419,14 @@ commands will handle multiple citations: \cs{cite\{key1, key2\}} will
 produce `[1, 2]' or `Jones 1990; Smith 2010', or whatever is in
 keeping with the style you have chosen.
 
-This is fine; but it does'nt handle pre- and postnotes very
-nicely. If we did \cs{cite[prenote][postnote]\{key1,key2\}} we will
-get [prenote 1, 2, postnote]---which will rarely make sense. For this
-purpose, \biblatex\ offers a selection of commands tailored for
-multiple citations.
+This is fine; but it doesn't handle pre- and postnotes very nicely. If
+we did \cs{cite[prenote][postnote]\{key1,key2\}} we will get [prenote
+1, 2, postnote]---which will rarely make sense. For this purpose,
+\biblatex\ offers a selection of commands tailored for multiple
+citations. (You may or may not think it's worth using these commands
+(and in part that will depend on the citation style you are using). In
+some cases and with some styles it is easier to enter multiple
+citations explicitly using multiple \cs{cite} commands.)
 
 The pattern is set by the \cs{cites} command. If we type
 \begin{center}

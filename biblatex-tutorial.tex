@@ -1,4 +1,4 @@
-\documentclass[nobib,draft]{tufte-book}
+\documentclass[nobib]{tufte-book}
 \usepackage[utf8]{inputenc}
 \usepackage{tikz}
 \usepackage{graphicx}
@@ -32,6 +32,8 @@
 \usepackage{fancyvrb}
 \DefineShortVerb{\|}
 
+\usepackage[mode=build]{standalone}
+
 \newcommand{\URL}{\smallcaps{url}}
 \newcommand{\braced}[1]{\texttt{\{}#1\texttt{\}}}
 
@@ -42,12 +44,12 @@
 \includeonly{frontmatter,
              introduction,
              database,
-	     customize1,
+	           customize1,
              bibstyles,
              citationcommands,
              bibliographyformat,
              subdivisions}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title{Biblatex}
 
