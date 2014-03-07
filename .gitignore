@@ -175,6 +175,8 @@ pip-log.txt
 *.pdf
 *.run.xml
 *.ilg
+*.fdb_latexmk
+*.synctex.gz
 
 #EMACS
 \#*#
