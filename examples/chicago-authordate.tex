@@ -1,0 +1,34 @@
+\documentclass[varwidth=\textwidth,class=article,border=5pt]{standalone}
+\usepackage{mathptmx}
+\usepackage[style=british]{csquotes}
+\usepackage[authordate,backend=biber]{biblatex-chicago}
+\addbibresource{biblatex-examples.bib}
+\begin{document}
+\title{The \texttt{biblatex-chicago} style\\with \texttt{authordate} option}
+\author{}\date{}
+\maketitle
+
+The \textsf{biblatex-chicago} style comes in two flavours, implementing the \emph{Chicago Manual of Style}. The \enquote{authordate} style, shown here, is intended to put full references in the text, using an author/date system: \verb|\autocite| is therefore equivalent to \verb|\cite|. Thus, for instance, if we cite a book\ autocite{worman} or an article \autocite{reese} we get the reference in the text. The \verb|\textcite| command is important in such styles, also works as expected, thus: see \textcite{worman}.
+
+\quad There are some special features to this style. Instead of loading \textsf{biblatex}, you invoke it by loading the \textsf{biblatex-chicago} package itself (with the option \verb|authordate| for the author/date style):
+\begin{verbatim}
+     \usepackage[authordate,backend=biber]{biblatex-chicago}
+\end{verbatim}
+The style provides support for various types of source that are not catered for by standard \textsf{biblatex}, such as music and recordings. It has an extensive range of options. You should consult the documentation.
+
+\quad Note that in this sample I have loaded \textsf{csquotes} with the \verb~style=british~ option; had I loaded it with the \verb~style=american~ we would get double quotation marks around article titles.
+
+\quad The bibliography here shows you straightforward examples of a book \autocite{worman}, an article \autocite{reese}, an edited book \autocite{aristotle:anima} and an essay in a collection \autocite{gaonkar:in}.
+
+\medskip
+
+\begin{tabular}{ll}
+\verb|\cite{worman}| & \cite{worman} \\
+\verb|\autocite{worman}| & \autocite{worman} \\
+\verb|\textcite{worman}| & \textcite{worman} \\
+\verb|\footcite{worman}| & \strut\footcite{worman}
+\end{tabular}
+
+\printbibliography
+
+\end{document}

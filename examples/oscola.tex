@@ -1,0 +1,35 @@
+\documentclass[varwidth=\textwidth,class=article,border=5pt]{standalone}
+\usepackage{mathptmx}
+\usepackage[style=british]{csquotes}
+\usepackage[style=oscola,backend=biber]{biblatex}
+\usepackage[T1]{fontenc}
+\addbibresource{biblatex-examples.bib}
+\usepackage[british]{babel}
+\begin{document}
+\title{The \texttt{APA} style}
+\author{}\date{}
+\maketitle
+
+
+The \textsf{oscola} style implements the style rules of the Oxford Standard for the Citation of Legal Materials. It is a footnote style in which  \verb~\autocite~ produces footnoted citations \autocite{worman, reese}. Although designed for legal citations (and therefore covering a wide range of non-standard sources) it is also deals with the standard types of source as well.
+
+\quad The package is loaded in the usual way:
+\begin{verbatim}
+     \usepackage[style=oscola]{biblatex}
+\end{verbatim}
+
+\quad The bibliography here shows you straightforward examples of a book \autocite{worman}, an article \autocite{reese}, an edited book \autocite{aristotle:anima} and an essay in a collection \autocite{gaonkar:in}.
+
+\medskip
+
+\begin{tabular}{ll}
+\verb|\cite{worman}| & \cite{worman} \\
+\verb|\autocite{worman}| & \autocite{worman} \\
+\verb|\textcite{worman}| & \textcite{worman} \\
+\verb|\footcite{worman}| & \strut\footcite{worman}
+\end{tabular}
+
+
+\printbibliography
+
+\end{document}

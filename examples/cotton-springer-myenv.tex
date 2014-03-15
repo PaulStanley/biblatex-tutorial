@@ -8,8 +8,18 @@
 \defbibheading{noheading}[Error!]{}
 \begin{document}
 
-\nocite{cotton,reese}
+\defbibheading{myheading}[Works Cited]{%
+  \subsection*{#1}%
+  \addcontentsline{toc}{subsection}{#1}%
+  \markboth{#1}{#1}}
 
-\printbibliography[heading=noheading]
+\defbibenvironment{myenv}
+  {\begin{enumerate}}
+  {\end{enumerate}}
+  {\item}
+
+\nocite{paper:1,paper:2}
+
+\printbibliography[env=myenv, heading=myheading]
 
 \end{document}

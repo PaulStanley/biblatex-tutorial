@@ -1,0 +1,21 @@
+\documentclass[varwidth=\textwidth,class=article,border=5pt]{standalone}
+\usepackage{mathptmx}
+\usepackage[style=british]{csquotes}
+\usepackage[notes,backend=biber]{biblatex-chicago}
+\addbibresource{biblatex-examples.bib}
+\begin{document}
+\title{The \texttt{biblatex-chicago} style}
+\author{}\date{}
+\maketitle
+
+The \textsf{biblatex-chicago} style comes in two flavours, implementing the \emph{Chicago Manual of Style}. The \enquote{notes} style, shown here, is intended to put full references in footnotes: \verb|\autocite| is therefore equivalent to \verb|\footcite|. Thus, for instance, if we cite a book\footcite{worman} or an article,\footcite{reese} we get the reference in a footnote. Repeated references to the same source, such as this,\footcite{reese}, produce \enquote{Ibid}, while references to a previously cited work, like this,\footcite{worman} produce abbreviated references to author and title (but do not cross-refer back to the note where the source was first cited).
+
+\quad There are some special features to this style. Instead of loading \textsf{biblatex}, you invoke it by loading the \textsf{biblatex-chicago} package itself (with the option \verb|notes| for the note style):
+\begin{verbatim}
+     \usepackage[notes,backend=biber]{biblatex-chicago}
+\end{verbatim}
+The style provides support for various types of source that are not catered for by standard \textsf{biblatex}, such as music and recordings. It has an extensive range of options. You should consult the documentation.
+
+\printbibliography
+
+\end{document}

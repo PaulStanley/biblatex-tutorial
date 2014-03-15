@@ -1,0 +1,40 @@
+\documentclass[varwidth=\textwidth,class=article,border=5pt]{standalone}
+\usepackage{mathptmx}
+\usepackage[style=british]{csquotes}
+\usepackage[style=apa,backend=biber]{biblatex}
+\usepackage[T1]{fontenc}
+\DeclareLanguageMapping{english}{english-apa}
+\addbibresource{biblatex-examples.bib}
+\begin{document}
+\title{The \texttt{APA} style}
+\author{}\date{}
+\maketitle
+
+
+The \textsf{biblatex-apa} style implements the style rules of the American Psychological Association. It is an author/date style in which \verb~\autocite~ produces parenthetical citations \autocite{worman, reese}, and in which \verb~\textcite~ is frequently required, thus: see \textcite{worman}.
+
+\quad The package is loaded in the usual way:
+\begin{verbatim}
+     \usepackage[style=apa]{biblatex}
+\end{verbatim}
+The one \enquote{trick} with this style is that it is important to load an appropriate language mapping. So, for instance, after loading \textsf{biblatex}, you need to
+\begin{verbatim}
+     \DeclareLanguageMapping{english}{english-apa}
+\end{verbatim}
+(substituting, of course, your own language). If you don't do this, you will get errors.
+
+\quad The bibliography here shows you straightforward examples of a book \autocite{worman}, an article \autocite{reese}, an edited book \autocite{aristotle:anima} and an essay in a collection \autocite{gaonkar:in}.
+
+\medskip
+
+\begin{tabular}{ll}
+\verb|\cite{worman}| & \cite{worman} \\
+\verb|\autocite{worman}| & \autocite{worman} \\
+\verb|\textcite{worman}| & \textcite{worman} \\
+\verb|\footcite{worman}| & \strut\footcite{worman}
+\end{tabular}
+
+
+\printbibliography
+
+\end{document}

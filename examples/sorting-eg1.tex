@@ -1,15 +1,15 @@
 \documentclass[varwidth=4.3in, crop=true, border=5pt]{standalone}
 \pagestyle{empty}
 \usepackage{mathptmx}
-\usepackage[style=alphabetic]
+\usepackage[style=authoryear,sortlocale=en_GB]%
      {biblatex}
 \addbibresource{bl-tutorial-eg.bib}
 \addbibresource{biblatex-examples.bib}
 \defbibheading{noheading}[Error!]{}
 \begin{document}
 
-\nocite{cotton,reese}
+\nocite{aardvark,zebra}
 
-\printbibliography[heading=noheading]
+\printbibliography[heading=none]
 
 \end{document}

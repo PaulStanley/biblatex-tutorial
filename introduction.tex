@@ -50,7 +50,7 @@ The next task is to get the various tools to cooperate together to get to the en
 
 This `pattern' (\LaTeX, \package{biber}, \LaTeX, (\LaTeX)) is repeated whenever you need to compile your document.\footnote{Not quite true.}
 
-\subsection{A quick demonstrationi\label{neophyte:example}}
+\subsection{A quick demonstration\label{neophyte:example}}
 
 Why not try a quick example. I assume for these purposes that you have a fully-equipped and functional \TeX\ system, and have installed the pre-requisites for \biblatex. If you are in any doubt about that, have a look at Appendix [].
 
@@ -72,11 +72,12 @@ Now open a text editor or your \LaTeX\ editor, and create a small test file (I'l
 
 \begin{verbatim}
 \documentclass{article}
+\usepackage{csquotes}
 \usepackage[style=numeric]{biblatex}
 \addbibresource{handbook.bib}
 \begin{document}
 
-As Nussabum comments \cite[17]{nussbaum:95}: ``The utilitarian picture of human
+As Nussbaum comments \cite[17]{nussbaum:95}: ``The utilitarian picture of human
 beings and of rationality is familiar enough in theory''.
 
 \printbibliography
@@ -86,7 +87,7 @@ beings and of rationality is familiar enough in theory''.
 Now, run \LaTeX\ on the file, once. If you look at the resulting typeset document, it should look something like figure \ref{nussbaum1}.
 
 \begin{figure}
-\fbox{\includegraphics[width=\linewidth,]{./examples/nussbaum1.pdf}}
+\fbox{\includegraphics{./examples/nussbaum1u.pdf}}
 \caption{Before running \package{biber}}\label{nussbaum1}
 \end{figure}
 
@@ -102,7 +103,7 @@ Hopefully, you will see a number of messages marked as `INFO', ending with \text
 Now run \LaTeX\ again on the source file \verb|test.tex|. And if all is going well, you should now see output like figure \ref{nussbaum2}.
 
 \begin{figure}
-\fbox{\includegraphics[width=\linewidth,]{./examples/nussbaum2.pdf}}
+\fbox{\includegraphics{./examples/nussbaum2u.pdf}}
 \caption{After running \package{biber} and \LaTeX}\label{nussbaum2}
 \end{figure}
 
@@ -131,11 +132,11 @@ So, what are the main differences?
 \item In addition, the \package{biber} program -- which is recommended to replace \bibtex\ in sorting and handling the bibliographical data itself -- is more flexible and powerful than \bibtex\ is, and doesn't suffer from some of the \bibtex's historical limitations.
 \end{itemize}
 
-You may well be asking: should I use \biblatex. Most users probably fall anto one of three groups.
+You may well be asking: should I use \biblatex? Most users probably fall anto one of three groups.
 
 Some people \emph{need} to stick with traditional \bibtex. For instance, if you are submitting work to a journal which has a \bibtex\ style which it requires you to use, then you should \emph{not} switch to \biblatex.
 
-Some people \emph{don't need} to switch. If you have existing \bibtex\ styles which work for you, and which do everything you need, then there is no reason to switch. You can. But you don't need to. The existing programs have the advantage of stability in such cases. On the other hand, switching will accustom you to \biblatex\ and put its more powerful features at your disposal.
+Some people \emph{don't need} to switch. If you have existing \bibtex\ styles which work for you, and which do everything you need, then there is no reason to switch. You can. But you don't need to. The existing programs have the advantage of stability in such cases. On the other hand, switching will accustom you to \biblatex\ and put its more powerful features at your disposal. It's really a matter of taste. Those who don't have an existing heavy investment in \bibtex\ should probably prefer \bibtex. But don't make such a change a week before you are due to submit your doctoral thesis.
 
 Some people \emph{need} \biblatex. This is probably true if you work in the humanities and need sophisticated and complex styles such as traditional footnote-based citations systems, or if you want to cite non-standard sources.
 
@@ -144,7 +145,7 @@ Some people \emph{need} \biblatex. This is probably true if you work in the huma
 The main differences between using \biblatex\ and `standard' \bibtex\ are as follows:
 
 \begin{itemize}
-\item You need to load \biblatex\ as a package using \cs{usepackage}.
+\item You need to load \biblatex\ as a package using \cs{usepackage} (generally with various options). It's generally wise to load \package{csquotes} as well.
 \item Instead of \cs{bibliographystyle}, you specify the style to be used as an option when loading \biblatex:\\
 \centerline{\cs{usepackage[style=\ldots]\{biblatex\}}}
 \item Instead of specifying the \verb|.bib| file as an argument to the \cs{bibliography} command, you use the command \cs{addbibresource\{\}} to identify the file(s). You specify the file(s) to be used completely, including their \verb|.bib| suffixes. So if your bibliography file is called \verb|mybib.bib|, you have\\

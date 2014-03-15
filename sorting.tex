@@ -3,39 +3,30 @@
 A bibliography style will usually define a sorting scheme which is
 appropriate for that style. For instance, consider the following works:
 
-\begin{itemize}
-\item
-  Smith, J. (2000) \emph{Zoology for the Amateur}. Oxbridge: Pubco.
-\item
-  Smith, J. (1999) \emph{Professional Zoology}. Yarvard: Aldus.
-\item
-  Smith, J. (2010) \emph{Amateur Zoology}. Camford: Otherco.
-\end{itemize}
+\medskip
+\colorbox{red!40}{Smith, J. (2000) Zoology for the Amateur. Oxbridge: Pubco.}\\
+\colorbox{green!40}{Smith, J. (1999) Professional Zoology. Yarvard: Aldus.}\\
+\colorbox{blue!40}{Smith, J. (2010) Amateur Zoology. Camford: Otherco.}
+\medskip
 
 In an author/year system, it would make sense to put the works in that
 order. On the other hand, in an author/title system, it would probably
 make sense to list them as
 
-\begin{itemize}
-\item
-  Smith, J. \emph{Amateur Zoology}. Camford: Otherco 2010.
-\item
-  Smith, J. \emph{Professional Zoology}. Yarvard: Aldus 1999.
-\item
-  Smith, J. \emph{Zoology for the Amateur}. Oxbridge: Pubco 2000.
-\end{itemize}
+\medskip
+\colorbox{blue!40}{Smith, J. \emph{Amateur Zoology}. Camford: Otherco 2010.}\\
+\colorbox{green!40}{Smith, J. \emph{Professional Zoology}. Yarvard: Aldus 1999.}\\
+\colorbox{red!40}{Smith, J. \emph{Zoology for the Amateur}. Oxbridge: Pubco 2000.}
+\medskip
 
 In an ``alphanumeric'' system, the correct order will normally be one
 that make sense of the labels.
 
-\begin{itemize}
-\item
-  {[}Smi00{]} Smith J. \emph{Zoology for the Amateur} \ldots{}
-\item
-  {[}Smi10{]} Smith J. \emph{Amateur Zoology} \ldots{}
-\item
-  {[}Smi99{]} Smith J. \emph{Professional Zoology} \ldots{}
-\end{itemize}
+\medskip
+\colorbox{red!40}{{[}Smi00{]} Smith J. \emph{Zoology for the Amateur} \ldots{}}\\
+\colorbox{blue!40}{{[}Smi10{]} Smith J. \emph{Amateur Zoology} \ldots{}}\\
+\colorbox{green!40}{{[}Smi99{]} Smith J. \emph{Professional Zoology} \ldots{}}
+\medskip
 
 A numeric system may either sort its bibliography in some way (usually
 along the lines of the author/title system) or has the bibliography in
@@ -70,29 +61,37 @@ produce their own schemes.)
   before anything written by Benjamin Badger. Within each name, the
   works are sorted by title. And if titles are identical, then the
   earlier in time is placed first.
-\end{itemize}
-
-Aardvark, A. My life. 2000. Badger, B. Memoirs. 2005. Badger, B. Memoirs
-(2nd ed). 2010. Badger, B. Memories. 1999. Badger, B. Recollection.
-2005.
-
-\begin{itemize}
+  \begin{marginfigure}[-20ex]
+  \fbox{
+  \begin{minipage}{0.95\marginparwidth}
+ \colorbox{red!50}{\strut Aardvark, A.} My life. 1999.\\
+ \colorbox{red!30}{\strut Badger, B.}\colorbox{green!60}{\strut Memoirs.}\colorbox{blue!50}{\strut 2005.}\\
+ \colorbox{red!30}{\strut Badger, B.}\colorbox{green!60}{\strut Memoirs}(2nd ed).\colorbox{blue!30}{\strut 2010.}\\
+ \colorbox{red!30}{\strut Badger, B.}\colorbox{green!40}{\strut Memories.} 1999.\\
+ \colorbox{red!30}{\strut Badger, B.}\colorbox{green!30}{\strut Recollection.} 2005.
+  \end{minipage}}
+  \vspace{0.5pt}
+  \caption{\texttt{nty} sorting}
+  \end{marginfigure}
 \item
-  Name/Year/Title (\texttt{sorting=nyt}). Works are first sorted by the
+  Name/Year/Title (\texttt{sorting=nyt} or \texttt{sorting=nyvt}). Works are first sorted by the
   name of the author (or editor), so that all works by Albert Aardvark
   appear before anything written by Benjamin Badger. Within each name,
   the works are sorted first by year and then, if there is more than one
-  work in any given year, alphabetically by title.
-\end{itemize}
-
-Aardvark, A. (2000). My Life. Badger, B. (1999) Memories. Badger, B.
-(2005) Memoirs. Badger, B. (2005) Recollection. Badger, B. (2010)
-Memoirs (2nd ed).
-
-\begin{itemize}
-\item
-  Name/Year/Volume/Title (\texttt{sorting=nyvt}). The same as
+  work in any given year, alphabetically by title. Name/Year/Volume/Title (\texttt{sorting=nyvt}) is the same as
   Name/Year/Title, except that the volume is considered before title.
+\begin{marginfigure}[-15ex]
+  \fbox{
+  \begin{minipage}{0.95\marginparwidth}
+ \colorbox{red!50}{\strut Aardvark, A.} (1999) My life.\\
+ \colorbox{red!30}{\strut Badger, B.}\colorbox{green!60}{\strut(1999)} Memories.\\
+ \colorbox{red!30}{\strut Badger, B.}\colorbox{green!40}{\strut(2005)}\colorbox{blue!50}{Memoirs.}\\
+ \colorbox{red!30}{\strut Badger, B.}\colorbox{green!40}{\strut(2005)}\colorbox{blue!30}{Recollection.}
+ \colorbox{red!30}{\strut Badger, B.}\colorbox{green!20}{\strut(2010)} Memoirs (2nd ed)
+  \end{minipage}}
+  \vspace{0.5pt}
+  \caption{\texttt{nyt} sorting}
+  \end{marginfigure}
 \item
   Year/Name/Title (\texttt{sorting=ynt} or \texttt{sorting=ydnt}). Sorts
   by the year first, then the name, then the title (can be useful for
@@ -100,39 +99,40 @@ Memoirs (2nd ed).
   between \texttt{ynt} and \texttt{ydng} is that \texttt{ynt} works
   upwards (2013 comes after 2000), whereas \texttt{ydnt} works downwards
   (2000 comes after 2013).
-\end{itemize}
+  \begin{marginfigure}[1ex]
+  \fbox{
+  \begin{minipage}{0.95\marginparwidth}
+  \colorbox{red!50}{\strut 1999.}\colorbox{green!50}{\strut Aardvark, A.}My Life.\\
+ \colorbox{red!50}{\strut1999.}\colorbox{green!30}{\strut Badger, B.}Memories.\\
+ \colorbox{red!40}{\strut 2001.}Badger, B. Memoirs.\\
+ \colorbox{red!30}{\strut 2002.}Badger, B. Recollection.
+\colorbox{red!20}{\strut 2003.}Badger, B. Memoirs (2nd ed).
+  \end{minipage}}
+\vspace{0.5pt}
+  \caption{\texttt{ynt} sorting}
+  \end{marginfigure}
 
-\begin{itemize}
-\item[1999]
-  -- Badger, B. Memories.
-\item[2000]
-  -- Aardvark, A. My Life.
-\item[2001]
-  -- Badger, B. Memoirs.
-\item[2002]
-  -- Badger, B. Recollection.
-\item[2003]
-  -- Badger, B. Memoirs (2nd ed).
-\end{itemize}
-
-\begin{itemize}
 \item
   Alphabetic Lable/Name/Year/Title (\texttt{sorting=anyt}). Sorts
   principally by the alphabetic label --- and obviously therefore
   intended only for alphabetic styles. The \biblatex~manual says that it
   then sorts by name, year and title: but so long as the labels are
   unique, as would usually be the case, these will never need to be
-  consulted.{[}Footnote: there is also a style \texttt{anyvt} which
-  considers volume information.{]}
-\end{itemize}
+  consulted. There is also a style \texttt{anyvt} which
+  considers volume information.
 
-{[}Aar00{]} A. Aardvark. My Life. 2000. \\
-{[}Bad05a{]} B. Badger. Memoirs.
-2005.\\
-{[}Bad05b{]} B. Badger. Recollection. 2005. \\{[}Bad10{]} B. Badger.
-Memoirs. 2nd ed. 2010. \\{[}Bad99{]} B. Badger. Memories. 1999.
-
-\begin{itemize}
+    \begin{marginfigure}[1ex]
+  \fbox{
+  \begin{minipage}{0.95\marginparwidth}
+\colorbox{red!50}{\strut[Aar00]}A.\,Aardvark.\,My Life.\.2000. \\
+\colorbox{red!40}{\strut[Bad05a]}B.\,Badger.\,Memoirs.\,2005.\\
+\colorbox{red!30}{\strut[Bad05b]}B.\,Badger.\,Recollection.\,2005. \\
+\colorbox{red!20}{\strut[Bad10]}B.\,Badger.\,Memoirs.\,2010. \\
+\colorbox{red!10}{\strut[Bad99]}B.\,Badger.\,Memories.\,1999.
+  \end{minipage}}
+\vspace{0.5pt}
+  \caption{\texttt{anyt} sorting}
+  \end{marginfigure}
 \item
   Debugging (\texttt{sorting=debug}) this order citations by their
   \emph{key}, and is (as its name suggests) exclusively intended for
@@ -205,3 +205,25 @@ In desperation you can also use \texttt{sortkey} to fix absolutely and
 unequivocally the `key' by which a work will be sorted. Generally
 speaking, though, this is a counsel of desperation, and it is hard to
 think of a real-life situation in which it would be advised.
+
+\section{Languages}
+
+So far, we have been discussing such matters as `alphabetical' order as if it were fixed. But in fact alphabetical order can vary from language to language. For instance, in Czech and Slovak accented letters are conventionally sorted after unaccented letters (so \'{E}mil comes after Emily), in Norwegian `Aa' is considered the same as \r{A}, and placed at the end of the alphabet (so Aardvark comes after Zebra!).
+
+This sort of detail is under the control of \package{biber}, not of \biblatex. Normally you can assume that an appropriate locale will be set based on environment variables in your computer. But you may sometimes need to specify the locale. You can do this by specifying a \texttt{sortlocale} as an option when loading \biblatex. So, for instance, to have a Norwegian sorting scheme, you would specify
+\begin{verbatim}
+\usepackage[sortlocale=nb_NO]{biblatex}
+\end{verbatim}
+
+You can see the effect of this in figures \ref{zebra:en} and \ref{zebra:no}. The bibliography used is the same in each case, but figure \ref{zebra:en} is sorted using \texttt{sortlocale=en\_GB}, whereas figure \ref{zebra:no} is sorted using \texttt{sortlocale=nb\_NO}.
+
+\begin{figure}
+\fbox{\includegraphics{./examples/sorting-eg1.pdf}}
+\caption{Sorted with \texttt{sortlocale=en\_GB}\label{zebra:en}}
+\end{figure}
+
+\begin{figure}
+\fbox{\includegraphics{./examples/sorting-eg2.pdf}}
+\caption{Sorted with \texttt{sortlocale=nb\_NO}\label{zebra:no}}
+\end{figure}
+

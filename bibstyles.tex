@@ -212,7 +212,7 @@ in the same way. Figure \ref{numeric-examples} shows two very ordinary
 book and article references, formatted as the standard styles do.
 
 \begin{figure}
-\fbox{\includegraphics[width=\textwidth]{./examples/cotton-numeric.pdf}}
+\fbox{\includegraphics{./examples/cotton-numericu.pdf}}
 \caption{Numeric bibliography style\label{numeric-examples}}
 \end{figure}
 
@@ -259,10 +259,10 @@ this point the standard styles do offer some options, particularly in
 terms of order.
 \begin{enumerate}
 \item If you want references \emph{uncompressed} and \emph{not
-    reordered}, just load the style \verb|numeric|.
+    reordered}, just load the style \verb|numeric|. The package will then print the references you give in any citation in exactly the order you cited them in.
 \item If you want references \emph{sorted and re-ordered} but
   \emph{not} compressed, then load the style \verb|numeric|, but also
-  add the option |sortcites=true|.
+  add the option |sortcites=true|. (This, at least, you will surely nearly always want!)
 \item If you want references \emph{sorted and compressed}, then load the
   style \verb|numeric-comp|
 \end{enumerate}
@@ -280,7 +280,7 @@ For \smallcaps{superscript citations}, you have three options:
 \item Load \biblatex\ with the option \verb|autocite=superscript| and
   then use the \cs{autocite} citation command instead of \cs{cite}.
 \item Remap \cs{cite} to \cs{supercite} (or to \cs{autocite} with the
-  \verb|superscript| option set. See *.
+  \verb|superscript| option set.
 \end{enumerate}
 
 Changing the \smallcaps{punctuation between multiple citations} is
@@ -296,10 +296,11 @@ bold}\marginnote{[\textbf{1}, \textbf{2}]} or some other
 funny font. If you have to do that, you need to provide field formats
 for \verb|labelprefix|, \verb|labelnumber| and
 \verb|entrysetcount|. Each takes the same form (in the preamble of
-your document:
+your document, assuming you wanted bold):
 \begin{center}
 \verb|\DeclareFieldFormat{labelnumber}{\textbf{#1}}|
 \end{center}
+Or whatever other format you want.
 
 
 If you want to use \emph{parentheses} instead of brackets around citation labels
@@ -331,7 +332,7 @@ figure \ref{example:bibliography:alphabetic}
 \begin{figure}
 \caption{A bibliography with alphanumeric
   labels\label{example:bibliography:alphabetic}}
-\fbox{\includegraphics[width=\textwidth]{./examples/cotton-alphabetic.pdf}}
+\fbox{\includegraphics{./examples/cotton-alphabeticu.pdf}}
 \end{figure}
 
 \newthought{Compression obviously makes no sense} for labels (how
@@ -403,7 +404,7 @@ can easily be found.
 
 \begin{figure}
 \caption{Author/year bibliography\label{example:bibliography:authoryear}}
-\fbox{\includegraphics[width=\textwidth]{./examples/cotton-authoryear.pdf}}
+\fbox{\includegraphics{./examples/cotton-authoryearu.pdf}}
 \end{figure}
 
 The standard biblatex styles offer a small selection of different
@@ -492,7 +493,7 @@ can control the circumstances in which ibid is used by setting the
 \verb|ibidtracker| described in the \biblatex\ documentation; but in
 my experience only three of them are useful
 \begin{description}[font=\ttfamily\upshape\bfseries]
-\item[ibidtracker=false] Don't every use ibid.
+\item[ibidtracker=false] Don't ever use ibid.
 \item[ibidtracker=constrict] Use ibid, but be cautious to avoid
   ambiguity. Footnotes and the main text are tracked separately, and
   ibid is used only if the reference will certainly be unambiguous.
@@ -523,7 +524,7 @@ with the \cs{autocite} command in text or footnotes.)
 
 \begin{figure}
 \caption{Author/title bibliography\label{example:bibliography:authortitle}}
-\fbox{\includegraphics[width=\textwidth]{./examples/cotton-authortitle.pdf}}
+\fbox{\includegraphics{./examples/cotton-authortitleu.pdf}}
 \end{figure}
 
 Simple as this may seem, there are actually a large number of standard
@@ -627,7 +628,7 @@ author/title bibliography in figure
 
 Standard\marginnote{The standard verbose styles are, I think, not
   especially usable as they stand; but they form an excellent starting
-  point for customization.}\biblatex\ offers no fewer than seven different flavours of
+  point for customization.} \biblatex\ offers no fewer than seven different flavours of
 verbose citation style. For practical use, there should be added to
 these the \verb|footnote-dw| style from Dominik Waßenhoven's
 \package{biblatex-dw} bundle, the \package{biblatex-chicago}
