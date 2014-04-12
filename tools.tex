@@ -1,0 +1,66 @@
+%!TEX root=biblatex-tutorial.tex
+\chapter{Tools and Editors}
+
+Most people who use \LaTeX\ use a specialised editor (or a special mode or plugin for an editor) when working with \LaTeX. There are also special tools for maintaining bibliographies. These tools are not identical. That's sometimes a strength (people can have very strong views about their preferred editor!), but for newcomers it can be a definite weakness. In addition, many of the tools assume that you will be using \bibtex\ -- which was a fair assumption in the past, and some need `coaxing' to encourage them to work easily with \biblatex.
+
+\section{In the shell}
+
+I think it is important, whatever editor you use, to know how to compile a file from the command line. Even the best tools sometimes fail, and it's surprising how often (especially with a complex project) a basic compilation from a shell will help diagnose problems. So every user should know how to open a shell, navigate to the directory in which the source file is found, and run
+\begin{pseudoverb}
+pdflatex \angled{name}\\
+biber \angled{name}\\
+pdflatex \angled{name}\\
+pdflatex \angled{name}
+\end{pseudoverb}
+The only trick is with \angled{name} component: |pdflatex| wants to get to work on a file with a |.tex| extension; |biber| wants to get to work on a file with the extension |.bcf|\footnote{\texttt{bcf} stands for bibliography control file.} (`Old-timers' may erroneously try to run |biber| on the |.aux| file, which is what \bibtex\ would use.) But all problems can be simply avoided by running the program in question on the `basename': the filename \emph{without any extension}. So the following are equivalent, if our source code is in a file called |myfile.tex|:
+\begin{pseudoverb}
+\begin{tabbing}
+pdflatex myfile.tex\qquad   \= pdflatex myfile\\
+biber myfile.bcf \> biber myfile\\
+pdflatex myfile.tex \> pdflatex myfile\\
+pdflatex myfile.tex \> pdflatex myfile
+\end{tabbing}
+\end{pseudoverb}
+You won't \emph{always} need all these runs. You generally only need to run \package{biber} if you have either cited a new source or significantly changed your bibliography options. And you won't always need to run \LaTeX\ twice after using \package{biber}. In any case, you get useful messages at the end of compilation, telling you what to do.
+
+Nevertheless, for a project of any complexity, this sort of need to carry out multiple runs becomes tiresome, and you may want to look at automating it. There are a few ways you can do this. You could use a standard compiler program like |make|. There's nothing wrong with this, and if you are happy writing |makefiles| it's a perfectly reasonable way to go. But there are two \LaTeX\ specific tools which are more likely to help you.
+
+\subsection{Latexmk}
+First is \package{latexmk}, which is a Perl script. It therefore requries Perl to be installed. It always will be on Linux or Mac OS X machines, but Windows users will need to download it (e.g. from \url{strawberryperl.com}). In principle, and for reasonably simple projects at least, you can substitute all the commands given above with the simple:
+\begin{pseudoverb}
+latexmk myfile
+\end{pseudoverb}
+The script will then run \LaTeX, and auxiliary programs such as \package{biber} and \package{makeindex}, as many times as necessary to produce a stable result (if that's possible). The \package{latexmk} script is `\package{biber} aware': it will detect if it needs to run \package{biber} (or \bibtex) and proceed accordingly. There are many options (described in the documentation).
+
+\subsection{Arara}
+
+The alternative modern approach is a program called \package{arara}. This is a Java program (and therefore requires a Java command line to be installed). Instead of attempting to `detect' what needs to be done to produce the final printable version, \package{arara} enables you to place commented instructions in your source file, which essentially tell the program how to go about processing it. So, for instance, you might put the following at the start of your file:
+\begin{pseudoverb}
+\% arara: pdflatex\\
+\% arara: biber\\
+\% arara: pdflatex\\
+\% arara: pdflatex
+\end{pseudoverb}
+You then run (from a command line)
+\begin{pseudoverb}
+arara \angled{filename}
+\end{pseudoverb}
+The package then reads the comment lines in the file to work out what it should do. Effectively, you are writing makefile-like instructions, but in a conveniently simple form and in the file you will compile. You have to be explicit about them, but you may find this an advantage over the sort of `black box' that \package{latexmk} offers. Again, there are all sorts of bells and whistles -- but \package{arara} is, as the example above shows, `\package{biber} aware'.
+
+\subsection{Texify}
+
+The \package{mikTeX} distribution comes with a command called |texify|, which is intended to do something along the lines of |latexmk|, but without the need to install Perl. This is \emph{not} \package{biber}-friendly: it assumes you will run \bibtex. Although it is reputed to be possible to convert it to run \package{biber} by setting the environment variable |BIBTEX| to |biber|, I have not had any success doing so. In my view, it's better to install and use either \package{latexmk} or \package{arara}.
+
+\section{Editors}
+
+There are many different editors available and commonly used for \LaTeX, most of which offer at least some support for the use of \package{biber} and \package{biblatex}. For some, such as \package{Emacs} with \package{AUC\TeX}, support is already built in. In other cases it is necessary to add or adjust the editor's setting in order to configure it to use \package{biber} rather than \bibtex. Given the vast number of editors, each slightly different, and the speed at which they change, it's not practical to give detailed instructions here.\footnote{Information, periodically updated, may be found at \url{http://tex.stackexchange.com/questions/154751/biblatex-with-biber-configuring-my-editor-to-avoid-undefined-citations}}
+
+A practical alternative to configuring your editor to use \package{biber} is to configure it to use \package{latexmk} or \package{arara}, as described above.
+
+\section{Maintaining Databases}
+
+You can always maintain a database yourself, through a decent text editor. But there is also software designed to do this for you. Two commonly used tools are \package{JabRef} and (for Mac OSX) \package{BibDesk}. Each provides a graphical interface for entering bibliographic data, and useful reminders of the fields that you will need to complete.
+
+At present, \package{JabRef} has a \biblatex\ mode. \package{BibDesk} does not. You can still use it to maintain a database (especially if you mostly use `ordinary' types of source, like books and articles): but there are some fields where, ideally \biblatex\ prefers something different: for instance it uses a |date| field (rather than |year| and |month|) and a |location| field (rather than |address|). This is not usually a big problem, because \biblatex\ is mostly able to understand a file produced in the `traditional' format. But some of \biblatex's more advanced features will not be automatically supported. You can, however, always edit the fields and entry types in the `preferences' section.
+
+Such packages are designed for maintaining a database file (or files) on a particular computer. Increasingly there are web- and cloud-based bibliography tools such as \package{Mendeley} and \package{Zotero}. Support of \biblatex\ in these tools is patchy, though \package{Zotero} does have a `translator' to produce \biblatex\ compatible |.bib| files. Most such services can produce `traditional' \bibtex, which can be used as a base. Other web-based services (such as Google Scholar) will often also offer pre-formed \bibtex\ records. These need to be scrutinized with care, because they are not always accurate or complete.

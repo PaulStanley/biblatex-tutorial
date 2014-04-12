@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{mathptmx}
+\usepackage[style=british]{csquotes}
+\usepackage[style=authortitle-dw,backend=biber]{biblatex}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tabularx}
+\addbibresource{biblatex-examples.bib}
+\addbibresource{bl-tutorial-eg.bib}
+\usepackage[british]{babel}
+
+\begin{document} 
+
+\title{The \texttt{authortitle-dw} style}
+\author{}\date{} 
+\maketitle 
+\thispagestyle{empty}
+
+
+The \textsf{authortitle-dw} style is a style produced by Dominik Waßenhoven. It was designed for use in the humanities; and it is intended to be very highly customizable. It comes in two flavours: author/title (shown here) and a verbose style.
+
+\quad The package is loaded in the usual way:
+\begin{verbatim}
+     \usepackage[style=authortitle-dw]{biblatex}
+\end{verbatim}
+
+\quad The bibliography here shows you straightforward examples of a book \autocite{worman}, an article \autocite{reese}, an edited book \autocite{aristotle:anima} and an essay in a collection \autocite{gaonkar:in}.  But the main strength of the package is really its flexibility and the ability to customize it, on which the package documentation should be consulted.
+
+\section*{Examples of Citation Commands}
+
+\begin{tabularx}{\textwidth}{lX}
+\verb|\cite{worman}| & \cite{worman} \\
+\verb|\autocite{worman}| & \strut\autocite{worman} \\
+\verb|\textcite{worman}| & \textcite{worman} \\
+\verb|\footcite{worman}| & \strut\footcite{worman}
+\end{tabularx}
+
+
+\printbibliography[title={Sample Bibliography}]
+
+\end{document}

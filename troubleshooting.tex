@@ -1,0 +1,123 @@
+%!TEX root=biblatex-tutorial.tex
+\chapter{When Things Go Wrong}
+
+Things go wrong, and when they go wrong it can be quite infuriating trying to work out what has happened. This chapter aims to guide you through the possible symptoms you might see to try to help you to an answer.
+
+In this chapter I am not going to deal with the detail of debugging changes to \biblatex\ styles, but with the sort of thing that goes rather obviously  wrong for an ordinary user running properly written styles. The manifestation of this problem is nearly always the same: instead of citations, you have labels in square brackets in the printed brackets (as in figure \ref{nussbaum3}; you see warnings in the \LaTeX\ log file telling you
+\begin{verbatim} 
+Citation 'blah' on page x undefined on input line y
+\end{verbatim}
+and at the end of the log file you are encourated to |(re)run Biber|.
+
+\section{A Systematic Approach}
+
+The first thing to do in this situation is, paradoxically, to start with a clean slate.\marginnote{If you use \package{latexmk} you can clean all these files away with the command \texttt{latexmk -c}.} When you are working on a long document, you will end up with all sorts of files in your working directory that you don't actually need, and sometimes they can make debugging harder. So start cleanly: delete all `automatically created' files: in particular all |.aux|, |.bcf|, |.blg| and |.bbl| files.
+
+\subsection{Run \LaTeX}
+
+Now, from a command line, run |pdflatex| \angled{filename} (or whichever \LaTeX\ you use. Don't worry much about the warnings: this is a first clean run, and you \emph{expect} undefined citations; but if \LaTeX\ is encountering errors, you obviously need to sort them out: for instance, if you have misspelled |biblatex| or attempted to load a non-existent bibliography style, you can't expect to produce citations. Once the document compiles (with, as expected, warnings about undefined references), you can move on to the next stage.
+
+\subsection{Run \package{biber}}
+
+The next task is to run \package{biber}.
+This time, you should examine your output, either on the console or in the log file (which will have the extension |.blg|). If all has gone well you will see something like figure \ref{biber:run}.
+\begin{figure}
+\begin{Verbatim}[frame=single,fontsize=\small]
+[0] Config.pm:318> INFO - This is Biber 1.8
+[0] Config.pm:321> INFO - Logfile is 'dw-authortitle.blg'
+[73] biber-darwin:275> INFO - === Sun Mar 16, 2014, 11:10:02
+[73] Biber.pm:333> INFO - Reading 'dw-authortitle.bcf'
+[142] Biber.pm:630> INFO - Found 4 citekeys in bib section 0
+[169] Biber.pm:3053> INFO - Processing section 0
+[203] Biber.pm:3190> INFO - Looking for bibtex format file 
+  'biblatex-examples.bib' for section 0
+[763] bibtex.pm:937> INFO - Decoding LaTeX character macros 
+   into UTF-8
+[780] bibtex.pm:812> INFO - Found BibTeX data source 
+  '/usr/local/texlive/2013/texmf-dist/bibtex/bib/biblatex/
+  biblatex/biblatex-examples.bib'
+[833] Biber.pm:2939> INFO - Overriding locale 'en_GB.UTF-8' 
+   default tailoring 'variable = shifted' with 'variable = non-
+   ignorable'
+[833] Biber.pm:2945> INFO - Sorting 'entry' list 'nty' keys
+[834] Biber.pm:2949> INFO - No sort tailoring available for
+   locale 'en_GB.UTF-8'
+[846] bbl.pm:482> INFO - Writing 'dw-authortitle.bbl' with 
+   encoding 'UTF-8'
+[847] bbl.pm:555> INFO - Output to dw-authortitle.bbl
+\end{Verbatim}
+\caption{Log of a successful \package{biber} run\label{biber:run}}
+\end{figure}
+
+If \package{biber} has run successfully, you can go on to the next step. If you see any lines in the log which begin |ERROR| or |WARN| then there was some sort of problem, and you will need to do more digging.
+
+\newthought{Just occasionally}\label{cache} a strange and annoying error occurs at this point, and you see reference on the console (or in the log file) to something along the following lines (the exact file name will be different)
+\begin{verbatim}
+data source /var/folders/jx/xzkq2pcj0bg4gls726dy08b40000gn/T/
+par-7061756c7374616e6c6579cache-1ea1c894d061cba85b64a1b380f
+6c297de02c7c4//inc/lib/Biber/LaTeX/recode_data.xml 
+not found in .
+\end{verbatim}
+This error occurs because of some problem with the method by which \package{biber} is packaged up via a perl wrapper. The solution is to delete the `cache', which you can identify either from the error message (it's everything up to and including the long name), or by running
+\begin{verbatim}
+biber --cache
+\end{verbatim}
+You need to delete this file. The next time \package{biber} runs it will be slow to start up, but the error should disappear. Its reappearance is intermittent and somewhat annoying.
+
+\newthought{Once \package{biber} has actually run}, even with warnings, you will find that the log provides a useful diagnostic tool. The most common errors are set out in table \ref{biber:errors}, together with their meanings and the action you should take. But this is not a comprehensive list. Occasionally, you may get other errors: in the worst case, the progam may simply fail to run fully. This is very rare indeed. When it happens it is usually because of some occult problem in your |.bib| file.
+
+\begin{table*}
+\begin{tabular}{p{5cm}p{5cm}p{5cm}}
+\toprule
+\ttfamily WARN - No data sources defined! & Your source file does not contain any \cs{addbibresource} commands. & Check your source file, and make sure it includes \cs{addbibresource} commands for every data source you need. \\
+\midrule\ttfamily ERROR - Cannot find \angled{database file}! & Biber was not able to find the |.bib| file you have referred to. & Make sure you have spelled the name correctly. Make sure the file is somewhere that \TeX\ can find it, either in a place in your \TeX-\textsc{mf} tree where it will be found, or in the same directory as the source file. (If you don't understand this, just play safe: put it with your source file!) \\
+\midrule\ttfamily WARN - Entry \angled{label} does not parse correctly.
+ERROR - BibTeX subsystem: \angled{filename} ... syntax error: found "title", expected end of entry ("\}" or ")") (skipping to next "@") & You have not written a particular entry correctly: usually (as in this case) by forgetting a comma between fields, sometimes an unescaped comment character (\%) is the culprit. & Find the entry that did not parse, and correct it. \\
+\midrule\ttfamily WARN - BibTeX subsystem: \angled{filename} warning: 1 characters of junk seen at toplevel & There is something \emph{outside} and entry, other than the beginning of a new entry. The usual reason for this is a stray comma between entries.& Check your |.bib| file around the place where the `junk' appeared. Note that if this happens the rest of the file will fail to parse, and you may well get missing citations too. \\
+\midrule\ttfamily WARN - I didn't find a database entry for \angled{label} & That citation label is not included in your \texttt{.bib} file (or it is included after an error in that file from which recovery was not possible) & Often this is a typo (in either the source file or the database): check there is a source with that label, spelled exactly identically. The other common source of (many!) such warnings is that if there is a spoiled entry in the \texttt{.bib} file (leading to the message about `junk' having been seen) all subsequent entries will be ignored too. \\
+\bottomrule
+\end{tabular}
+\vspace{10pt}
+\caption{Biber errors, and what they mean\label{biber:errors}}
+\end{table*}
+
+To diagnose such an error, proceed as follows:
+\begin{itemize}
+ \item Rename your existing |.bib| file.
+ \item Gradually copy your |.bib| file entries back into an empty file (with the old name). Either copy a few entries at a time, or use the technique of copying half the entries, then either removing half (if the first chunk failed) or progressively adding more.
+ \item Each time you do this, rerun \package{biber} (you shouldn't need to re-run \LaTeX). You should expect, and ignore, warnings about missing citations; you are simply looking to get a run that does not abort.
+ \item In this way you should be able to identify the problem entries. Remove these.
+ \item Retype the problematic entries by hand, checking that they are correct. Where an error sufficiently grave to prevent \package{biber} from running occurs, the problem seems usually to be with some unacceptable encoding in the file, and manually re-entering the entry will usually sort it out.
+\end{itemize}
+
+Once you have corrected any errors, re-run \package{biber}. If you had to correct an error in your \emph{source file} (e.g. to add or change an \cs{addbibresource} command), you will need to re-run (pdf)-\LaTeX, and then \package{biber}. If you only had to change entries in the |.bib| file, you should be OK with just running \package{biber}.
+
+\subsection{Finally, run \LaTeX\ again}
+
+Once you manage to run \package{biber} without errors or warnings, re-run \LaTeX. This time you should get a complete compilation, without any warnings.
+
+There is one category of error that can sometimes occur at this point. Just occasionally you will find that when \LaTeX\ is run you get complaints about problems with some unicode character. The problem occurs because \package{biber} works internally in one flavour of unicode normalisation, but \LaTeX\ does not, and even (in fact, especially) when unicode is used (via |\usepackage[utf8]{inputenc}|) there can be occasional incompatibilities. If you see this sort of trouble, try running \package{biber} with the option |--output_safechars|.
+
+\section{A less systematic approach}
+
+Sometimes a less systematic approach is appropriate. If a document and bibliography have all been compiling correctly, but suddenly you start to see problems, particularly with one or two entries, go back and check those particular entries. If those look correct (the label is correctly spelled in the |.tex| source, the entry seems correct in the |.bib| file) it's worth carrying out a manual run of \package{biber} to check that you haven't been caught by the cache problem described on page \pageref{cache}.
+
+\section{Problems with output}
+
+Problems with output have three possible sources. (a) It may be that your bibliography style is, in some way, not to your taste. This is not really a `bug' as such: it may well be that the style is doing exactly what its author intended it to. There are, of course, various ways in which you may be able to tweak a style to your liking, some of which are discussed elsewhere in this document. But the problem is not one of debugging. (b) It may be that there actually \emph{is} a bug in the bibliography style you have used. These things are complex, and bugs happen. If you are nervous about them, try to stick to well-established and maintained styles. Other possible things to do are to get help online\footnote{For instance at \url{tex.stackexchange.com}} or to contact the style's maintainer by email. (c) It may be a problem with your |.bib| file.
+
+It's only common sense to check the last point first. Among the common errors in a file which will `work' are the following:
+\begin{itemize}
+ \item Incorrect lists of names. It's terribly easy to write
+ \begin{pseudoverb}
+John Smith, A. U. Thor, Joe Bloggs
+ \end{pseudoverb}
+ when you mean
+ \begin{pseudoverb}
+John Smith and A. U. Thor and Joe Bloggs
+\end{pseudoverb}
+ \item Incorrect names, particularly forgetting to put a full stop after initials (especially since it often makes no difference): |Smith, J| instead of |Smith, J.|
+ \item Forgetting to put extra braces round institutional authors, so that |Press Complaints Commission| becomes `P. C. Commission'.
+ \item Forgetting to put braces around a word whose capitalization should not be changed, so that |German| becomes |german|
+ \item Inadvertently muddling similar fields, such as |pages| and |pagination|, |journaltitle| and |series|, |volume| and |part|.
+\end{itemize}

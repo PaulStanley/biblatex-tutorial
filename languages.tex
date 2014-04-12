@@ -1,0 +1,138 @@
+%!TEX root=biblatex-tutorial.tex
+\chapter{Languages}
+
+Dealing with different languages is not straightforward; but \biblatex\ is pretty well set up for the task. This section aims to provide basic information; there is actually considerably more on offer in \biblatex\ for sophisticated language use than this section deals with. This section basically assumes the `normal' user who produces documents in a single language, but may occasionally need to deal with bibliographic sources in other languages.
+
+There are a number of different ways that a bibliographic system may need to adjust to different languages. Most basically, a number of words and abbreviations may need to change: `ed' in English becomes `éd' in French, or `Hrsg' in German. There may be differences in punctuation (for instance in how quotations are typeset). There may be differences in sorting. (For instance, is `Aardvark' a word you would expect to appear at the beginning or the end of a dictionary? An English person and a Swede would disagree!) At a still more basic level -- unseen by the user until it goes wrong -- the hyphenation of different languages varies. And, even further `under the skin' there are issues about the `encoding' of an input file: how human-readable glyphs are turned into machine-readable sequences of numbers.
+
+\section{A dogmatic approach}
+
+Later sections of this chapter try to provide a better explanation of how all these various things can be done. But here is a dogmatic `just do this' approach, which will work in many cases.
+
+\begin{enumerate}
+ \item If you are writing in a language which requires accents and diacritics, prefer to use \smallcaps{utf-8} encoding in your source and |.bib| files. Set your editor to use that encoding and, unless you are using Xe\TeX\ or Lua\TeX\ (which handle unicode natively), use the \package{inputenc} package in your source file.
+ \begin{pseudoverb}
+ \cs{usepackage}[utf8]\{inputenc\}
+ \end{pseudoverb}
+ \item Load \package{babel}\footnote{Or, if you use it, \package{polyglossia}.} with your preferred language.
+ \begin{pseudoverb}
+ \cs{usepackage}[\angled{language}]\{babel\}
+ \end{pseudoverb}
+ \item Load \package{csquotes} with an appropriate quotation style:
+ \begin{pseudoverb}
+ \cs{usepackage}[style=\angled{language}]\{csquotes\}
+ \end{pseudoverb}
+ \item Load \biblatex\ with the style |autolang=hyphen|, which will make sure that appropriate hyphenation patterns are used based on the |langid| field of the entry, if it has been set.
+ \item If you are using anything other than the standard bibliography style, consult that style's documentation to find out whether you need to `connect' your language to a particular style-specific language style. If so, do that using
+ \begin{pseudoverb}
+ \cs{DeclareLanguageMapping}\{\angled{language}\}\{\angled{language-definition}\}
+ \end{pseudoverb}
+ For instance, in the \package{APA} style, I might have
+ \begin{pseudoverb}
+ \cs{DeclareLanguageMapping}\{british\}\{english-apa\}
+ \end{pseudoverb}
+\end{enumerate}
+
+\section{Some more detail}
+
+\subsection{Encodings}
+
+\package{Biblatex} (or, more accurately, \package{biber}) is perfectly happy working with unicode (indeed, internally this is what it always tries to do). It is generally best, unless your use of accents and diacritics is minimal, to use a \smallcaps{utf-8} encoded |.bib| file. This need not be the encoding used in your |.tex| file: the software will attempt to detect that, and will output a |.bbl| file accordingly. But in general it makes sense, nowadays, to use a \smallcaps{utf-8} encoded |.tex| source. For this, you should either use Xe\TeX\ or Lua\TeX, which handle unicode natively, or use the \package{inputenc} package to set the encoding to |utf8|.
+
+Occasionally, notwithstanding such precautions, there can be difficulties caused by the way \TeX\ and \package{biber} deal with encodings. In such cases it may be necessary to set input and output encodings explicitly; on this, you should consult the \package{biber} documentation.
+
+\subsection{Language}
+
+In general, in the \LaTeX\ world, language features are controlled using the (older) \package{babel} or (newer) \package{polyglossia} packages to set languages. The \biblatex\ package generally tries to leverage these packages to work out what language is being used. It then attempts to load a file which contains suitable bibliographical features in that language.
+
+This is in many cases enough. But internally the position has to be a bit more complex, because \biblatex\ has to associate a given basic language with a set of files which define suitable abbreviations, formatting of dates, and so forth for that language. In the standard styles, this is entirely automatic. In non-standard styles, there may be cases where the style is language-specific, or in which you are otherwise required to tell \biblatex\ explicitly what language definitions to use.
+
+This is the purpose of the \cs{DeclareLanguageMapping} command. What it does is tell \biblatex\ what definitions to use \emph{for a particular language}. So, for instance
+\begin{pseudoverb}
+\cs{DeclareLanguageMapping}\{british\}\{british-apa\}
+\end{pseudoverb}
+tells \biblatex\ that if the language being used for typesetting is |british|-English, then it should look for the relevant definitions in the |british-apa| langugage definition. Sometimes this has been done for you by the writer of the bibliography style; sometimes it needs to be explicitly done (especially if the style provides a limited range of language definitions).
+
+It is perfectly permissible to have a document in more than one language: the citation and bibliography commands will use whichever language is active at the relevant time. So, for instance (to take a thoroughly feeble example) suppose we had the following:
+
+\begin{Verbatim}[frame=single]
+...
+\usepackage[french,british]{babel}
+\usepackage[style=numeric]{biblatex}
+\addbibresource{biblatex-examples.bib}
+
+\begin{document}
+We make reference to Aristotle \cite{aristotle:anima}.
+
+\printbibliography
+
+\selectlanguage{french}
+
+\printbibliography
+...
+\end{Verbatim}
+
+\begin{figure*}
+\fbox{\includegraphics{./examples/duallanguage.pdf}}
+\vspace{3pt}%
+\caption{A document using two languages\label{dual:language}}
+\end{figure*}
+
+That code will produce something which looks like figure \ref{dual:language}. The first time the bibliography is printed, English conventions are used, because English is the active language. Then French is selected as the language, and this time the bibliography, when printed, is formatting according to French conventions and terminology.
+
+In that example, the language is being selected explicitly in the source file. But what about the |.bib| entries themselves? Can they select languages? The short answer is, Yes. But it's really quite important to give a longer answer.
+
+A |.bib| entry may have the field |language| set. But this will not affect the language conventions used to typeset it. The purpose of the |language| and |origlanguage| fields is to record \emph{bibliographical} data, which may (depending on the style) be printed.\sidenote[][-4ex]{For instance, a style might print: Aristotle, \emph{De Anima} (Greek).} So |language| and |origlanguage| relate to the \emph{source} not the \emph{entry}. However ther is a field |langid|\footnote{\texttt{langid} was previouslly called \texttt{hyphenation}.} which is specifically designed for this purpose. You set the |langid| field to indicate that the language of the entry should (potentially) be fixed in a particular way. For instance, if you are citing an author and a title in a foreign language, it may be natural to specify an appropriate language ID:
+
+\begin{verbatim}
+@book{swann,
+  author  = {Proust, Marcel},
+  series  = {À la recherche du temps perdu},
+  volume  = 1,
+  title   = {Du côté de chez Swann},
+  date    = {1913},
+  langid  = {french},
+}
+\end{verbatim}
+
+However, simply specifying the language ID does not directly make any difference: the entry simply gets printed in the ordinary way (see figure \ref{proust1}).
+\begin{figure}
+\framebox{\includegraphics{./examples/proust1}}
+\caption{The language ID: not necessarily any difference\label{proust1}}
+\end{figure}
+
+However, you can make it make a difference by using an option when \biblatex\ is loaded:
+\begin{itemize}
+\item |autolang=hyphen| will activate hyphenation rules for the specified language. This may or may not make any difference (depending on line breaks and so forth). In our example it would not. But it's generally a good idea to allow hyphenation of titles and so forth correctly.
+\item |autolang=other| will apply the \emph{full} set of rules for the language in question when printing that particular entry, as can be seen in figure \ref{proust2}. Note in this case that the bibliography in general is in English format (the title is `References' not `Références', and so forth), but the particular entry takes a French format.
+\end{itemize}
+
+\begin{figure}
+\fbox{\includegraphics{./examples/proust2}}
+\caption{\texttt{autolang=other}\label{proust2}}
+\end{figure}
+
+In general terms, it seems to me, activating language-specific hyphenation is normally a sensible idea, but activating full language support seems to me generally a rather peculiar thing to do in general (though there might be some multilingual works where it makes sense).
+
+There are further and deeper complexities for users of \package{polyglossia}, for whom still more complex features are available. But those are beyond the scope of this book.
+
+\subsection{Sorting}
+
+There is a tendency to consider alphabetical order, drilled into us as children, as if it were fixed and immutable. But in fact alphabetical order can vary from language to language. For instance, in Czech and Slovak accented letters are conventionally sorted after unaccented letters (so \'{E}mil comes after Emily), in Norwegian `Aa' is considered the same as \r{A}, and placed at the end of the alphabet (so Aardvark comes after Zebra!).
+
+This sort of detail is under the control of \package{biber}, not of \biblatex. Normally you can assume that an appropriate locale will be set based on environment variables in your computer. But you may sometimes need to specify the locale. You can do this by specifying a \texttt{sortlocale} as an option when loading \biblatex. So, for instance, to have a Norwegian sorting scheme, you would specify
+\begin{verbatim}
+\usepackage[sortlocale=nb_NO]{biblatex}
+\end{verbatim}
+
+You can see the effect of this in figures \ref{zebra:en} and \ref{zebra:no}. The bibliography used is the same in each case, but figure \ref{zebra:en} is sorted using \texttt{sortlocale=en\_GB}, whereas figure \ref{zebra:no} is sorted using \texttt{sortlocale=nb\_NO}.
+
+\begin{figure}
+\fbox{\includegraphics{./examples/sorting-eg1.pdf}}
+\caption{Sorted with \texttt{sortlocale=en\_GB}\label{zebra:en}}
+\end{figure}
+
+\begin{figure}
+\fbox{\includegraphics{./examples/sorting-eg2.pdf}}
+\caption{Sorted with \texttt{sortlocale=nb\_NO}\label{zebra:no}}
+\end{figure}

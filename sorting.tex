@@ -206,24 +206,5 @@ unequivocally the `key' by which a work will be sorted. Generally
 speaking, though, this is a counsel of desperation, and it is hard to
 think of a real-life situation in which it would be advised.
 
-\section{Languages}
 
-So far, we have been discussing such matters as `alphabetical' order as if it were fixed. But in fact alphabetical order can vary from language to language. For instance, in Czech and Slovak accented letters are conventionally sorted after unaccented letters (so \'{E}mil comes after Emily), in Norwegian `Aa' is considered the same as \r{A}, and placed at the end of the alphabet (so Aardvark comes after Zebra!).
-
-This sort of detail is under the control of \package{biber}, not of \biblatex. Normally you can assume that an appropriate locale will be set based on environment variables in your computer. But you may sometimes need to specify the locale. You can do this by specifying a \texttt{sortlocale} as an option when loading \biblatex. So, for instance, to have a Norwegian sorting scheme, you would specify
-\begin{verbatim}
-\usepackage[sortlocale=nb_NO]{biblatex}
-\end{verbatim}
-
-You can see the effect of this in figures \ref{zebra:en} and \ref{zebra:no}. The bibliography used is the same in each case, but figure \ref{zebra:en} is sorted using \texttt{sortlocale=en\_GB}, whereas figure \ref{zebra:no} is sorted using \texttt{sortlocale=nb\_NO}.
-
-\begin{figure}
-\fbox{\includegraphics{./examples/sorting-eg1.pdf}}
-\caption{Sorted with \texttt{sortlocale=en\_GB}\label{zebra:en}}
-\end{figure}
-
-\begin{figure}
-\fbox{\includegraphics{./examples/sorting-eg2.pdf}}
-\caption{Sorted with \texttt{sortlocale=nb\_NO}\label{zebra:no}}
-\end{figure}
 

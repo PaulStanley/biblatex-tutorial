@@ -1,16 +1,21 @@
-\documentclass[varwidth=\textwidth,class=article,border=5pt]{standalone}
+\documentclass{article}
 \usepackage{mathptmx}
 \usepackage[style=british]{csquotes}
 \usepackage[style=oscola,backend=biber]{biblatex}
 \usepackage[T1]{fontenc}
+\usepackage{tabularx}
 \addbibresource{biblatex-examples.bib}
+\addbibresource{bl-tutorial-eg.bib}
 \usepackage[british]{babel}
-\begin{document}
-\title{The \texttt{APA} style}
-\author{}\date{}
-\maketitle
 
+\begin{document} 
 
+\title{The \texttt{OSCOLA} style}
+\author{}\date{} 
+\maketitle 
+\thispagestyle{empty}
+
+\noindent
 The \textsf{oscola} style implements the style rules of the Oxford Standard for the Citation of Legal Materials. It is a footnote style in which  \verb~\autocite~ produces footnoted citations \autocite{worman, reese}. Although designed for legal citations (and therefore covering a wide range of non-standard sources) it is also deals with the standard types of source as well.
 
 \quad The package is loaded in the usual way:
@@ -18,18 +23,18 @@ The \textsf{oscola} style implements the style rules of the Oxford Standard for 
      \usepackage[style=oscola]{biblatex}
 \end{verbatim}
 
-\quad The bibliography here shows you straightforward examples of a book \autocite{worman}, an article \autocite{reese}, an edited book \autocite{aristotle:anima} and an essay in a collection \autocite{gaonkar:in}.
+\quad The bibliography here shows you straightforward examples of a book \autocite{worman}, an article \autocite{reese}, an edited book \autocite{aristotle:anima} and an essay in a collection \autocite{gaonkar:in}. We also cite a judicial decision: \cite{donoghue}.
 
-\medskip
+\section*{Examples of Citation Commands}
 
-\begin{tabular}{ll}
+\begin{tabularx}{\textwidth}{lX}
 \verb|\cite{worman}| & \cite{worman} \\
-\verb|\autocite{worman}| & \autocite{worman} \\
+\verb|\autocite{worman}| & \strut\autocite{worman} \\
 \verb|\textcite{worman}| & \textcite{worman} \\
 \verb|\footcite{worman}| & \strut\footcite{worman}
-\end{tabular}
+\end{tabularx}
 
 
-\printbibliography
+\printbibliography[title={Sample Bibliography}]
 
 \end{document}

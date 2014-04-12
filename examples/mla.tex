@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{mathptmx}
+\usepackage[style=american]{csquotes}
+\usepackage[american]{babel}
+\usepackage[style=mla,backend=biber]{biblatex}
+\usepackage[T1]{fontenc}
+\addbibresource{biblatex-examples.bib}
+\begin{document}
+\title{The \texttt{MLA} style}
+\author{}\date{}
+\maketitle
+\thispagestyle{empty}
+
+\noindent
+The \textsf{biblatex-mla} style implements the style rules of the Modern Language Association. It is fundamentally an author/title style in which \verb~\autocite~ produces parenthetical citations \autocite{worman}. The title, however, is printed only where you cite more than one work by a single author. Citations in footnotes will produce full bibliographical information on the first occasion,\footcite{aristotle:poetics} though this can be changed.
+
+The package is loaded in the usual way:
+\begin{verbatim}
+     \usepackage[style=mla]{biblatex}
+\end{verbatim}
+Since MLA is an American Style, this example uses
+\begin{verbatim}
+     \usepackage[american]{babel}
+\end{verbatim}
+to ensure the correct language file is loaded; it also loads \textsf{csquotes} with the \verb~american~ option.
+
+The bibliography here shows you straightforward examples of a book \autocite{worman}, an article \autocite{reese}, an edited book \autocite{aristotle:anima} and an essay in a collection \autocite{gaonkar:in}. I have included another work by Aristotle, in order to show how the MLA style prints titles where more than one work by a single author has been cited.
+
+\section*{Examples of Citation Commands}
+
+\begin{tabular}{ll}
+\verb|\cite{aristotle:anima}| & \cite{aristotle:anima} \\
+\verb|\autocite{worman}| & \autocite{worman} \\
+\verb|\textcite{aristotle:anima}| & \emph{not used} \\
+\verb|\footcite{aristotle:poetics}| & \strut\footcite{aristotle:poetics}
+\end{tabular}
+
+\printbibliography
+
+\end{document}

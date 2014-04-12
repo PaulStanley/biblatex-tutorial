@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{mathptmx}
+\usepackage[style=american]{csquotes}
+\usepackage[style=ieee,backend=biber]{biblatex}
+\usepackage[T1]{fontenc}
+\addbibresource{biblatex-examples.bib}
+\begin{document}
+\title{The \texttt{IEEE} style}
+\author{}\date{}
+\maketitle
+
+\thispagestyle{empty}
+
+
+\noindent The \textsf{biblatex-ieee} style implements the style rules of the American Psychological Association. It is a numeric style, in which \verb~\autocite~ produces numbered labels thus \cite{worman}. (There is a variant which produces alphabetic labels: consult the documentation.)
+
+\quad The package is loaded in the usual way:
+\begin{verbatim}
+     \usepackage[style=ieee]{biblatex}
+\end{verbatim}
+
+The bibliography here shows you straightforward examples of a book \autocite{worman}, an article \autocite{reese}, an edited book \autocite{aristotle:anima} and an essay in a collection \autocite{gaonkar:in}. In this example no \verb~sorting~ has been specified: the result is that the references appear in the bibliography in the order in which they were cited.
+
+
+
+\section*{Examples of citation commands}
+
+\begin{tabular}{ll}
+\verb|\cite{worman}| & \cite{worman} \\
+\verb|\autocite{worman}| & \autocite{worman} \\
+\verb|\textcite{worman}| & \textcite{worman} \\
+\verb|\footcite{worman}| & \emph{not used}
+\end{tabular}
+
+
+\printbibliography
+
+\end{document}

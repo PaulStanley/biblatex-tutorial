@@ -1,16 +1,22 @@
-\documentclass[nobib]{tufte-book}
+
+\documentclass[nobib,hyphens]{tufte-book}
 \usepackage[utf8]{inputenc}
 \usepackage{tikz}
 \usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage{rotating}
 \usepackage{etoolbox}
+\usepackage{pdfpages}
 \usepackage{xparse}
 \usepackage{standalone}
+%\usepackage{fontspec}
+%\setmainfont[Ligatures=TeX]{Scotch Modern}
+%\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+%\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
 \usetikzlibrary{trees}
 \newcommand{\package}[1]{\textsf{#1}}
 \newcommand{\biblatex}{\package{biblatex}}
-\newcommand{\bibtex}{\package{bib\TeX}}
+\newcommand{\bibtex}{\package{{\scshape bib}\TeX}}
 \newcommand{\gives}{\ensuremath{\rightarrow}}
 \usepackage[utf8]{inputenc}
 \newcommand{\angled}[1]{\ensuremath{\langle}{\normalfont\itshape #1\/}\ensuremath{\rangle}}
@@ -48,7 +54,11 @@
              citationcommands,
              bibliographyformat,
              subdivisions,
-			       sorting
+			       sorting,
+             languages,
+             tools,
+             troubleshooting,
+             styleeg
              }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -79,5 +89,15 @@
 \include{subdivisions}
 
 \include{sorting}
+
+\include{languages}
+
+\include{tools}
+
+\include{troubleshooting}
+
+\backmatter
+
+\include{styleeg}
 
 \end{document}

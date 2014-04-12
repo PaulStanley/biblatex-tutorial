@@ -1,4 +1,5 @@
-\chapter{The database file}
+%!TEX root=biblatex-tutorial.tex
+\chapter{The Database File}
 
 This chapter is intended as a basic introduction to database files. It deals only with commonly used types of source, leaving the more obscure corners to the manual. It starts from the ground up, for those who have no \bibtex\ or \biblatex\ experience. Those who are familiar with \bibtex\ already can probably skim the first part, but should read the later parts fairly carefully because \biblatex\, with \package{biber} is slightly different and considerably more powerful than \bibtex.
 
@@ -180,9 +181,9 @@ The german law of obligations
 \end{center}
 Where you know that a particular letter must never be changed, you should `protect' it with braces:
 \begin{center}
-\verb|The {G}erman Law of Obligations|
+\texttt{The \{German\}\footnote{You will sometimes see this done as \texttt{\{G\}erman}, but the method given in the text is better, because it ensures proper kerning.} Law of Obligations}
 \end{center}
-Otherwise it's best to enter titles, at least if you write in English, with `significant words capitalised', since \biblatex\ can easily remove all but the first capital, but cannot be expected to identify `significant words'.\footnote{In other words, if asked to capitalise the first letters of \texttt{The \{G\}erman law of obligations} it would end up with \emph{The German Law Of Obligations}, which is not correct.} As noted above, some styles put titles into `sentence case' --- with only the first word capitalised. If you don't want that, the right thing to do is not to attempt to outfox the style by manually protecting every capital with braces, because that makes your database file useless if you ever do want such changes. The right thing to do is to choose a different style, or modify it, to preserve your capitalization.
+Otherwise it's best to enter titles, at least if you write in English, with `significant words capitalised', since \biblatex\ can easily remove all but the first capital, but cannot be expected to identify `significant words'.\footnote{In other words, if asked to capitalise the first letters of \texttt{The German law of obligations} it would end up with \emph{The German Law Of Obligations}, which is not correct.} As noted above, some styles put titles into `sentence case' --- with only the first word capitalised. If you don't want that, the right thing to do is not to attempt to outfox the style by manually protecting every capital with braces, because that makes your database file useless if you ever do want such changes. The right thing to do is to choose a different style, or modify it, to preserve your capitalization.
 
 \subsection{Metadata}
 
@@ -190,7 +191,7 @@ There is a wide variety of metadata that you may, for various reasons, include i
 
 Of these various fields, two stand out for special mention at this point.
 
-\paragraph{Specifying hyphenation patterns}\marginnote{\newcommand{\english}{{\normalfont (English)}}The language options are: \ttfamily american \english, australian \english, austrian, brazil, british \english, canadian \english, canadien {\normalfont(French)}, catalan, czech, danish, dutch, finnish, french, german, greek, italian, naustrian, ngerman, norsk, nynorsk, portugues, russian, spanish, swedish.}Different languages are hyphenated in different ways. If you are writing a document in English, but cite a book whose title is in French, \LaTeX\ will have trouble hyphenating it correctly. You can specify the language in the |hyphenation| field. Then, \emph{provided you set the package option} |babel=hyphen|, the entry will be hyphenated using the appropriate language.
+\paragraph{Specifying hyphenation patterns}\marginnote{\newcommand{\english}{{\normalfont (English)}}The language options are: \ttfamily american \english, australian \english, austrian, brazil, british \english, canadian \english, canadien {\normalfont(French)}, catalan, czech, danish, dutch, finnish, french, german, greek, italian, naustrian, ngerman, norsk, nynorsk, portugues, russian, spanish, swedish.}Different languages are hyphenated in different ways. If you are writing a document in English, but cite a book whose title is in French, \LaTeX\ will have trouble hyphenating it correctly. You can specify the language in the |langid| field. Then, \emph{provided you set the package option} |autolang=hyphen|, the entry will be hyphenated using the appropriate language.
 
 \paragraph{Keywords} The |keywords| field enables you to provide one or more keywords (separated by commas). These can be useful if you want to separate out different kinds of source. For instance, if you wanted to produce different bibliographies by topic for an annotated bibliography, you could assign sources to particular topics using keywords. This subject is considered in more detail in [??] below.
 

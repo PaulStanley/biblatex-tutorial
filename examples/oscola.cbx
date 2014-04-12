@@ -1,0 +1,423 @@
+% Based on verbose-inote.cbx by Philip Lehman and others
+% Part of the OSCOLA package for biblatex: see the file
+% oscola.lbx for copyright and licence information
+
+\ProvidesFile{oscola.cbx}[2013/05/23 v1.2 Biblatex citation style for OSCOLA standard] 
+
+\RequireCitationStyle{verbose-inote}
+
+\newcommand{\bbx@ifnottrackingcites}{%
+  \ifx\blx@imc@ifciteseen\@secondoftwo
+  \expandafter\@firstoftwo\else
+  \expandafter\@secondoftwo\fi}
+
+\newcounter{bbx@lastcitedc}
+\newtoggle{bbx@samefootnote}
+
+% This checks citations for casenotes
+\AtEveryCite{%
+  \ifnum\value{bbx@lastcitedc} = \value{footnote}%
+  \toggletrue{bbx@samefootnote}%
+  \else
+  \togglefalse{bbx@samefootnote}%
+  \fi
+  \setcounter{bbx@lastcitedc}{\value{footnote}}}
+
+\DeclareBibliographyOption{eutreaty}[false]{%
+  \ifstrequal{#1}{alternative}
+    {}
+    {\renewbibmacro*{eutreatypostnote}{}}}
+
+%\renewcommand{\bibfootnotewrapper}[1]{#1\addperiod}
+\newtoggle{cbx@weareindexing}
+\toggletrue{cbx@weareindexing}
+
+% We do this largely to pick up the cases were ibid should not be used
+
+\renewbibmacro*{cite}{%
+  \usebibmacro{cite:citepages}%
+  \global\togglefalse{cbx:loccit}%
+  \ifboolexpr {test {\ifciteseen} or test {\ifciteibid}}
+    {\ifboolexpr {test {\iffieldundef{shorthand}}
+                  or test {\bbx@ifnottrackingcites}}
+       {\ifboolexpr{
+          test {\ifciteibid}
+	  and
+	  not test {\iffirstonpage}
+          and
+          not test {\iftoggle{bbx:suppressibid}}
+        }
+          {\usebibmacro{cite:ibid}}
+          {\usebibmacro{cite:short}}}
+       {\usebibmacro{cite:shorthand}}}
+    {\usebibmacro{cite:full}}}
+
+\renewbibmacro*{footcite}{%
+  \usebibmacro{cite:citepages}%
+  \global\togglefalse{cbx:loccit}%
+  \ifboolexpr {test {\ifciteseen} or test {\ifciteibid}}
+    {\ifboolexpr {test {\iffieldundef{shorthand}} 
+                  or test {\bbx@ifnottrackingcites}}
+       {\ifthenelse{\ifciteibid\AND\NOT\iffirstonpage}
+          {\usebibmacro{footcite:ibid}}
+          {\usebibmacro{footcite:note}}}%
+       {\usebibmacro{footcite:shorthand}}}
+    {\usebibmacro{footcite:full}%
+     \usebibmacro{footcite:save}}}
+
+
+\renewbibmacro*{citeindex}{%
+  \ifboolexpr{ test{\ifciteindex} and test{\iftoggle{cbx@weareindexing}}}
+    {\indexnames{labelname}%
+     \indexfield{indextitle}}
+    {}%
+  \global\toggletrue{cbx@weareindexing}}
+
+\newcommand{\DNI}{\togglefalse{cbx@weareindexing}}
+
+\newbibmacro*{footcite:note:old}{%
+  \ifboolexpr{ test {\ifentrytype{misc}} 
+               or test {\ifentrytype{legal}} 
+               or test {\ifentrytype{jurisdiction}}}
+    {\printfield[title]{labeltitle}\setunit*{\addspace}}
+    {\ifnameundef{labelname}%
+      {\printfield{label}}%
+      {\printnames{labelname}}%
+    \ifsingletitle%
+      {}%
+      {\setunit*{\nametitledelim}%
+       \printfield[title]{labeltitle}}%
+    \setunit*{\addspace}}%
+  \bbx@unsetpostnotedelim%
+  \printtext[parens]{%
+    \midsentence
+    \bibstring{seenote}\addnbspace%
+    \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+    \iftoggle{cbx:pageref}%
+      {\ifsamepage{\the\value{instcount}}%
+                  {\csuse{cbx@f@\thefield{entrykey}}}%
+         {}%
+	 {\addcomma\space\bibstring{page}\addnbspace%
+	  \pageref{cbx@\csuse{cbx@f@\thefield{entrykey}}}}}
+      {}}}
+      
+% This is the original verbose-inote short citation
+      
+\newbibmacro*{cite:oldshort}{%
+  \printnames{labelname}%
+  \setunit*{\nametitledelim}%
+  \printtext[bibhyperlink]{%
+    \printfield[citetitle]{labeltitle}}}
+	
+
+\newbibmacro*{cite:miscshort}{%
+  \iffieldundef{shorttitle}
+    {\iffieldundef{journaltitle}
+      {\printfield{title}}
+      {\printfield{journaltitle}}}
+    {\printfield{shorttitle}}%
+  \printtext[bibhyperlink]{%
+    \printfield[citetitle]{labeltitle}}}
+    
+\newbibmacro*{cite:shortleg}{%
+  \iffieldequals{entrysubtype}{\subtypecourtrules}
+  {\usebibmacro{cite:full}}
+  {\printtext[bibhyperlink]{%
+    \ifkeyword{eu}%
+    {\usebibmacro{shorteu}}%
+    {\iffieldequals{entrysubtype}{\subtypesecondarylegislation}
+     {\usebibmacro{title:or:shorttitle}%
+      \newunit
+      \iffootnote
+      {\bbx@unsetpostnotedelim%
+  \printtext[parens]{%
+    \midsentence
+    \bibstring{seenote}\addnbspace%
+    \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+    \iftoggle{cbx:pageref}%
+      {\ifsamepage{\the\value{instcount}}%
+                  {\csuse{cbx@f@\thefield{entrykey}}}%
+         {}%
+	 {\addcomma\space\bibstring{page}\addnbspace%
+	  \pageref{cbx@\csuse{cbx@f@\thefield{entrykey}}}}}}}
+    {\iffieldundef{number}
+       {}
+       {\setunit{\addcomma\space}%
+        \printfield{number}}}}
+    {\iffieldundef{title}%
+     {\iffieldundef{number}%
+       {\usebibmacro{cite:oldshort}}%
+       {\printfield{number}\setunit{\addcomma\space}}}%
+     {\usebibmacro{title:or:shorttitle}}}}}}}
+
+\newbibmacro*{shorteu}{%
+  \iffieldundef{shorttitle}%
+     {\usebibmacro{makeshorteu}}%
+     {\usebibmacro{eutreatypostnote}\printfield{shorttitle}}%
+  \ifboolexpr{test {\iffieldundef{shorthand}} and test {\iffootnote}}
+     {\newunit\printtext[parens]{%
+       \midsentence
+       \bibstring{seenote}\addnbspace%
+       \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+       \iftoggle{cbx:pageref}%
+      {\ifsamepage{\the\value{instcount}}%
+                  {\csuse{cbx@f@\thefield{entrykey}}}%
+         {}%
+	 {\addcomma\space\bibstring{page}\addnbspace%
+	  \pageref{cbx@\csuse{cbx@f@\thefield{entrykey}}}}}
+     {}}\bbx@unsetpostnotedelim}%
+  {\bbx@resetpostnotedelim}}%
+
+\renewbibmacro*{footcite:shorthand}{%
+  \ifboolexpr{ test {\ifentrytype{legislation}}%
+               and test {\iffieldequals{entrysubtype}{\eutreaty}} }%
+  {\usebibmacro{eutreatypostnote}%
+   \printtext[bibhyperlink]{\printfield{shorthand}}}
+  {\printtext[bibhyperlink]{\printfield{shorthand}}%
+   \bbx@resetpostnotedelim}}%
+
+\renewbibmacro*{cite:shorthand}{%
+  \ifboolexpr{ test {\ifentrytype{legislation}}%
+               and test {\iffieldequals{entrysubtype}{\eutreaty}} }
+  {\usebibmacro{eutreatypostnote}\printtext[bibhyperlink]{\printfield{shorthand}}}%
+  {\printtext[bibhyperlink]{\printfield{shorthand}}%
+   \bbx@resetpostnotedelim}}%
+
+
+\newbibmacro*{makeshorteu}{%
+  \ifboolexpr{ test {\iffieldundef{number}} or test {\iffieldundef{type}} }%
+    {\usedriver{}{legislation}}%
+    {\ifbibstring{\thefield{type}}%
+       {bibcpstring{\thefield{type}}}%
+       {\printfield{type}}%
+     \addnbspace\printfield{number}}}% Need to get this to refer back via notes.
+
+\providecommand*{\eutreaty}{eu-treaty}
+
+\global\newtoggle{cbx@postnoteprinted}
+
+\newbibmacro*{eutreatypostnote}{%
+  \iffieldequals{entrysubtype}{\eutreaty}
+    {\iffieldundef{prenote}{\bibsentence}{}%
+     \bbx@unsetpostnotedelim\usebibmacro{postnote}%
+     \iffieldundef{postnote}{}{\addspace}}
+    {}}
+
+\newbibmacro*{cite:refonlyfull}{%
+  \usebibmacro{cite:citepages}%
+  \global\togglefalse{cbx:loccit}%
+  \ifentrytype{jurisdiction}
+       {\clearfield{title}%
+        \clearfield{shorttitle}}%
+       {}%
+  \usebibmacro{cite:full}}
+
+% I've left this, although I think I probably won't use it because
+% it doesn't make sense to have "partial" references going back to 
+% note numbers
+
+\newbibmacro*{cite:refonlynote}{%
+  \usebibmacro{cite:citepages}%
+  \global\togglefalse{cbx:loccit}%
+  \iffootnote
+  {%
+  \printtext{%
+  \midsentence\bibstring{seenote}\addnbspace
+  \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\bbx@resetpostnotedelim%
+    \iftoggle{cbx:pageref}
+      {\ifsamepage{\the\value{instcount}}
+                  {\csuse{cbx@f@\thefield{entrykey}}}
+         {}
+	 {\addcomma\space\bibstring{page}\addnbspace
+	  \pageref{cbx@\csuse{cbx@f@\thefield{entrykey}}}}}
+      {}\bbx@resetpostnotedelim}}%
+   {\usebibmacro{cite:refonlyfull}}}
+
+\newbibmacro*{cite:refonly}{%
+ \ifentrytype{jurisdiction}
+  {\clearfield{title}\clearfield{shorttitle}}
+  {}%
+ \iffootnote{\usebibmacro{footcite}}}
+
+% These two macros need to be removed: they are not intended for
+% use; the remnant of a different scheme.
+\DeclareCiteCommand{\shortcite}%
+  {\usebibmacro{prenote}}%
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite:refonly}}%
+  {\multicitedelim}%
+  {\usebibmacro{cite:postnote}}%
+
+\DeclareCiteCommand{\footshort}[\mkbibfootnote]
+ {\usebibmacro{prenote}}
+ {\usebibmacro{citeindex}%
+  \usebibmacro{cite:refonly}}
+ {\multicitedelim}
+ {\usebibmacro{cite:postnote}}
+  
+\renewbibmacro*{cite:short}{%
+  \ifentrytype{legislation}%
+    {\usebibmacro{cite:shortleg}}
+    {\ifboolexpr{(
+       test {\ifentrytype{commentary}} 
+       or (test {\ifentrytype{legal}} and not test {\iffieldequals{entrysubtype}{\treatysubtype}} )
+       or (test {\ifentrytype{jurisdiction}} 
+         and (not test {\iffieldundef{userc}}) 
+         and (not test {\iffieldundef{postnote}})))}%
+     {\usebibmacro{cite:full}}
+     {\ifentrytype{misc}
+        {\usebibmacro{cite:miscshort}}
+        {\usebibmacro{cite:oldshort}}}}}
+
+\renewbibmacro*{footcite:note}{%
+  \ifboolexpr{test {\ifentrytype{legislation}}
+              or ( test {\ifentrytype{legal}} 
+                   and ( not test {\iffieldequals{entrysubtype}{\treatysubtype}} ))}%
+    {\usebibmacro{cite:short}}%
+    {\ifboolexpr{ test {\ifentrytype{commentary}} 
+	               or  ( test {\ifentrytype{legal}} and not test {\iffieldequals{entrysubtype}{\treatysubtype}}) }%
+      {\usebibmacro{footcite:full}}%
+      {\ifboolexpr{ ( test {\ifentrytype{jurisdiction}} 
+                      and 
+                    ( not test {\iffieldundef{userc}} 
+                      and not test {\iffieldundef{postnote}} )) 
+                    or (test {\ifentrytype{legal}} 
+                        and test {\iffieldequalstr{type}{parliamentary}} )}
+         {\usebibmacro{cite:full}}%
+	 {\ifboolexpr{ ( test {\ifentrytype{report}} and test {\iffieldequalstr{entrysubtype}{comdoc}} )}
+            {\usebibmacro{cite:refonlyfull}} % FIX THIS: will need a separate macro
+            {\usebibmacro{footcite:note:old}}}}}}%
+
+\DeclareCiteCommand{\reponly}%
+  {\usebibmacro{prenote}}%
+  {\usebibmacro{citeindex}% THIS MAY NEED TO CHANGE
+   \ifentrytype{jurisdiction}
+     {\usedriver{}{jurisdiction:reponly}}
+     {\iffootnote
+       {\usebibmacro{footcite}}
+       {\usebibmacro{cite}}}}
+  {\multicitedelim}
+  {\usebibmacro{cite:postnote}}
+
+\renewbibmacro*{footcite:ibid}{%
+  \ifboolexpr{ ( test {\iffieldundef{userc}} 
+                 or test {\iffieldundef{postnote}}) 
+               and not 
+                 test{\iffieldequals{entrysubtype}{\subtypecourtrules}} }%
+  {\printtext[bibhyperlink]{\iftoggle{bbx@capibid}{}{\midsentence}\bibstring{ibidem}}%
+  \ifloccit
+    {\global\toggletrue{cbx:loccit}}
+    {}}
+  {\usebibmacro{cite:refonlyfull}}}
+
+\DeclareCiteCommand{\footciteref}[\mkbibfootnote]
+ {\usebibmacro{prenote}}
+ {\usebibmacro{citeindex}%
+  \usebibmacro{cite:refonly}}
+ {\multicitedelim}
+ {\usebibmacro{cite:postnote}}
+
+\renewbibmacro*{cite:ibid}{%
+  \ifboolexpr{ ( test {\iffieldundef{userc}} 
+                 or test {\iffieldundef{postnote}}) 
+               and not 
+                 test{\iffieldequals{entrysubtype}{\subtypecourtrules}} }%
+  {\printtext[bibhyperlink]{\iftoggle{bbx@capibid}{\midsentence}{}\bibstring{ibidem}}%
+  \ifloccit
+    {\global\toggletrue{cbx:loccit}}
+    {}}
+  {\usebibmacro{cite:refonlyfull}}}
+
+% We take advantage of the prenote macro to do some messing with
+% the postnotes
+
+\DeclareListParser{\dopipedlist}{|}
+
+\def\setuppostnotes{%
+  \global\let\postnotefirst\@undefined%
+  \global\let\postnotesecond\@undefined%
+  \edef\cbx@tempa{{\thefield{postnote}}}%
+  \renewcommand\do[1]{%
+    \ifx\postnotefirst\@undefined
+      \gdef\postnotefirst{##1}%
+    \else
+      \gdef\postnotesecond{##1}%
+    \fi}%
+  \expandafter\dopipedlist\cbx@tempa}
+
+\renewbibmacro*{prenote}{%
+  \global\togglefalse{cbx@postnoteprinted}%
+  \setuppostnotes
+  \restorefield{postnote}{\postnotefirst}%
+  \savefield{prenote}{\cbx@legal@prenote}% this will go
+  \iffieldundef{prenote}%
+    {}%
+    {\printfield{prenote}%
+     \setunit{\prenotedelim}}}
+
+\DeclareCiteCommand{\citeinindex}
+  {}
+  {\usedriver{}{\thefield{entrytype}:index}}
+  {\multicitedelim}
+  {}
+
+\DeclareCiteCommand{\citeinindexnum}
+  {}
+  {\usedriver{\toggletrue{bbx@numcite}}{\thefield{entrytype}:index}}
+  {\multicitedelim}
+  {\togglefalse{bbx@numcite}}
+
+\DeclareCiteCommand{\indexonly}
+ {\usebibmacro{prenote}}
+ {\usebibmacro{citeindex}}
+ {}
+ {}
+
+% The following declarations are required for some reason that I cannot
+% understand. Unless so redefined, we get spacing problems with postnotes
+
+\DeclareCiteCommand{\fullcite}
+  {\usebibmacro{prenote}}
+  {\usebibmacro{cite:full}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
+\DeclareCiteCommand{\footfullcite}[\mkbibfootnote]
+  {\usebibmacro{prenote}}
+  {\usebibmacro{cite:full}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
+%\DeclareCiteCommand{\textcite}[\cbx@textcite\footciteref]
+%  {\gdef\cbx@savedkeys{}}
+%  {\ifboolexpr{ test {\ifentrytype{jurisdiction}} or test{\ifentrytype{legislation}} }
+%     {\usebibmacro{title:or:shorttitle}}%
+%     {\printnames{labelname}}%
+%   \xappto\cbx@savedkeys{\thefield{entrykey},}}
+%  {\multinamedelim}
+%  {\protected@xappto\cbx@savedcites{%
+%     [\thefield{prenote}][\thefield{postnote}]{\cbx@savedkeys}}}
+
+\newbibmacro{title:or:shorttitle}{%
+  \ifciteseen
+  {\iffieldundef{shorthand}
+   {\iffieldundef{shorttitle}
+     {\printfield{title}%
+      \ifentrytype{legislation}
+       {\newunit\usebibmacro{date}}
+       {}}%
+     {\printfield{shorttitle}}}%
+   {\printfield{shorthand}}}%
+  {\printfield{title}}}
+
+\renewbibmacro{textcite}{%
+  \ifentrytype{jurisdiction}
+    {\usebibmacro{title:or:shorttitle}}
+    {\ifentrytype{legislation}
+      {\usebibmacro{title:or:shorttitle}}}
+      {\ifnameundef{labelname}
+        {\printfield[citetitle]{labeltitle}}
+        {\printnames{labelname}}}}
+
+
+\endinput

@@ -494,6 +494,8 @@ achieve this: |\bibbysection| and |\bibbysegment|. They are ``smart'' in
 that they will not print a bibliography if a particular segment or
 section contains no citations at all.
 
+If you want \emph{both} subdivided bibliographies and a single ``global'' bibliography, there are two approaches. (1) You can use |refsegments|. If you then print a bibliography with \emph{no} |segment=...| selector, all segments will be printed. (2) If \emph{only} your cited sources are in the |.bib| file, you can use a |\nocite{*}| instruction within a |section| to print everything. Unfortunately there is no way to tell \biblatex\ to print a combined bibliography of multiple sections.
+
 \subsection{Some advice}
 
 In many cases, excessively divided bibliographies are more harmful than
