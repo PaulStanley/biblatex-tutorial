@@ -1,12 +1,17 @@
 MAKE=make
+LATEX=pdflatex
+LFLAG=-interaction=nonstopmode
+BIBER=biber
 
-all: tutorial
+all: biblatex-tutorial.pdf
 
-tutorial: biblatex-tutorial.tex bibstyles.tex
-	-pdflatex -interaction=nonstopmode biblatex-tutorial 
-
-examples:
-	$(MAKE) -C examples all
+biblatex-tutorial.pdf:
+	cd examples && $(MAKE)
+	$(LATEX) $(LFLAG) biblatex-tutorial
+	$(LATEX) $(LFLAG) biblatex-tutorial
 
 clean:
-	rm -f *.aux *.log *.blg *.bcf *.idx *.out *.toc *.bbl *.bcf *.xml
+	rm -f *.bbl *.log *.aux *.blg *.xml *.bcf
+
+superclean: clean
+	rm -f *.pdf

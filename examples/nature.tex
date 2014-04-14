@@ -1,0 +1,19 @@
+\input{standardpre1.tex}
+\usepackage[style=british]{csquotes}
+\usepackage[style=nature,backend=biber]{biblatex}
+\addbibresource{biblatex-examples.bib}
+\renewcommand{\showingstyle}{Nature}
+
+\input{standardpre2.tex}%
+The \textsf{biblatex-nature} style implements the style rules of the Journal \emph{Nature}. It is a numeric style, in which \verb~\autocite~ produces superscript labels thus \autocite{worman}. As can be seen below, the \verb|\footcite{}| command makes no sense with it, and should be avoided: in general you should use \verb|\autocite{}|.
+
+\quad The package is loaded in the usual way:
+\begin{verbatim}
+     \usepackage[style=nature]{biblatex}
+\end{verbatim}
+
+\input{standardpre3.tex}
+
+\input{standardpre4.tex}
+
+\end{document}

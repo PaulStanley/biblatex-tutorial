@@ -1,0 +1,153 @@
+%!TEX root=biblatex-tutorial.tex
+\chapter{Recipes}
+
+A comprehensive guide to customization is outside the scope of this book. But some requests for customization are very common, and it seems worthwhile to have a short chapter that provides some common recipes.
+
+\section{Names}
+
+\paragraph{I want at most 1/2/3/4 names printed before `and others'.} You need to change the value of |maxbibnames|, |maxcitenames|, |minbibnames| and/or |mincitenames|. As you might expect |maxbibnames| and |minbibnames| deal with what is printed in the bibliography, and |maxcitenames| and |mincitenames| deal with what is printed in a citation (if citations print names). You can change both with |maxnames| and |minnames|, which is what you normally want to do, and what we will do here. You set this value when loading \biblatex:
+\begin{pseudoverb}
+\cs{usepackage}[maxnames=2, minnames=1]\{biblatex\}
+\end{pseudoverb}
+
+The |maxnames| number holds the number of names that will \emph{trigger} truncation to `and others' (or `et al', or whatever). The |minnames| number is the number of names \emph{to which the list will be truncated if truncation occurs} (which must, obviously, be no more than the number that triggers truncation).
+
+Suppose we had an entry with four authors:
+\begin{Verbatim}
+...
+author = { Author, A. and Bauthor, B.
+           and Cauthor, C. and Dauthor, D.}
+...
+\end{Verbatim}
+
+The effect of various different settings of |maxnames| and |minnames| is shown in table \ref{maxnames}.
+
+\begin{table}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\texttt{maxnames} & \texttt{minnames} & Result \\
+\midrule
+1                 &  1                & A.\ Author et al \\
+2                 &  1                & A.\ Author et al \\
+2                 &  2                & A.\ Author, B. Bauthor, at al \\
+3                 &  1                & A.\ Author et al \\
+3                 &  2                & A.\ Author, B. Bauthor, et al \\
+3                 &  3                & A.\ Author, B. Bauthor, C. Cauthor, et al \\
+4                 &  any              & A.\ Author, B. Bauthor, C. Cauthor, and D. Dauthor \\
+\bottomrule
+\end{tabularx}
+\caption{Effect of \texttt{maxnames} and \texttt{minnames}\label{maxnames}}
+\end{table}
+
+\paragraph{I want something different from `et al' printed when names are truncated.} What gets printed in this case depends on the setting of two bibliography strings, and one delimeter:
+\begin{itemize}
+\item The bibstring |andothers| (by default `et al')
+\item The delimiter |andothersdelim| (by default ` ')
+\item The |\finalandcomma| (printed wherever a list would end in `and')
+\end{itemize}
+So to print `\& al.' rather than `, et al', one would put
+\begin{Verbatim}
+\DefineBibliographyStrings{english}% or your language
+  { andothers = {\& al\adddot}}
+...
+\renewcommand{\finalandcomma}{}
+\end{Verbatim}
+The redefinition of |\finalandcomma| needs to come \emph{after} |\begin{document}|.
+
+Things are a bit more complicated if you want to redefine |et al| in such a way that it will be different depending on how truncated the name is: for instance if you wanted `and others' if more than two names were truncated, but `and another' if only one was. For that purpose you would need the more extensive changes shown in figure \ref{andothers}.
+\begin{figure}
+\begin{Verbatim}[frame=single]
+\NewBibliographyString{andanother}
+\DefineBibliographyStrings{english}% or your language
+{ andothers = {and others},
+  andanother = {and another}}
+\renewbibmacro*{name:andothers}{%
+  \ifboolexpr{
+    test {\ifnumequal{\value{listcount}}{\value{liststop}}}
+    and
+    test \ifmorenames
+  }
+    {\ifnumgreater{\value{liststop}}{1}
+       {\finalandcomma}
+       {}%
+     \ifnumgreater{\value{listtotal} - \value{liststop}}{1}
+       {\andothersdelim\bibstring{andothers}}
+       {\andothersdelim\bibstring{andanother}}
+    }
+    {}}
+\end{Verbatim}
+\caption{Introduction of `and others' and `and another'\label{andothers}}
+\end{figure}
+
+\paragraph{I want/don't want multiple references to a single author to appear as a long dash.} In the author/year, author/title and verbose styles, you can control this with the option |dashed=true| or |dashed=false| when loading \biblatex. Non-standard styles are not obliged to provide this option, but most will do so.
+
+\paragraph{I want to have all names abbreviated to initials.} Set the option |firstinits=true| when loading \biblatex.
+
+\paragraph{I want to have initials printed in a different way.} By default, the standard styles of \biblatex\ print initials with spaces and abbreviation dots:
+\begin{quote}
+P.~M.~Stanley
+\end{quote}
+But other methods are available. If you set |terseinits=true| the initials are printed in a condensed way:
+\begin{quote}
+PM~Stanley
+\end{quote}
+If you want a `halfway house', you can redefine |\bibinitperiod|. By combining |terseinits| with |\renewcommand{\bibinitperiod}{\adddot}| you can produce
+\begin{quote}
+P.M. Stanley
+\end{quote}
+While by combining |terseinits=false| with |\renewcommand{\bibinitperiod}{}| you can produce
+\begin{quote}
+P~M~Stanley
+\end{quote}
+
+There is, however, a catch. None of these changes will operate unless \biblatex\ is producing the initials. In other words, none works unless the |firstinits| option is in effect. Where names are being printed in full, initials that you have entered will be printed (as entered) with full stops and spaces, regardless of the settings of |terseinits| or |\bibinitperiod|. (There are ways around this, but they are beyond the scope of this section: the curious might look at the OSCOLA package code, which does something along these lines.)
+
+\paragraph{I want names printed in bold/italic/small capitals etc.} How names are printed depends on four standard commands: \cs{mkbibnamefirst} (which prints the initials or first names), \cs{mkbibnameprefix} (which prints the `de' or `von' parts), \cs{mkbibnamelast} (which prints the last name) and \cs{mkbibnameaffix} (which prints the `Jr' part). Each or all of these can be redefined to alter the way names are printed. Each takes a single argument (the relevant part of the name), and can be used to format it.\footnote{For formatting emphatically or in bold, you should use \cs{mkbibbold} or \cs{mkbibemph}}.
+
+Suppose, for instance, that we had the following (peculiar) requirements: We want first names printed in bold, we want `von' and `Jr' parts printed emphatically, and we want the last name in small capitals. We define the following
+\begin{Verbatim}
+\renewcommand{\mkbibnamefirst}[1]{\mkbibbold{#1}}
+\renewcommand{\mkbibnameprefix}[1]{\mkbibemph{#1}}
+\renewcommand{\mkbibnameaffix}[1]{\mkbibemph{#1}}
+\renewcommand{\mkbibnamelast}[1]{\textsc{#1}}
+\end{Verbatim} 
+And obtain results as shown in figure \ref{namestyle}.
+\begin{figure}
+\begin{minipage}[t]{3in}
+ \tikz[thick]{
+ \node(firstname)[fill=red!40, xshift=25ex]{\strut\texttt{Klaus}};
+ \node(prefixname)[fill=blue!40, xshift=32ex]{\strut\texttt{von}};
+ \node(lastname)[fill=green!40, xshift=39.5ex]{\strut\texttt{Bulow}};
+ \node(affixname)[fill=orange!40, xshift=46ex]{\strut\texttt{III}};
+ \node(mkbibfirst)[fill=red!40,yshift=-10ex]{\cs[Klaus]{mkbibnamefirst}};
+ \node(mkbibbold)[fill=red!40,yshift=-20ex]{\cs[Klaus]{mkbibbold}};
+ \node(boldklaus)[fill=red!40,yshift=-30ex,xshift=25ex]{\strut\textbf{Klaus}};
+ \node(mkbibprefix)[fill=blue!40, xshift=19ex, yshift=-15ex]{\cs[von]{mkbibprefix}};
+ \node(mkbibemph1)[fill=blue!40, xshift=19ex, yshift=-25ex]{\cs[von]{mkbibemph}};
+ \node(emvon)[fill=blue!40, xshift=32ex, yshift=-30ex]{\emph{\strut von}};
+ \node(mkbiblast)[fill=green!40, xshift=39.5ex, yshift=-10ex]{\cs[Bulow]{mkbibnamelast}};
+ \node(scname)[fill=green!40, xshift=39.5ex, yshift=-20ex]{\cs[Bulow]{textsc}};
+ \node(scbulow)[fill=green!40, xshift=39.5ex, yshift=-30ex]{\strut\textsc{Bulow}};
+ \node(mkbibaffix)[fill=orange!40, xshift=55ex, yshift=-15ex]{\cs[III]{mkbibaffix}};
+ \node(mkbibemph2)[fill=orange!40, xshift=55ex, yshift=-25ex]{\cs[III]{mkbibemph}};
+ \node(emiii)[fill=orange!40, xshift=46ex, yshift=-30ex]{\strut\emph{III}};
+ \path[-stealth] (firstname.west) edge [out=180, in=90] (mkbibfirst.north);
+ \path[-stealth] (mkbibfirst.south) edge [out=-90, in=90] (mkbibbold.north);
+ \path[-stealth] (mkbibbold.south) edge [out=-90, in=180] (boldklaus.west);
+ \path[-stealth] (prefixname.south) edge [out=-90, in=90] (mkbibprefix.north);
+ \path[-stealth] (mkbibprefix.south) edge [out=-90, in=90] (mkbibemph1.north);
+ \path[-stealth] (mkbibemph1.east) edge [out=0, in=90] (emvon.north);
+ \path[-stealth] (lastname.south) edge [out=-90, in=90] (mkbiblast.north);
+ \path[-stealth] (mkbiblast.south) edge [out=-90, in=90] (scname.north);
+ \path[-stealth] (scname.south) edge [out=-90, in=90] (scbulow.north);
+ \path[-stealth] (affixname.east) edge [out=0, in=90] (mkbibaffix.north);
+ \path[-stealth] (mkbibaffix.south) edge [out=-90, in=90] (mkbibemph2.north);
+ \path[-stealth] (mkbibemph2.south) edge [out=-90, in=0] (emiii.east);
+ }
+\end{minipage}
+\caption{How names are styled\label{namestyle}}
+\end{figure}
+
+Of course, it's usually unnecessary to have so many different definitions. A much more common approach would be to have all the various parts of a name formatted in the same way. But the flexibility is there if you need it.
+
+\paragraph{I want the names to be printed `Firstname Lastname', but I'm getting `Lastname, Firstname'}

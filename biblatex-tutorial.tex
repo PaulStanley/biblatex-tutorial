@@ -21,6 +21,7 @@
 \usepackage[utf8]{inputenc}
 \newcommand{\angled}[1]{\ensuremath{\langle}{\normalfont\itshape #1\/}\ensuremath{\rangle}}
 \usepackage{booktabs}
+\usepackage{tabularx}
 \newenvironment{pseudoverb}{\begin{list}{}{}\ttfamily\item}{\end{list}}
 \DeclareDocumentCommand{\cs}{O {} O {} m}
 {\begingroup
@@ -56,6 +57,7 @@
              subdivisions,
 			       sorting,
              languages,
+             recipes,
              tools,
              troubleshooting,
              styleeg
@@ -91,6 +93,8 @@
 \include{sorting}
 
 \include{languages}
+
+\include{recipes}
 
 \include{tools}
 

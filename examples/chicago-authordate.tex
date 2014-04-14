@@ -1,16 +1,12 @@
-\documentclass{article}
-\usepackage{mathptmx}
-\usepackage[style=british]{csquotes}
+\input{standardpre1.tex}
+\usepackage[style=american]{csquotes}
+\usepackage[american]{babel}
 \usepackage[authordate,backend=biber]{biblatex-chicago}
 \addbibresource{biblatex-examples.bib}
-\begin{document}
-\title{The \texttt{biblatex-chicago} style\\with \texttt{authordate} option}
-\author{}\date{}
-\maketitle
-\thispagestyle{empty}\pagestyle{empty}
+\renewcommand{\showingstyle}{chicago author/date}
 
-\noindent
-The \textsf{biblatex-chicago} style comes in two flavours, implementing the \emph{Chicago Manual of Style}. The \enquote{authordate} style, shown here, is intended to put full references in the text, using an author/date system: \verb|\autocite| is therefore equivalent to \verb|\cite|. Thus, for instance, if we cite a book\ autocite{worman} or an article \autocite{reese} we get the reference in the text. The \verb|\textcite| command is important in such styles, also works as expected, thus: see \textcite{worman}.
+\input{standardpre2.tex}%
+\noindent The \textsf{biblatex-chicago} style comes in two flavours, implementing the \emph{Chicago Manual of Style}. The \enquote{authordate} style, shown here, is intended to put full references in the text, using an author/date system: \verb|\autocite| is therefore equivalent to \verb|\cite|. Thus, for instance, if we cite a book\ autocite{worman} or an article \autocite{reese} we get the reference in the text. The \verb|\textcite| command is important in such styles, also works as expected, thus: see \textcite{worman}.
 
 \quad There are some special features to this style. Instead of loading \textsf{biblatex}, you invoke it by loading the \textsf{biblatex-chicago} package itself (with the option \verb|authordate| for the author/date style):
 \begin{verbatim}
@@ -18,19 +14,10 @@ The \textsf{biblatex-chicago} style comes in two flavours, implementing the \emp
 \end{verbatim}
 The style provides support for various types of source that are not catered for by standard \textsf{biblatex}, such as music and recordings. It has an extensive range of options. You should consult the documentation.
 
-Note that in this sample I have loaded \textsf{csquotes} with the \verb~style=british~ option; had I loaded it with the \verb~style=american~ we would get double quotation marks around article titles.
+Note that in this sample I have loaded \textsf{csquotes} with the \verb~style=american~ option; had I loaded it with the \verb~style=british~ we would get single quotation marks around article titles.
 
-The bibliography here shows you straightforward examples of a book \autocite{worman}, an article \autocite{reese}, an edited book \autocite{aristotle:anima} and an essay in a collection \autocite{gaonkar:in}.
+\input{standardpre3.tex}
 
-\section*{Examples of citation commands}
-
-\begin{tabular}{ll}
-\verb|\cite{worman}| & \cite{worman} \\
-\verb|\autocite{worman}| & \autocite{worman} \\
-\verb|\textcite{worman}| & \textcite{worman} \\
-\verb|\footcite{worman}| & \strut\footcite{worman}
-\end{tabular}
-
-\printbibliography
+\input{standardpre4.tex}
 
 \end{document}

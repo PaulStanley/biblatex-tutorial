@@ -1,6 +1,6 @@
 \chapter{What is \package{biblatex}?}
 
-This chapter exists in two quite different versions. If you are \emph{entirely new to automated bibliography tools in \LaTeX}, then you should read the first section. If you already have experience of using automated bibliography tools in \LaTeX, such as bibtex and natbib, then you should read the second section.
+This chapter exists in two different sections, intended for different audiences. If you are \emph{entirely new to automated bibliography tools in \LaTeX}, then you should read the first section. If you already have experience of using automated bibliography tools in \LaTeX, such as \bibtex\ and \package{natbib}, then you can probably jump straight to the second section.
 
 \section{For the true neophyte}
 
@@ -10,9 +10,9 @@ Academic papers usually cite sources. The exact form of these citations varies: 
 
 It is, of course, possible to produce all these indications entirely `by hand': typing out references, bibliographies and so forth. But there are disadvantages to doing that:
 \begin{itemize}
-\item It is time-consuming. If you write lots of papers, you will probably find yourself citing the same sources again and again. It's annoying to have to keep looking up and typing out the same data. You have to spend time doing things like organising your bibliography into the proper order.
+\item It is time-consuming. If you write lots of papers, you will probably find yourself citing the same sources again and again. It's tedious to have to keep looking up and typing out the same data. You have to spend time doing things like organising your bibliography into the proper order.
 \item It is error-prone. Every time you type data up, you risk making a mistake: either a mistake of substance (typing `Stanely' for `Stanley'), or in the way the data is formatted.
-\item It is annoying. Each citation system has its own picky requirements. One wants the titles of articles in double quotes, ``Like this''. Another wants them in single quotes, `Like this'. Another wants them in italics \emph{Like this}. There are specialists who revel in such details: but for the average person they are just a nuisance, and it would be nice to have a system which took care of these details for you.
+\item It can be frustrating. Each citation system has its own picky requirements. One wants the titles of articles in double quotes, ``Like this''. Another wants them in single quotes, `Like this'. Another wants them in italics \emph{Like this}. There are specialists who revel in such details: but for the average person they are just a nuisance, and it is nice to have a system which takes care of these details for you.
 \item The details sometimes change as you write. For instance, if you use a system where references are numbered, adding a reference will often change all the numbering. Or if you use a traditional system which uses abbreviations such as `ibid' or `op.\ cit.', adding a reference to one footnote can change others. In such systems it's not possible to finalize references until the document is complete: and every change can easily introduce errors.
 \end{itemize}
 
@@ -52,7 +52,7 @@ This `pattern' (\LaTeX, \package{biber}, \LaTeX, (\LaTeX)) is repeated whenever 
 
 \subsection{A quick demonstration\label{neophyte:example}}
 
-Why not try a quick example. I assume for these purposes that you have a fully-equipped and functional \TeX\ system, and have installed the pre-requisites for \biblatex. If you are in any doubt about that, have a look at Appendix [].
+Why not try a quick example. I assume for these purposes that you have a fully-equipped and functional \TeX\ system, and have installed the pre-requisites for \biblatex. This will be true on any of the standard modern \TeX\ installations; but it's not a bad idea to update to at least the most recent versions of \biblatex\ and \package{biber}, since both are under active development.
 
 First, let's set up our `database'. It's not going to be much: just a single book.
 
@@ -110,7 +110,7 @@ Now run \LaTeX\ again on the source file \verb|test.tex|. And if all is going we
 As you can see, the citation data has been pulled into the bibliography. If the output remains unchanged (it looks like figure \ref{nussbaum1}) that is because \package{biber} has not successfully run. That is \emph{probably} because there is some error in your |.bib| file, so go back and check that. Any time you see this, you should ask yourself these questions:\marginnote{\textit{Debugging}\\1. \texttt{\textbackslash bibresource} specified?\\2. Run \LaTeX\, \package{biber}, \LaTeX?\\3. \package{biber} was error-free?\\4. Cite key is correct?\\5. \texttt{.bib} file contains source?\\6. Entry in \texttt{.bib} file is valid?} (1) have I told \biblatex\ where to find the bibliography file (using |\addbibresource{}|? (2) Have I run \LaTeX\ then \package{biber} then \LaTeX\ again? (3) Did \package{biber} report any errors? (4) Is my citation \emph{key} correct (e.g., you haven't typed |nusbaum| for |nussbaum| in the \LaTeX\ source? (5) Does the |.bib| file include that citation? (6) Is the syntax of the citation correct?
 \subsection{What next}
 
-There is still quite a bit to learn, of course. To some extent it's up to you how you go from here, but the following chapters take what I think is a reasonably logical order. But you might like to look at Appendix [] before going further: it may help you to set up your \LaTeX\ work environment in a way that is a \biblatex\ friendly as possible.
+There is still quite a bit to learn, of course. To some extent it's up to you how you go from here, but the following chapters take what I think is a reasonably logical order, though you might like to look first at chapter \ref{chapter:tools}, which may help you to set up your \LaTeX\ work environment in a convenient way.
 
 \section{For the more experienced}
 
@@ -146,18 +146,23 @@ The main differences between using \biblatex\ and `standard' \bibtex\ are as fol
 
 \begin{itemize}
 \item You need to load \biblatex\ as a package using \cs{usepackage} (generally with various options). It's generally wise to load \package{csquotes} as well.
-\item Instead of \cs{bibliographystyle}, you specify the style to be used as an option when loading \biblatex:\\
-\centerline{\cs{usepackage[style=\ldots]\{biblatex\}}}
-\item Instead of specifying the \verb|.bib| file as an argument to the \cs{bibliography} command, you use the command \cs{addbibresource\{\}} to identify the file(s). You specify the file(s) to be used completely, including their \verb|.bib| suffixes. So if your bibliography file is called \verb|mybib.bib|, you have\\
-\centerline{\cs{addbibresource\{mybib\textbf{.bib}\}}}
+\item Instead of \cs{bibliographystyle}, you specify the style to be used as an option when loading \biblatex:
+\begin{pseudoverb}\centering
+\cs{usepackage}[style=\ldots]\{biblatex\}
+\end{pseudoverb}
+\item Instead of specifying the \verb|.bib| file as an argument to the \cs{bibliography} command, you use the command \cs{addbibresource\{\}} to identify the file(s). You specify the file(s) to be used completely, including their \verb|.bib| suffixes. So if your bibliography file is called \verb|mybib.bib|, you have
+\begin{pseudoverb}
+\centering
+\cs[mybib\textbf{.bib}]{addbibresource}
+\end{pseudoverb}
 \item Instead of \cs{bibliography}, you use \cs{printbibliography} at the point where the bibliography should be printed.
 \end{itemize}
 
-One important point to understand: existing \bibtex\ styles cannot be directly used by \biblatex. The `standard' styles in \biblatex\ do not precisely correspond to the standard styles in \bibtex.\footnote{There is, however, a project to provide \biblatex\ styles that are identical to the standard \bibtex\ ones.}
+One important point to understand: existing \bibtex\ styles cannot be directly used by \biblatex. The `standard' styles in \biblatex\ do not precisely correspond to the standard styles in \bibtex.\footnote{There is a project to provide \biblatex\ styles that are identical to the standard \bibtex\ ones: the \package{biblatex-trad} package. It has, however, only reached version 0.2, and does not seem to have been actively developed recently.}
 
 \subsection{An example}
 
-Find an existing \verb|.bib| file of your own (or, if you are pushed to find one, make use of a standard file such as \verb|biblatex-examples.bib|, which will be installed with \verb|biblatex|).
+Find an existing \verb|.bib| file of your own (or, if you are pushed to find one, make use of a standard file such as \verb|biblatex-examples.bib|, which will be installed with \biblatex).
 
 Try the following sample document:
 
@@ -174,7 +179,7 @@ Try the following sample document:
 \end{document}
 \end{verbatim}
 
-If you run \LaTeX, \bibtex, and \LaTeX again, you should find that a numbered bibibliography is produced. Now see if you can get it to work with \package{biber}. Replace line 2 with
+If you run \LaTeX, \bibtex, and \LaTeX\ again, you should find that a numbered bibibliography is produced. Now see if you can get it to work with \package{biber}. Replace line 2 with
 \begin{center}
 \cs{usepackage[backend=biber,style=numeric]\{biblatex\}}
 \end{center}

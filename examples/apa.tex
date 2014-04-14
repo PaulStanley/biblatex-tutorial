@@ -1,19 +1,11 @@
-\documentclass{article}
-\usepackage{mathptmx}
+\input{standardpre1.tex}
 \usepackage[style=british]{csquotes}
 \usepackage[style=apa,backend=biber]{biblatex}
+\renewcommand{\showingstyle}{APA}
 \DeclareLanguageMapping{english}{english-apa}
-\usepackage{enumitem}
-\usepackage[T1]{fontenc}
 \addbibresource{biblatex-examples.bib}
-\begin{document}
-\title{The \texttt{APA} style}
-\author{}\date{}
-\maketitle
-\thispagestyle{empty}
-
-
-\noindent The \textsf{biblatex-apa} style implements the style rules of the American Psychological Association. It is an author/date style in which \verb~\autocite~ produces parenthetical citations \autocite{worman, reese}, and in which \verb~\textcite~ is frequently required, thus: see \textcite{worman}.
+\input{standardpre2.tex}%
+The \textsf{biblatex-apa} style implements the style rules of the American Psychological Association. It is an author/date style in which \verb~\autocite~ produces parenthetical citations \autocite{worman, reese}, and in which \verb~\textcite~ is frequently required, thus: see \textcite{worman}.
 
 The package is loaded in the usual way:
 \begin{verbatim}
@@ -25,18 +17,8 @@ The one \enquote{trick} with this style is that it is important to load an appro
 \end{verbatim}
 (substituting, of course, your own language). If you don't do this, you will get errors.
 
-The bibliography here shows you straightforward examples of a book \autocite{worman}, an article \autocite{reese}, an edited book \autocite{aristotle:anima} and an essay in a collection \autocite{gaonkar:in}.\footcite{worman}
+\input{standardpre3.tex}
 
-\section{Examples of Citation Commands}
-
-\begin{description}[font=\ttfamily]
-\item[\textbackslash cite\{worman\}:] \cite{worman}
-\item[\textbackslash autocite\{worman\}:] \autocite{worman}
-\item[\textbackslash textcite\{worman\}:] \textcite{worman}
-\item[\textbackslash footcite\{worman\}:] \strut\footcite{worman}
-\end{description}
-
-\printbibliography
-
+\input{standardpre4.tex}
 
 \end{document}

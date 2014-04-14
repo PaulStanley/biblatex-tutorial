@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[maxnames=3,minnames=1,terseinits=true,firstinits=true,backend=biber]{biblatex}
+\addbibresource{bl-tutorial-eg.bib} 
+\addbibresource{biblatex-examples.bib}
+\NewBibliographyString{andanother}
+\DefineBibliographyStrings{english}
+ { andothers = {and others},
+   andanother = {and another}}
+\renewbibmacro*{name:andothers}{%
+  \ifboolexpr{
+    test {\ifnumequal{\value{listcount}}{\value{liststop}}}
+    and
+    test \ifmorenames
+  }
+    {\ifnumgreater{\value{liststop}}{1}
+       {\finalandcomma}
+       {}%
+       \ifnumgreater{\value{listtotal} - \value{liststop}}{1}
+       {\andothersdelim\bibstring{andothers}}
+       {\andothersdelim\bibstring{andanother}}
+       }
+    {}}
+\begin{document}
+\nocite{*}
+\renewcommand{\finalandcomma}{}
+\renewcommand{\mkbibnamelast}[1]{\mkbibbold{#1}}
+\renewcommand{\mkbibnamefirst}[1]{\textit{#1}}
+%\renewcommand{\bibinitperiod}{\adddot}
+\printbibliography
+\end{document}

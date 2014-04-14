@@ -7,7 +7,7 @@ all: cotton-alphabeticu.pdf cotton-authoryearu.pdf cotton-numericu.pdf\
 	database-eg2.pdf database-eg3.pdf database-eg4.pdf cotton-springer-myenv.pdf\
 	sorting-eg1.pdf sorting-eg2.pdf mla.pdf oscola.pdf chicago-authordate.pdf\
 	chicagonotes.pdf ieee.pdf apa.pdf dw-authortitle.pdf dw-footnote.pdf\
-	duallanguage.pdf proust1.pdf proust2.pdf
+	duallanguage.pdf proust1.pdf proust2.pdf nature.pdf
 
 %.pdf: %.bbl
 	$(LATEX) $(LFLAG) $(basename $^)

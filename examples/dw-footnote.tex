@@ -1,23 +1,13 @@
-\documentclass{article}
-\usepackage{mathptmx}
-\usepackage[style=british]{csquotes}
+\input{standardpre1.tex}
+\usepackage[style=german]{csquotes}
+\usepackage[german,english]{babel}
 \usepackage[style=footnote-dw,backend=biber]{biblatex}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{tabularx}
 \addbibresource{biblatex-examples.bib}
 \addbibresource{bl-tutorial-eg.bib}
-\usepackage[british]{babel}
+\renewcommand{\showingstyle}{dw-footnote}
 
-\begin{document} 
-
-\title{The \texttt{footnote-dw} style}
-\author{}\date{} 
-\maketitle 
-\thispagestyle{empty}
-
-\noindent
-The \textsf{footnote-dw} style is a style produced by Dominik Waßenhoven. It was designed for use in the humanities; and it is intended to be very highly customizable. It comes in two flavours: author/title (shown as the previous example) and a verbose style, intended only for use in footnotes, (shown next).
+\input{standardpre2.tex}
+The \textsf{footnote-dw} style is a style produced by Dominik Waßenhoven. It was designed for use in the humanities; and it is intended to be very highly customizable. It comes in two flavours: author/title and a verbose style, intended only for use in footnotes, shown here.
 
 The style is particularly disciplinarian about requring citations into footnotes: even \verb~\cite~ is placed in a footnote automatically (and \verb~\textcite~, although it does give the author's name in the text, also creates a footnote reference).
 
@@ -26,18 +16,10 @@ The style is particularly disciplinarian about requring citations into footnotes
      \usepackage[style=footnote-dw]{biblatex}
 \end{verbatim}
 
-\quad The bibliography here shows you straightforward examples of a book \autocite{worman}, an article \autocite{reese}, an edited book \autocite{aristotle:anima} and an essay in a collection \autocite{gaonkar:in}.  But the main strength of the package is really its flexibility and the ability to customize it, on which the package documentation should be consulted.
+On this occasion, I display the bibliography formatted in the German language style.\selectlanguage{german}
 
-\section*{Examples of Citation Commands}
+\input{standardpre3.tex}
 
-\begin{tabular}{ll}
-\verb|\cite{worman}| & \strut\cite{worman} \\
-\verb|\autocite{worman}| & \strut\autocite{worman} \\
-\verb|\textcite{worman}| & \textcite{worman} \\
-\verb|\footcite{worman}| & \strut\footcite{worman}
-\end{tabular}
-
-
-\printbibliography[title={Sample Bibliography}]
+\input{standardpre4.tex}
 
 \end{document}

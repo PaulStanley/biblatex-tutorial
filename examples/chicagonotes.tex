@@ -1,15 +1,9 @@
-\documentclass{article}
-\usepackage{mathptmx}
+\input{standardpre1.tex}
 \usepackage[style=british]{csquotes}
 \usepackage[notes,backend=biber]{biblatex-chicago}
 \addbibresource{biblatex-examples.bib}
-\begin{document}
-\title{The \texttt{biblatex-chicago} style\\with \texttt{notes} option}
-\author{}\date{}
-\maketitle
-
-\thispagestyle{empty}\pagestyle{empty}
-
+\renewcommand{\showingstyle}{chicago notes}
+\input{standardpre2.tex}%
 The \textsf{biblatex-chicago} style comes in two flavours, implementing the \emph{Chicago Manual of Style}. The \enquote{notes} style, shown here, is intended to put full references in footnotes: \verb|\autocite| is therefore equivalent to \verb|\footcite|. Thus, for instance, if we cite a book\footcite{worman} or an article,\footcite{reese} we get the reference in a footnote. Repeated references to the same source, such as this,\footcite{reese}, produce \enquote{Ibid}, while references to a previously cited work, like this,\footcite{worman} produce abbreviated references to author and title (but do not cross-refer back to the note where the source was first cited).
 
 There are some special features to this style. Instead of loading \textsf{biblatex}, you invoke it by loading the \textsf{biblatex-chicago} package itself (with the option \verb|notes| for the note style):
@@ -20,17 +14,8 @@ The style provides support for various types of source that are not catered for 
 
 Note that in this sample I have loaded \textsf{csquotes} with the \verb~style=british~ option; had I loaded it with the \verb~style=american~ we would get double quotation marks around article titles.
 
-The bibliography here shows you straightforward examples of a book \autocite{worman}, an article \autocite{reese}, an edited book \autocite{aristotle:anima} and an essay in a collection \autocite{gaonkar:in}.
+\input{standardpre3.tex}
 
-\medskip
-
-\begin{tabular}{ll}
-\verb|\cite{worman}| & \cite{worman} \\
-\verb|\autocite{worman}| & \strut\autocite{worman} \\
-\verb|\textcite{worman}| & \textcite{worman} \\
-\verb|\footcite{worman}| & \strut\footcite{worman}
-\end{tabular}
-
-\printbibliography
+\input{standardpre4.tex}
 
 \end{document}
