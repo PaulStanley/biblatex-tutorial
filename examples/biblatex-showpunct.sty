@@ -1,0 +1,157 @@
+% 
+% This is the file biblatex-showpunct.sty
+%
+\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+\ProvidesPackage{biblatex-showpunct}
+[2014/04/16 v0.1 show biblatex punctuation]
+
+\DeclareOption{newunit}{\toggletrue{blsp@newunit}}
+\newtoggle{blsp@newunit}
+\togglefalse{blsp@newunit}
+
+\ProcessOptions\relax
+
+\@ifpackageloaded{biblatex}
+  {}
+  {\PackageError{biblatex-showpunct}
+     {biblatex not loaded}
+     {You must load the biblatex package before loading biblatex-showpunct}}
+\RequirePackage{xcolor}
+%We know that etoolbox is loaded, becuase biblatex uses it
+
+% Counters and lists
+\newcounter{blsp@listcount}
+\setcounter{blsp@listcount}{0}
+
+\newcommand{\blsp@watchlist}{}
+\newcommand{\blsp@list}{}
+
+
+%Formatting commands, the last three intended for users
+\newcommand{\blsp@cs}[1]{\begingroup\blspcsfont\textbackslash#1\endgroup}
+\newcommand{\blspcsfont}{\ttfamily}
+\newcommand{\blsplabelfont}{\sffamily\upshape}
+\newcommand{\blspcolor}{red}
+\newcommand{\blspnbcolor}{blue}
+\newcommand{\blsptitle}{Legend}
+
+% Patching commands
+\newcommand{\blsp@patchcmd}[1]{%
+ \cspreto{#1}
+ {\ifcsdef{blsp@#1}
+    {}
+    {\listgadd{\blsp@list}{#1}%
+     \addtocounter{blsp@listcount}{1}%
+     \expandafter\xdef\csname blsp@#1\endcsname
+     {\arabic{blsp@listcount}}}%
+  \edef\@tempa{\csname blsp@#1\endcsname}%
+  \blsp@label{\@tempa}}}
+
+% Internal command for printing labels
+\newcommand{\blsp@label}[1]{%
+  \makebox[0pt][l]{%
+    \raisebox{0.7\baselineskip}{%
+     \color{\blspcolor}%
+     \raisebox{-0.3\baselineskip}{\rule{0.4pt}{0.8\baselineskip}}%
+     \hspace{1pt}%
+     \footnotesize%
+     \blsplabelfont%
+     #1}}}
+\newcommand{\blsp@lowlabel}{%
+   \makebox[0pt][l]{%
+   \raisebox{-0.5\baselineskip}%
+    {\color{\blspnbcolor}%
+    \rule{0.4pt}{0.6\baselineskip}\scriptsize\blsplabelfont U}}}
+
+% Internal commands to reset lists and counters
+\newcommand{\blsp@flushlist}{\renewcommand{\blsp@list}{}}
+\newcommand{\blsp@resetcounter}{%
+  \renewcommand{\do}[1]{%
+    \expandafter\let\csname blsp@##1\endcsname\@undefined}
+  \dolistloop{\blsp@watchlist}%
+  \setcounter{blsp@listcount}{0}}
+
+
+% User interface to set lists
+\newcommand{\SetWatchList}[1]{%
+ \renewcommand{\blsp@list}{}
+ \renewcommand{\do}[1]{\listadd{\blsp@watchlist}{##1}}
+ \docsvlist{#1}
+}
+
+\newcommand{\WatchAlso}[1]{%
+ \listadd{\blsp@watchlist}{#1}}
+
+% We don't set \newunit or \newblock, because that tends to get confusing
+\newcommand{\WatchAll}{%
+  \SetWatchList{%
+  bibnamedlima,
+  bibnamedlimb,
+  bibnamedelimc,%
+  bibnamedelimd,%
+  bibnamedelimi,%
+  bibinitperiod,%
+  bibinitdelim,%
+  revsdnamepunct,%
+  bibnamedash,%
+  labelnamepunct,%
+  subtitlepunct,%
+  intitlepunct,%
+  bibpagespunct,%
+  bibpagerefpunct,%
+  multinamedelim,%
+  finalnamedelim,%
+  revsdnamedelim,%
+  andothersdelim,%
+  multilistdelim,%
+  finallistdelim,%
+  andmoredelim,
+  multicitedelim,%
+  supercitedelim,%
+  postnotedelim,%
+  prenotedelim,%
+  compcitedelim,
+  textcitedelim,%
+  nametitledelim,%
+  nameyeardelim,%
+  volcitedelim,%
+  relatedpunct,%
+  relateddelim,
+  finentrypunct,%
+%  bibrangedash, CAUSES PROBLEM
+%  bibrangesep, CAUSES PROBLEM
+%  finalandcomma, CAUSES PROBLEM
+  entrysetpunct,%
+% bibdatedash% CAUSES PROBLEM
+% newunitpunch PRODUCES TOO MUCH NOISE
+% newblockpunct PRODUCES TOO MUCH NOISE
+  }}%
+
+\newcommand{\showwatching}{%
+ \begingroup\flushleft
+ \renewcommand{\do}[1]{\blsp@cs{##1, }}%
+ Watching:
+ \dolistloop{\blsp@watchlist}\par\endgroup}
+
+% Usercommand to print punctuation list
+\newcommand{\printpunctuationlist}{%
+  \ifdefempty{\blsp@list}
+    {}
+    {\subsection*{\blsptitle}%
+    {\renewcommand{\do}[1]{\item\blsp@cs{##1}}
+     \begin{enumerate}%
+     \dolistloop{\blsp@list}
+     \iftoggle{blsp@newunit}
+       {\item[U.] \blsp@cs{newunitpunct}}
+       {}
+     \end{enumerate}}%
+    \blsp@flushlist\blsp@resetcounter}}
+
+\AtBeginDocument{%
+  \blsp@flushlist%
+  \renewcommand{\do}[1]{%
+  \blsp@patchcmd{#1}}
+  \dolistloop{\blsp@watchlist}
+  \iftoggle{blsp@newunit}
+    {\cspreto{newunitpunct}{\blsp@lowlabel}}
+    {}}

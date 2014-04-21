@@ -1,0 +1,13 @@
+\documentclass[varwidth=2in,border=5pt]{standalone}
+\usepackage[style=numeric,sortcites=true]{biblatex}
+\usepackage{mathptmx}
+\usepackage[scaled=0.92]{helvet}
+\usepackage{biblatex-showpunct}
+\WatchAll
+\WatchAlso{bibrangedash}
+\addbibresource{biblatex-examples.bib}
+\renewcommand{\multicitedelim}{\slash}
+\begin{document}
+\cite{augustine, worman} \cite{reese, augustine, cotton} 
+
+\end{document}

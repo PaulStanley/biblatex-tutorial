@@ -1,3 +1,4 @@
+%!TEX root=biblatex-tutorial.tex
 \chapter{Citation Commands}
 
 
@@ -253,6 +254,33 @@ fields. The commands are not really suitable or intended for direct
 use: they would need to be `wrapped' in some more user-friendly
 command for use in a document. Details are given in the \biblatex\
 manual at [*].
+
+\section{Entry sets}
+
+In some disciplines it is common to have a single numeric citation refer to a group of sources. This is supported in \biblatex\ by the entry-set.
+
+There are two ways to define such a set. One way is to define them as a |key| in the |.bib| file. Thus, for instance, your |.bib| file might define
+\begin{Verbatim}
+@set{set1,
+  entryset={augustine, cotton}}
+\end{Verbatim}
+You can then use |\cite{set1}| to get output as in figure \ref{entryset1}.
+\begin{figure}
+\fbox{\includegraphics{examples/entryset1.pdf}}
+\caption{An \texttt{entryset}\label{entryset1}}
+\end{figure}
+
+The alternative, and usually more convenient approach, is to define such sets `on the fly' in each document. This can be done using the command
+\begin{pseudoverb}
+\centering\cs{defbibentryset}\{\angled{set-key}\}\{\angled{key$_{1}$ \ldots\ key$_{n}$}\}
+\end{pseudoverb}
+so that
+\begin{Verbatim}
+\defbibentryset{set1}{augustine, cotton}
+\end{Verbatim}
+will produce the same output as figure \ref{entryset1}.
+
+Different styles will print entry sets in different ways. For instance, the \package{biblatex-chem} wil
 
 \section{Pinpoints}
 

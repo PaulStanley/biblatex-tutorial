@@ -1,0 +1,22 @@
+\documentclass[varwidth=4.3in,border=5pt]{standalone}
+\usepackage[style=verbose,backend=biber]{biblatex}
+\DeclareSourcemap{
+	\maps[datatype=bibtex]{
+	\map[overwrite=true]{
+	\step[fieldset=publisher,null]
+	}
+	}
+}
+\usepackage[T1]{fontenc}
+
+\usepackage{mathptmx}
+
+\addbibresource{biblatex-examples.bib}
+
+\begin{document}
+
+\nocite{gaonkar:in}
+
+\printbibliography[heading=none]
+
+\end{document}

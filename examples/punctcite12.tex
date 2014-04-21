@@ -1,0 +1,26 @@
+\documentclass[varwidth=4.3in,border=5pt]{standalone}
+\usepackage{xcolor}
+\usepackage[style=verbose,backend=biber]{biblatex}
+\renewbibmacro*{publisher+location+date}{%
+  \printlist{location}%
+  \iflistundef{publisher}
+    {\setunit*{\addcomma\space}}
+    {\setunit*{\addcolon\space}}%
+  \colorbox{red!40}{\printlist{publisher}}%
+  \setunit*{\addcomma\space}%
+  \usebibmacro{date}%
+  \newunit}
+
+\usepackage[T1]{fontenc}
+
+\usepackage{mathptmx}
+
+\addbibresource{biblatex-examples.bib}
+
+\begin{document}
+
+\nocite{gaonkar:in}
+
+\printbibliography[heading=none]
+
+\end{document}

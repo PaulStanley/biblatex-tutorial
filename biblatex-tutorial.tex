@@ -1,5 +1,6 @@
 
 \documentclass[nobib,hyphens]{tufte-book}
+\PassOptionsToPackage{cmyk}{xcolor}
 \usepackage[utf8]{inputenc}
 \usepackage{tikz}
 \usepackage{graphicx}
@@ -9,13 +10,14 @@
 \usepackage{pdfpages}
 \usepackage{xparse}
 \usepackage{standalone}
+\usepackage[geometry]{ifsym}
 %\usepackage{fontspec}
 %\setmainfont[Ligatures=TeX]{Scotch Modern}
 %\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
 %\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
 \usetikzlibrary{trees}
 \newcommand{\package}[1]{\textsf{#1}}
-\newcommand{\biblatex}{\package{biblatex}}
+\newcommand{\biblatex}{\package{Biblatex}}
 \newcommand{\bibtex}{\package{{\scshape bib}\TeX}}
 \newcommand{\gives}{\ensuremath{\rightarrow}}
 \usepackage[utf8]{inputenc}
@@ -42,6 +44,7 @@
 
 \newcommand{\URL}{\smallcaps{url}}
 \newcommand{\braced}[1]{\texttt{\{}#1\texttt{\}}}
+\newcommand{\intref}[1]{\marginnote{\raisebox{-1.5pt}{\color{BrickRed}\FilledTriangleRight}\,#1}}
 
 \tikzstyle{every picture}+=[remember picture]  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -60,7 +63,8 @@
              recipes,
              tools,
              troubleshooting,
-             styleeg
+             styleeg,
+             cheatsheet,
              }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -69,6 +73,8 @@
 %\subtitle{A guide for the perplexed}
 
 \author{Paul Stanley}
+
+\date{2014}
 
 \begin{document}
 
@@ -103,5 +109,7 @@
 \backmatter
 
 \include{styleeg}
+
+\include{cheatsheet}
 
 \end{document}

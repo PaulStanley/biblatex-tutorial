@@ -15,8 +15,8 @@ The |maxnames| number holds the number of names that will \emph{trigger} truncat
 Suppose we had an entry with four authors:
 \begin{Verbatim}
 ...
-author = { Author, A. and Bauthor, B.
-           and Cauthor, C. and Dauthor, D.}
+author = { Alpha, A. and Beta, B.
+           and Gamma, C. and Delta, D. }
 ...
 \end{Verbatim}
 
@@ -25,15 +25,15 @@ The effect of various different settings of |maxnames| and |minnames| is shown i
 \begin{table}
 \begin{tabularx}{\textwidth}{llX}
 \toprule
-\texttt{maxnames} & \texttt{minnames} & Result \\
+\texttt{maxnames} & \texttt{minnames} & \textsf{result} \\
 \midrule
-1                 &  1                & A.\ Author et al \\
-2                 &  1                & A.\ Author et al \\
-2                 &  2                & A.\ Author, B. Bauthor, at al \\
-3                 &  1                & A.\ Author et al \\
-3                 &  2                & A.\ Author, B. Bauthor, et al \\
-3                 &  3                & A.\ Author, B. Bauthor, C. Cauthor, et al \\
-4                 &  any              & A.\ Author, B. Bauthor, C. Cauthor, and D. Dauthor \\
+1                 &  1                & A.\ Alpha et al \\
+2                 &  1                & A.\ Alpha et al \\
+2                 &  2                & A.\ Alpha, B. Beta, at al \\
+3                 &  1                & A.\ Alpha et al \\
+3                 &  2                & A.\ Alpha, B. Beta, et al \\
+3                 &  3                & A.\ Alpha, B. Beta, C. Gamma, et al \\
+4                 &  any              & A.\ Alpha, B. Beta, C. Gamma, and D. Delta \\
 \bottomrule
 \end{tabularx}
 \caption{Effect of \texttt{maxnames} and \texttt{minnames}\label{maxnames}}
@@ -150,10 +150,247 @@ And obtain results as shown in figure \ref{namestyle}.
 
 Of course, it's usually unnecessary to have so many different definitions. A much more common approach would be to have all the various parts of a name formatted in the same way. But the flexibility is there if you need it.
 
+\intref{Biblatex Manual § 12}
+
 \paragraph{I want the names to be printed `Firstname Lastname', but I'm getting `Lastname, Firstname'} Although there is, in theory, infinite flexibility, in practice there are three common patterns to how names are printed:
 \begin{itemize}
   \item In `ordinary' order: first name then last name --- Joe Bloggs and John Doe.
   \item In `reverse' order: last name then first name --- Bloggs, Joe and Doe, John.
   \item With the first name in the list reversed, but the other in ordinary order --- Bloggs, Joe and John Doe.
 \end{itemize}
-Styles generally set these sensibly, but if you do not like the choice, you can usually change it without much difficulty.
+Styles generally set these sensibly, but if you do not like the choice, you can usually change it without much difficulty. The command you need is
+\begin{pseudoverb}
+\cs[sortname]{DeclareNameAlias}\{\cs[order]{angled}
+\end{pseudoverb}
+Were \angled{order} can be |first-last| (for ordinary order), |last-first| (for reversed order) or |last-first/first-last| (for the hybrid form). Some styles reset this at the start of the bibliography, in which case you \emph{also} need (in your preamble)
+\begin{pseudoverb}
+\cs{AtBeginBibliography}\{\cs[...]{DeclareNameAlias}\}
+\end{pseudoverb}
+
+\paragraph{I want to produce a publication list of my own papers.} People writing CVs often want to produce a bibliography of their own papers, but modifying the name format so that instead of placing their name wherever it might happen to be in the list (it could be with `and others'!) the list reads `with \ldots'. For this purpose you can use the \package{biblatex-publist} style, which is specifically designed for it. You tell the package your name (using the \cs{omitname}) macro (or package option).
+
+\section{Punctuation issues}
+
+There are many configurable punctuation marks in \biblatex---too many to deal with comprehensively here. In this section I'm only going to cover some particularly common cases.
+
+\paragraph{I want different punctuation before a postnote.}
+\begin{marginfigure}[12ex]
+\fbox{\includegraphics{examples/punctcite.pdf}}
+\vspace{3pt}%
+\caption{Citation punctuation}\label{punctcite}
+\end{marginfigure}
+ The overall punctuation of a citation is shown in figure \ref{punctcite}. The point marked (1) is the place between the pre-note and the beginning of the citation where \biblatex\ will insert \cs{prenotedelim}. Here that command is defined to print nothing, so in fact nothing gets inserted. The point marked (2) is the place between the citation and the post-note where \biblatex\ will insert the \cs{postnotedelim}. In this case that is a spaced comma.
+
+ So if we redefine both these commands, we can alter what gets inserted:\begin{marginfigure}[12ex]
+\fbox{\includegraphics{examples/punctcite2.pdf}}
+\vspace{3pt}%
+\caption{Citation punctuation revised}\label{punctcite2}
+\end{marginfigure}
+ \begin{Verbatim}
+     \renewcommand{\prenotedelim}{\addcolon\space}
+     \renewcommand{\postnotedelim}{\space--\space}
+ \end{Verbatim}
+
+ \paragraph{I am using an author/year style, and I want a colon/a comma/nothing between the author and the year.} 
+\begin{marginfigure}[4ex]
+\fbox{\includegraphics{examples/punctcite3.pdf}}
+\vspace{3pt}%
+\caption{\cs{nameyeardelim}}\label{punctcite3}
+\end{marginfigure}
+This is controlled by the \cs{nameyeardelim} macro (see figure \ref{punctcite3}). In the standard styles it is, as you can see, a space. If we wanted to make it, say, a comma, we could do so as follows:
+\begin{Verbatim}
+    \renewcommand{\nameyeardelim}{\addcomma\space}
+\end{Verbatim}
+to produce the revised punctuation that is marked in figure \ref{punctcite4}.
+\begin{marginfigure}[4ex]
+\fbox{\includegraphics{examples/punctcite4.pdf}}
+\vspace{3pt}%
+\caption{\cs{nameyeardelim} revised}\label{punctcite4}
+\end{marginfigure}
+
+\paragraph{I have multiple citations and I want different punctuation between them.} As can be seen from figure \ref{punctcite5}
+\begin{marginfigure}[4ex]
+\fbox{\includegraphics{examples/punctcite5.pdf}}
+\vspace{3pt}%
+\caption{Multiple citations}\label{punctcite5}
+\end{marginfigure}
+the mark placed between most multiple citations is defined either by \cs{multicitedelim} or by \cs{bibrangedash}. You are very unlikely to want to redefine the latter command (which is used in many other places), but \cs{muliticitedelim} can easily be redefined (a comma and a space, or a semicolon and a space being the most common). To give a (silly) example
+\begin{Verbatim}
+   \renewcommand{\multicitedelim}{\slash}
+\end{Verbatim}
+would give us the rather bizarre results show in figure \ref{punctcite6}.
+\begin{marginfigure}[-8ex]
+\fbox{\includegraphics{examples/punctcite6.pdf}}
+\vspace{3pt}%
+\caption{Multiple citations redefined}\label{punctcite6}
+\end{marginfigure}
+
+Between \smallcaps{superscript citations} the delimiter is not \cs{multicitedelim}, but \cs{supercitedelim}, so if you use superscript citations it is this that you will have to redefine.
+
+\paragraph{I don't want punctuation after `In'.} Standard \biblatex\ styles print a colon after `In:' This is produced by \cs{intitlepunct}, as shown in figure \ref{punctcite7}.
+\begin{figure}
+\fbox{\includegraphics{examples/punctcite7.pdf}}
+\caption{In: $\rightarrow$ In}\label{punctcite7}
+\end{figure}
+
+You can therefore redefine \cs{intitlepunct}, for instance to
+\begin{Verbatim}
+   \renewcommand{\intitlepunct}{\addspace}
+\end{Verbatim}
+to avoid any punctuation being added at that point.
+
+\paragraph{I am using a numeric style, but I want my citations to appear in parentheses (1) instead of brackets [1].}
+\begin{marginfigure}[8ex]
+\fbox{\includegraphics{examples/punctcite8.pdf}}
+\vspace{3pt}%
+\caption{Brackets replaced by parentheses}\label{punctcite7}
+\end{marginfigure}
+ This is a surprisingly difficult change to made. The code required is as follows:\footnote{Using the clever method devised by Audrey Boruvka: \url{http://tex.stackexchange.com/a/16792/5404}.}
+
+\begin{Verbatim}
+\makeatletter
+
+\newrobustcmd*{\parentexttrack}[1]{%
+  \begingroup
+  \blx@blxinit
+  \blx@setsfcodes
+  \blx@bibopenparen#1\blx@bibcloseparen%
+  \endgroup}
+
+\AtEveryCite{%
+  \let\parentext=\parentexttrack%
+  \let\bibopenparen=\bibopenbracket
+  \let\bibcloseparen=\bibclosebracket}
+
+\makeatother
+
+\DeclareFieldFormat{labelnumberwidth}{\mkbibparens{#1}}
+\DeclareFieldFormat{labelformat}{\mkbibbrackets{#1}}
+\end{Verbatim}
+
+\paragraph{I am using an author/year style: I want to replace round parentheses with square brackets: [Author 1978] instead of (Author 1978).} This is more-or-less the opposite problem to the last one, and again it takes a surprising amount of work to get his right. The relevant code is as follows (to go in the preamble).
+\begin{Verbatim}
+\makeatletter
+
+\newrobustcmd*{\parentexttrack}[1]{%
+  \begingroup
+  \blx@blxinit
+  \blx@setsfcodes
+  \blx@bibopenbracket#1\blx@bibclosebracket%
+  \endgroup}
+
+\AtEveryCite{%
+  \let\parentext=\parentexttrack%
+  \let\bibopenbracket=\bibopenparen%o
+  \let\bibclosebracket=\bibcloseparen}
+
+\makeatother
+\end{Verbatim}
+
+If you also want the year references to be printed in square brackets in the bibliography, you need this in addition:
+\begin{Verbatim}
+  \renewbibmacro*{date+extrayear}{%
+    \iffieldundef{\thefield{datelabelsource}year}
+      {}
+      {\printtext[brackets]{%
+         \iffieldsequal{year}{\thefield{datelabelsource}year}
+           {\printdateextralabel}%
+           {\printfield{labelyear}%
+            \printfield{extrayear}}}}}%
+  \renewbibmacro*{date}{}%
+  \renewbibmacro*{issue+date}{%
+    \iffieldundef{issue}
+      {}
+      {\printtext[brackets]{\printfield{issue}}}%
+    \newunit}
+\end{Verbatim}
+
+\paragraph{I would like the parts of a bibliographical entry to be separated by commas, but the standard styles use full stops.} The division between the main parts of an entry are marked by \cs{newunitpunct}. As you can see from figure \ref{punctcite10}, it is quite frequently used.
+\begin{figure}
+\fbox{\includegraphics{examples/punctcite10.pdf}}
+\caption{The \cs{newunitpunct} punctuation\label{punctcite10}}
+\end{figure}
+
+If we modify it by
+\begin{Verbatim}
+\renewcommand{\newunitpunct}{\addcomma\space}
+\end{Verbatim}
+we get a less choppy result: figure \ref{punctcite11}. Notice that the capitalization adjust automatically.\begin{figure}
+\fbox{\includegraphics{examples/punctcite11.pdf}}
+\caption{The \cs{newunitpunct} punctuation\label{punctcite11}}
+\end{figure} It may, however, sometimes be necessary to adjust other punctuation marks to ensure a really smooth result.
+
+ \paragraph{I am not happy with the way quotation marks are being put around article names.} This is largely a function of how \package{csquotes} is loaded.
+ \begin{itemize}
+ \item Loaded with the option |style=british|, you will get single quotation marks: `Like This'.
+ \item Loaded with the option |style=american|, you will get doubt quotation marks: ``Like This''.
+ \item If, in addition to loading \package{csquotes} with the option |style=american| you either load \package{babel} with the |american| you will get the American style of handling punctuation and quotations, where punctuation is moved inside the quotation: ``like this,'' in most cases.
+ \end{itemize}
+Of course, you can equally use \package{csquotes} with «\,French\,», ,,German``, «Spanish», or any other style of quotation.
+
+\newcommand{\sublimetextsux}[2]{}\sublimetextsux''
+
+\section{Issues about what gets printed}
+
+\paragraph{I don't want to print \smallcaps{urls}\slash \smallcaps{eprint}\slash \smallcaps{doi}s.} These can be controlled with the options |url|, |doi| and |eprint|. By default all of these are set |true|; to turn off any of them set the relevant option to |false|. If you want links to be created you should load the \package{hyperref} package.
+
+\paragraph{I want to control how dates get printed.} \package{Biblatex} may print a number of different dates at various points in a citation, and the format for each of them can be separately controlled, using the options given in table \ref{dateopts}.
+\begin{margintable}
+\begin{tabularx}{\marginparwidth}{lX}
+\toprule
+\texttt{date}      & date of publication \\
+\texttt{labeldate} & the `label' date (in author/year styles) \\
+\texttt{urldate}   & the date a \smallcaps{url} was `last visited' \\
+\texttt{eventdate} & the date of a conference \\
+\texttt{origdate}  & an original date of publication \\
+\texttt{alldates}  & all dates \\
+\bottomrule
+\end{tabularx}
+\vspace{3pt}
+\caption{The various options to set date\label{dateopts}}
+\end{margintable}
+
+There is a bewildering range of possible settings for these various date fields. Exactly what will get printed depends may depend on the language you have set in \package{babel} or \package{polyglossia}: a date printed as `15th January 2000' in |british| will be printed as `January 15, 2000' in |american| and 15 janvier 2000 in |french|. However, tabel \ref{datesettings} gives examples for how a date of |2000-01-15| would get printed in British English which should be sufficient to give guidance for other languages.
+\begin{table*}
+\begin{tabular}{lp{2.8in}lp{1in}}
+\toprule
+& \texttt{dateabbrev=false} & \texttt{dateabbrev=true} & \texttt{datezeros=false} \\
+\midrule\texttt{long} & 15th January 2000 & 15th Jan 2000 \\
+& ranges written in full: 15th January 2000--17th January 2000 & 15th Jan.\ 2000--17 Jan.\ 2000\\
+\texttt{short} & 15/01/2000 & & 15/1/2000\\
+& ranges written in full: 15/01/2000--17/01/2000 & &15/1/2000--17/1/2000 \\
+\texttt{year} & 2000 \\
+\texttt{comp} & 15th January 2000 \\
+& ranges compressed: 15th--17th January 2000 & 15th--17th Jan.\ 2000 \\
+\texttt{terse} & as 15/01/2000 \\
+& ranges compressed: 15--17/01/2000 & & 15--17/1/2000\\
+\texttt{iso8601} & 2000-01-15 \\
+& with ranges as 2000-01-15/2000-01-17 \\
+\bottomrule
+\end{tabular}
+\caption{Various date settings\label{datesettings}}
+\end{table*}
+In addition, you set the |dateabbrev| option |true| to have dates printed in an abbreviated form (15th Jan.\ 2000), and the |datezeros| option |true| to have numeric dates printed with leading zeros (2000-01-15), or |false| to have them printed without.
+
+\paragraph{There's some other information I don't want printed.} At this point we are beginning to enter the realm of serious changes, which are arguably beyond the sort of simple customization that this chapter is concerned with.
+
+But let's suppose, for instance, that you were absolutely happy with the standard author/year style, but just wanted not to print the publisher: just the place of publication. One way to do this is to `kid' the style that you haven't entered any publisher at all.
+\begin{figure}
+\fbox{\includegraphics{examples/punctcite12.pdf}}
+\vspace{0.5\baselineskip}
+
+\fbox{\includegraphics{examples/punctcite13.pdf}}
+\caption{Removing the publisher using a \texttt{sourcemap}\label{punctcite12}}
+\end{figure}
+
+For this purpose we use a \emph{sourcemap}, as follows
+\begin{Verbatim}
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map[overwrite=true]{
+      \step[fieldset=publisher,null]
+    }
+  }
+}
+\end{Verbatim}
+What this basically means is that for any |.bib| file, the publisher field of each entry is to be set empty (|null|). This will be done by \package{biber} before any data enters the system. No publisher is therefore printed, and so long as the style is capable of coping with the particular absence, all is well, as figure \ref{punctcite12} shows.

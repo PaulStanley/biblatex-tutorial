@@ -1,0 +1,40 @@
+\documentclass[varwidth=2in,border=5pt]{standalone}
+\usepackage[style=numeric,backend=biber]{biblatex}
+\usepackage{mathptmx}
+\makeatletter
+\DeclareCiteCommand{\cite}[\mkbibparens]
+{\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+\newbibmacro*{textcite}{%
+  \iffieldequals{namehash}{\cbx@lasthash}
+    {\setunit{\multicitedelim}}
+    {\ifnameundef{labelname}
+       {\printfield[citetitle]{labeltitle}}
+       {\printnames{labelname}}%
+     \setunit{%
+       \global\booltrue{cbx:parens}%
+       \addspace\bibopenparen}%
+     \stepcounter{textcitecount}%
+     \savefield{namehash}{\cbx@lasthash}}%
+  \ifnumequal{\value{citecount}}{1}
+    {\usebibmacro{prenote}}
+    {}%
+  \usebibmacro{cite}%
+  \setunit{%
+    \ifbool{cbx:parens}
+      {\bibcloseparen\global\boolfalse{cbx:parens}}
+      {}%
+    \textcitedelim}}
+\DeclareFieldFormat{labelnumberwidth}{\mkbibparens{#1}}
+\DeclareFieldFormat{shorthandwidth}{\mkbibparens{#1}}
+\makeatother
+\addbibresource{biblatex-examples.bib}
+
+\begin{document}
+\verb|\cite|: \cite{gaonkar:in}\\
+\verb|\textcite|: \textcite{gaonkar:in}
+
+\end{document}

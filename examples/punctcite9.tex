@@ -1,0 +1,27 @@
+\documentclass[varwidth=2in,border=5pt]{standalone}
+\usepackage[style=numeric-comp,backend=biber]{biblatex}
+\usepackage{mathptmx}
+\makeatletter
+\DeclareCiteCommand{\supercite}[\mkbibsuperscriptbrackets]
+  {\iffieldundef{prenote}
+     {}
+     {\BibliographyWarning{Ignoring prenote argument}}%
+   \iffieldundef{postnote}
+     {}
+     {\BibliographyWarning{Ignoring postnote argument}}%
+  }%
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}}
+  {\supercitedelim}
+  {}
+\newcommand{\mkbibsuperscriptbrackets}[1]{%
+  \mkbibsuperscript{%
+    \mkbibbrackets{#1}}}
+\makeatother
+\addbibresource{biblatex-examples.bib}
+
+\begin{document}
+
+Thus\supercite{gaonkar:in,augustine}
+
+\end{document}
