@@ -1,4 +1,3 @@
-
 \documentclass[nobib,hyphens]{tufte-book}
 \PassOptionsToPackage{cmyk}{xcolor}
 \usepackage[utf8]{inputenc}
@@ -10,20 +9,25 @@
 \usepackage{pdfpages}
 \usepackage{xparse}
 \usepackage{standalone}
+\usepackage{imakeidx}
 \usepackage[geometry]{ifsym}
-%\usepackage{fontspec}
-%\setmainfont[Ligatures=TeX]{Scotch Modern}
-%\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
-%\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
-\usetikzlibrary{trees}
-\newcommand{\package}[1]{\textsf{#1}}
-\newcommand{\biblatex}{\package{Biblatex}}
-\newcommand{\bibtex}{\package{{\scshape bib}\TeX}}
-\newcommand{\gives}{\ensuremath{\rightarrow}}
-\usepackage[utf8]{inputenc}
-\newcommand{\angled}[1]{\ensuremath{\langle}{\normalfont\itshape #1\/}\ensuremath{\rangle}}
+\usepackage{amssymb}
 \usepackage{booktabs}
 \usepackage{tabularx}
+
+\usetikzlibrary{trees}
+\usetikzlibrary{tikzmark}
+\tikzstyle{every picture}+=[remember picture]  
+
+\usepackage{fancyvrb}
+\DefineShortVerb{\|}
+
+\newcommand{\package}[1]{{\sffamily #1}}
+\newcommand{\biblatex}{\package{Biblatex}}
+\newcommand{\bibtex}{\package{{\scshape bib}\TeX}}
+\newcommand{\prefacedate}{\today}
+\newcommand{\gives}{\ensuremath{\rightarrow}}
+\newcommand{\angled}[1]{\ensuremath{\langle}{\normalfont\itshape #1\/}\ensuremath{\rangle}}
 \newenvironment{pseudoverb}{\begin{list}{}{}\ttfamily\item}{\end{list}}
 \DeclareDocumentCommand{\cs}{O {} O {} m}
 {\begingroup
@@ -39,38 +43,50 @@
     {}
     {\{#2\}}%
   \endgroup}
-\usepackage{fancyvrb}
-\DefineShortVerb{\|}
-
 \newcommand{\URL}{\smallcaps{url}}
 \newcommand{\braced}[1]{\texttt{\{}#1\texttt{\}}}
-\newcommand{\intref}[1]{\marginnote{\raisebox{-1.5pt}{\color{BrickRed}\FilledTriangleRight}\,#1}}
+\newcommand{\intref}[2][0pt]{%
+  \marginnote[#1]{
+    \raisebox{-1.5pt}{\color{BrickRed}\FilledTriangleRight}%
+    \,\parbox[t]{\marginparwidth - 1em}{#2}}}
 
-\tikzstyle{every picture}+=[remember picture]  
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\csindex}[1]{%
+  \index{#1@\cs{#1}}}
+\newcommand{\packindex}[1]{%
+  \index{#1@\package{#1}}}
+\newcommand{\indexstart}[1]{%
+  \index{#1|(}}
+\newcommand{\indexstop}[1]{%
+  \index{#1|)}}
+
+\setcounter{secnumdepth}{0}
+
+\makeindex[columns=1]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % INCLUSIONS
-%
+
+
 \includeonly{frontmatter,
              introduction,
              database,
-	           customize1,
+             customize1,
              bibstyles,
              citationcommands,
              bibliographyformat,
              subdivisions,
-			       sorting,
+             sorting,
              languages,
              recipes,
              tools,
              troubleshooting,
              styleeg,
              cheatsheet,
+             indexes,
              }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title{Biblatex}
-
-%\subtitle{A guide for the perplexed}
 
 \author{Paul Stanley}
 
@@ -107,9 +123,15 @@
 \include{troubleshooting}
 
 \backmatter
-
 \include{styleeg}
 
 \include{cheatsheet}
 
+\include{indexes}
+
 \end{document}
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: LaTeX
+%%% End:
