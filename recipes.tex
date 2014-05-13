@@ -1,11 +1,11 @@
 %!TEX root=biblatex-tutorial.tex
-\chapter{Recipes}
+\chapter{Recipes}\label{ch:recipes}
 
 A comprehensive guide to customization is outside the scope of this book. But some requests for customization are very common, and it seems worthwhile to have a short chapter that provides some common recipes.
 
 \section{Names}
 
-\paragraph{I want at most 1/2/3/4 names printed before `and others'.} You need to change the value of |maxbibnames|, |maxcitenames|, |minbibnames| and/or |mincitenames|. As you might expect |maxbibnames| and |minbibnames| deal with what is printed in the bibliography, and |maxcitenames| and |mincitenames| deal with what is printed in a citation (if citations print names). You can change both with |maxnames| and |minnames|, which is what you normally want to do, and what we will do here. You set this value when loading \biblatex:
+\paragraph{I want at most 1/2/3/4 names printed before `and others'.}\label{recipes:maxnames} You need to change the value of |maxbibnames|, |maxcitenames|, |minbibnames| and/or |mincitenames|. As you might expect |maxbibnames| and |minbibnames| deal with what is printed in the bibliography, and |maxcitenames| and |mincitenames| deal with what is printed in a citation (if citations print names). You can change both with |maxnames| and |minnames|, which is what you normally want to do, and what we will do here. You set this value when loading \biblatex:
 \begin{pseudoverb}
 \cs{usepackage}[maxnames=2, minnames=1]\{biblatex\}
 \end{pseudoverb}
@@ -169,7 +169,7 @@ Were \angled{order} can be |first-last| (for ordinary order), |last-first| (for 
 
 \paragraph{I want to produce a publication list of my own papers.} People writing CVs often want to produce a bibliography of their own papers, but modifying the name format so that instead of placing their name wherever it might happen to be in the list (it could be with `and others'!) the list reads `with \ldots'. For this purpose you can use the \package{biblatex-publist} style, which is specifically designed for it. You tell the package your name (using the \cs{omitname}) macro (or package option).
 
-\section{Punctuation issues}
+\section{Punctuation issues}\label{sec:punctuation}
 
 There are many configurable punctuation marks in \biblatex---too many to deal with comprehensively here. In this section I'm only going to cover some particularly common cases.
 
@@ -235,11 +235,11 @@ Between \smallcaps{superscript citations} the delimiter is not \cs{multicitedeli
 
 You can therefore redefine \cs{intitlepunct}, for instance to
 \begin{Verbatim}
-   \renewcommand{\intitlepunct}{\addspace}
+   \renewcommand{\intitlepunct}{\addspace\nopunct}
 \end{Verbatim}
 to avoid any punctuation being added at that point.
 
-\paragraph{I am using a numeric style, but I want my citations to appear in parentheses (1) instead of brackets [1].}
+\paragraph{I am using a numeric style, but I want my citations to appear in parentheses (1) instead of brackets [1].}\label{recipe:brackets}
 \begin{marginfigure}[8ex]
 \fbox{\includegraphics{examples/punctcite8.pdf}}
 \vspace{3pt}%

@@ -1,4 +1,5 @@
-\chapter{Customization: A Short Tour}
+%!TEX root=biblatex-tutorial.tex
+\chapter{Customization: A Short Tour}\label{ch:customize1}
 
 We are about to dive into the details of using \biblatex. As we go
 through them, we are going to be thinking a bit about
@@ -8,19 +9,17 @@ customization. Before we do that, a stern lecture is in order.
 its point. At one extreme, if you are setting out to write a
 bibliography style you might be customizing a great deal. But at that
 point, of course, it gets very complicated. If you are trying to do
-anything as complicated as that you will really want to understand the
-internals of \biblatex---which will involve reading the (excellent)
-manual carefully, and also looking at some of the source code. This
+anything that difficult you will really want to understand the
+internals of \biblatex---which will involve reading the
+manual carefully,\intref{\emph{Manual} \S~4} and also looking at some of the source code.\sidenote{Especially \texttt{standard.def} and the \texttt{.bbx} and \texttt{.cbx} files for the various standard files.} This
 document is not trying to teach you how to do that. But there are lots
 of customizations that are well within the reach of the `ordinary'
 user, and it does make sense to discuss them.
 
 In order to keep things simple, I am going quite often to
-explain \emph{how} to obtain a certain commonly needed change, without
+explain \emph{how} to obtain certain commonly needed changes, without
 necessarily explaining exactly why it works---what internal mechanism
-is in play. Some people are happy
-with this. Others find it frustrating. For them, I've included a
-chapter which aims to give at least a few pointers.
+is in play.
 
 However, to avoid frustration, you may need to understand some of the
 common ways in which changes are made, so that you can include the
@@ -30,12 +29,12 @@ explains the bare minimum that you need to know.
 Finally, do bear in mind that, with \biblatex\ there are often several
 ways to achieve a particular result. You may find other suggestions
 elsewhere about how to get \biblatex\ to do something, and they may
-well be just as good (or better!) than the ways I have
+well be just as good (or better) than the ways I have
 suggested. Generally, I've tried to keep things as simple as possible.
 
 \section{The common methods}
 
-\paragraph{Using an option.} Many `customizations' can be achieved
+\paragraph{Using an option.}\intref{\emph{Manual} \S~3.1} Many `customizations' can be achieved
 simply by setting one of \biblatex's package options. This is done
 when you load \biblatex. For instance, to change the way the
 bibliography is sorted, you might set the \verb|sorting| option to
@@ -47,13 +46,13 @@ bibliography is sorted, you might set the \verb|sorting| option to
 
 Apart from the package itself, some commands also have options. For
 instance, there are a number of options that can be given to the
-\cs{printbibliography} command to affect how the bibliography is
+\cs{printbibliography}\intref{See chapter~\ref{ch:customize1}.} command to affect how the bibliography is
 printed.
 
 \paragraph{Redefining a command.} It's quite common for a change to be
 made by redefining a command. For instance, in many cases \biblatex\
 uses a command to insert a piece of punctuation, so that if you want
-to change the punctuation, you can redefine the command to produce a
+to change the punctuation,\intref{See p~\pageref{sec:punctuation}.} you can redefine the command to produce a
 different punctuation mark.
 
 For instance, there's a command called \cs{multicitedelim} which
@@ -61,7 +60,7 @@ inserts the punctuation between multiple citations. Styles set it
 differently, but it's usually a comma or a semicolon. Suppose, for
 some really odd reason we wanted to make it `AND'. To do this, you use \cs{renewcommand}.
 \begin{verbatim}
-\renewcommand{\multicitedelim}{AND\space}
+\renewcommand{\multicitedelim}{\addspace AND\space}
 \end{verbatim}
 
 \paragraph{Punctuation.} At this point, one feature of
@@ -91,13 +90,10 @@ customization, use the various commands that \biblatex\ offers.
 \cs{addnbspace}   &             & (unbreakable space) \\
 \bottomrule
 \end{tabular}
+\vspace{3pt}
 \caption{The \textbackslash add... commands\label{addcommands}}
 \end{margintable}
-
-The commands\marginnote{There are also various commands which add a
-  possibly bewildering range of different spaces, of different widths
-  and propensities to break (or not): see the \biblatex\ documentation
-  at ***.} (see table \ref{addcommands}) all take the form
+\intref[3ex]{For spacing commands see the \emph{Manual} \S~4.7.4.} These (see table \ref{addcommands}) all take the form
 \cs{add...}. Where they often have the edge on simply using
 punctuation marks directly, is that they are context sensitive: they
 will not add marks if it is inappropriate (for instance, they won't
@@ -105,7 +101,7 @@ add a comma after a question-mark), and they will remove unnecessary
 white space before the mark. The best way to think of them is as
 `context-sensitive' punctuation.
 
-\paragraph{Bibliography strings.} Apart from the bits of
+\paragraph{Bibliography strings.} Apart from the bits of\intref{\emph{Manual} \S~4.9.1}
 bibliographical information assembled from the database, all sorts
 of bits of text get printed in a bibliography: `ed.', `vol.', `pp.'
 and so on. These are handled by \biblatex\ using bibliography
@@ -151,7 +147,7 @@ would print the title surrounded by three asterisks, or
 \end{pseudoverb}
 would print the title in small capitals.
 
-\paragraph{Hooks.} There are a number of `hooks' offered by \biblatex\
+\paragraph{Hooks.} There\intref{\emph{Manual} \S~4.10.6} are a number of `hooks' offered by \biblatex\
 at which it is made relatively easy to insert user-defined commands
 which might do something useful. For instance \cs{AtEveryCitekey} allows
 one to execute some code whenever a source is about to be cited, at a
@@ -162,12 +158,11 @@ hook \cs{AtDataInput}, which is executed when data is first `read in'
 to become available for citation. From time to time you may be
 encouraged to use these hooks for various purposes.
 
-\paragraph{Source mapping.} In fact, \biblatex\ can `get at' the data
+\paragraph{Source mapping.} In fact,\intref{\emph{Manual} \S~4.5.2.} \biblatex\ can `get at' the data
 even before it is read in---indeed, while it is being processed by
 \package{biber}. The facilities providing for source mapping enable
 one to play various useful tricks with the \verb|.bib| file. We've
-already seen an example of this on page \pageref{datamap}. This is
-such a useful facility that it is described in depth in chapter *.
+already seen an example of this on page \pageref{datamap}.
 
 \paragraph{Deeper and darker.}
 All these techniques (options, redefinition of `hook' commands, and
@@ -198,5 +193,5 @@ intended to be used in all your documents.
   \emph{local} \textsc{texmf} tree at |/tex/latex/biblatex|. If there is such
   a file it will be loaded after biblatex. It can be used to redefine commands
   and to set (most, but not all) bibliography options, using \cs{ExecuteBibliographyOptions}\braced{\angled{options}}. You cannot, however, set the bibliography style there: that at least you must do when you load \biblatex.
-\item If you get to the point that you are developing a comprehensive style, you will want to write |.bbx|, |.lbx| and |.cbx| files which can be loaded as a style. That, however, is beyond the scope of this book.
+\item If\intref{\emph{Manual} \S~4.2} you get to the point that you are developing a comprehensive style, you will want to write |.bbx|, |.lbx| and |.cbx| files which can be loaded as a style. That, however, is beyond the scope of this document.
 \end{itemize}

@@ -1,5 +1,5 @@
 %!TEX root=biblatex-tutorial.tex
-\chapter{Languages}
+\chapter{Languages}\label{ch:languages}
 
 Dealing with different languages is not straightforward; but \biblatex\ is pretty well set up for the task. This section aims to provide basic information; there is actually considerably more on offer in \biblatex\ for sophisticated language use than this section deals with. This section basically assumes the `normal' user who produces documents in a single language, but may occasionally need to deal with bibliographic sources in other languages.
 
@@ -14,7 +14,7 @@ Later sections of this chapter try to provide a better explanation of how all th
  \begin{pseudoverb}
  \cs{usepackage}[utf8]\{inputenc\}
  \end{pseudoverb}
- \item Load \package{babel}\footnote{Or, if you use it, \package{polyglossia}.} with your preferred language.
+ \item Load \package{babel}\footnote{Or, if you use it, \package{polyglossia}.} with your preferred language.\marginnote{\newcommand{\english}{{\normalfont (English)}}The language options are: \ttfamily american \english, australian \english, austrian, brazil, british \english, canadian \english, canadien {\normalfont(French)}, catalan, czech, danish, dutch, finnish, french, german, greek, italian, naustrian, ngerman, norsk, nynorsk, portugues, russian, spanish, swedish.}
  \begin{pseudoverb}
  \cs{usepackage}[\angled{language}]\{babel\}
  \end{pseudoverb}

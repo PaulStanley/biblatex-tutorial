@@ -28,20 +28,25 @@ bibliography. It's simpler, however, to defer most discussion of this
 to a chapter of its own. We are also going to leave sorting for a
 separate discussion. So this chapter is really going to concentrate on
 three points: headings, the physical format of the bibliography, and
-the ways we can select material for inclusion or exclusion.
+the ways we can select material for inclusion or exclusion the things
+that affect the basic format of the bibliography.
 
 \section{Headings}
 
-In a \LaTeX\ document, a heading is more than just its words: a heading command (such as \cs{chapter} or \cs{section}) doesn't just print its text, formatted a certain way. It may add a number, and advance a counter. It may change what gets printed in the running headers or footers.
+In a \LaTeX\ document, a heading is more than just its words: a
+heading command (such as \cs{chapter} or \cs{section}) doesn't just
+print its text, formatted a certain way. It may add a number, and
+advance a counter. It may change what gets printed in the running
+headers or footers.
 
 Let's start with the actual title. A default\footnote{The default is
-`Bibliography' for books and articles, and `References' for articles.} will be set by the
-\verb|heading| option, described below; but by far the easiest way to
-control it is using the \verb|title| option in the
-\cs{printbibliography} command.
+  `Bibliography' for books and articles, and `References' for
+  articles.} will be set by the \verb|heading| option, described
+below; but by far the easiest way to control it is using the
+\verb|title| option in the \cs{printbibliography} command.
 
 So, for instance, if we wanted to call our bibliography `List of
-Sources Cited', we could
+Sources', we could put the following:
 \begin{center}
 \cs{printbibliography[title=\{List of Sources\}]}
 \end{center}
@@ -55,15 +60,17 @@ treated as if it were a chapter heading (for the \verb|book| and
 class). This is, after all, the ordinary case, and \biblatex\ then
 provides you with the following options:
 \begin{itemize}
-\item If \marginnote{\gives\ {\large\textbf{References}}\\(not in table of contents)}you want the heading inserted, but without any number and
-  without being added to the table of contents, you're all set. This
-  is what \biblatex\ will do by default.
-\item If\marginnote{\gives\ {\large\textbf{References}}\\(in table of contents)} you want the heading added to the table of contents, but you
-  don't want it numbered, then add the option \verb|heading=bibintoc|
-  to your \cs{printbibliography} command.
+\item If \marginnote{\gives\ {\large\textbf{References}}\\(not in
+    table of contents)}you want the heading inserted, but without any
+  number and without being added to the table of contents, you're all
+  set. This is what \biblatex\ will do by default.
+\item If\marginnote{\gives\ {\large\textbf{References}}\\(in table of
+    contents)} you want the heading added to the table of contents,
+  but you don't want it numbered, then add the option
+  \verb|heading=bibintoc| to your \cs{printbibliography} command.
 \item If\marginnote{\gives\ {\large\textbf{6.\ References}}\\(in table
-    of contents)}you want the heading numbered and added to the table of
-  contents, then add the option \verb|heading=bibnumbered| to your
+    of contents)}you want the heading numbered and added to the table
+  of contents, then add the option \verb|heading=bibnumbered| to your
   \cs{printbibliography} command.
 \end{itemize}
 
@@ -91,13 +98,14 @@ bibliography, you will need to proceed as follows:
 \begin{enumerate}
 \item Define a bibliography heading style using
 \begin{center}
-  \cs[\angled{title}][\angled{definition}]{defbibheading\{\angled{name}\}}\end{center} The
-  \angled{title} is the default title for your heading. The definition
-  part is a complete set of commands to create a heading and anything
-  (such as the marking of headers and footers, table of contents, and
-  so forth) that needs to go with
-  it. It takes the form of a macro definition which assumes it will be passed
-  the title of the bibliography as its single paramenter, \#1.
+  \cs[\angled{title}][\angled{definition}]{defbibheading\{\angled{name}\}}
+\end{center}
+The \angled{title} is the default title for your heading. The
+definition part is a complete set of commands to create a heading and
+anything (such as the marking of headers and footers, table of
+contents, and so forth) that needs to go with it. It takes the form of
+a macro definition which assumes it will be passed the title of the
+bibliography as its single paramenter, \#1.
 \item Use the name of the \verb|heading| you have defined as the
   \verb|heading| option to your \cs{printbibliography} command.
 \end{enumerate}

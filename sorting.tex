@@ -1,12 +1,16 @@
-\chapter{Sorting}
+%!TEX root=biblatex-tutorial.tex
+\chapter{Sorting}\label{ch:sorting}
 
 A bibliography style will usually define a sorting scheme which is
 appropriate for that style. For instance, consider the following works:
 
 \medskip
-\colorbox{red!40}{Smith, J. (2000) Zoology for the Amateur. Oxbridge: Pubco.}\\
-\colorbox{green!40}{Smith, J. (1999) Professional Zoology. Yarvard: Aldus.}\\
-\colorbox{blue!40}{Smith, J. (2010) Amateur Zoology. Camford: Otherco.}
+\colorbox{red!40}%
+    {Smith, J. (2000) Zoology for the Amateur. Oxbridge: Pubco.}\\
+\colorbox{green!40}%
+    {Smith, J. (1999) Professional Zoology. Yarvard: Aldus.}\\
+\colorbox{blue!40}%
+    {Smith, J. (2010) Amateur Zoology. Camford: Otherco.}
 \medskip
 
 In an author/year system, it would make sense to put the works in that
@@ -14,18 +18,24 @@ order. On the other hand, in an author/title system, it would probably
 make sense to list them as
 
 \medskip
-\colorbox{blue!40}{Smith, J. \emph{Amateur Zoology}. Camford: Otherco 2010.}\\
-\colorbox{green!40}{Smith, J. \emph{Professional Zoology}. Yarvard: Aldus 1999.}\\
-\colorbox{red!40}{Smith, J. \emph{Zoology for the Amateur}. Oxbridge: Pubco 2000.}
+\colorbox{blue!40}%
+    {Smith, J. \emph{Amateur Zoology}. Camford: Otherco 2010.}\\
+\colorbox{green!40}%
+    {Smith, J. \emph{Professional Zoology}. Yarvard: Aldus 1999.}\\
+\colorbox{red!40}%
+    {Smith, J. \emph{Zoology for the Amateur}. Oxbridge: Pubco 2000.}
 \medskip
 
 In an ``alphanumeric'' system, the correct order will normally be one
 that make sense of the labels.
 
 \medskip
-\colorbox{red!40}{{[}Smi00{]} Smith J. \emph{Zoology for the Amateur} \ldots{}}\\
-\colorbox{blue!40}{{[}Smi10{]} Smith J. \emph{Amateur Zoology} \ldots{}}\\
-\colorbox{green!40}{{[}Smi99{]} Smith J. \emph{Professional Zoology} \ldots{}}
+\colorbox{red!40}
+    {{[}Smi00{]} Smith J. \emph{Zoology for the Amateur} \ldots{}}\\
+\colorbox{blue!40}
+    {{[}Smi10{]} Smith J. \emph{Amateur Zoology} \ldots{}}\\
+\colorbox{green!40}
+    {{[}Smi99{]} Smith J. \emph{Professional Zoology} \ldots{}}
 \medskip
 
 A numeric system may either sort its bibliography in some way (usually
@@ -64,33 +74,53 @@ produce their own schemes.)
   \begin{marginfigure}[-20ex]
   \fbox{
   \begin{minipage}{0.95\marginparwidth}
- \colorbox{red!50}{\strut Aardvark, A.} My life. 1999.\\
- \colorbox{red!30}{\strut Badger, B.}\colorbox{green!60}{\strut Memoirs.}\colorbox{blue!50}{\strut 2005.}\\
- \colorbox{red!30}{\strut Badger, B.}\colorbox{green!60}{\strut Memoirs}(2nd ed).\colorbox{blue!30}{\strut 2010.}\\
- \colorbox{red!30}{\strut Badger, B.}\colorbox{green!40}{\strut Memories.} 1999.\\
- \colorbox{red!30}{\strut Badger, B.}\colorbox{green!30}{\strut Recollection.} 2005.
+    \colorbox{red!50}{\strut Aardvark, A.} My life. 1999.\\
+%
+    \colorbox{red!30}{\strut Badger, B.}%
+    \colorbox{green!60}{\strut Memoirs.}%
+    \colorbox{blue!50}{\strut 2005.}\\
+%
+    \colorbox{red!30}{\strut Badger, B.}%
+    \colorbox{green!60}{\strut Memoirs}(2nd ed).%
+    \colorbox{blue!30}{\strut 2010.}\\
+%
+    \colorbox{red!30}{\strut Badger, B.}%
+    \colorbox{green!40}{\strut Memories.} 1999.\\
+%
+    \colorbox{red!30}{\strut Badger, B.}%
+    \colorbox{green!30}{\strut Recollection.} 2005.
   \end{minipage}}
   \vspace{0.5pt}
-  \caption{\texttt{nty} sorting}
+  \caption[][3pt]{\texttt{nty} sorting}
   \end{marginfigure}
-\item
-  Name/Year/Title (\texttt{sorting=nyt} or \texttt{sorting=nyvt}). Works are first sorted by the
-  name of the author (or editor), so that all works by Albert Aardvark
-  appear before anything written by Benjamin Badger. Within each name,
-  the works are sorted first by year and then, if there is more than one
-  work in any given year, alphabetically by title. Name/Year/Volume/Title (\texttt{sorting=nyvt}) is the same as
-  Name/Year/Title, except that the volume is considered before title.
+\item Name/Year/Title (\texttt{sorting=nyt} or \texttt{sorting=nyvt}).
+  Works are first sorted by the name of the author (or editor), so
+  that all works by Albert Aardvark appear before anything written by
+  Benjamin Badger. Within each name, the works are sorted first by
+  year and then, if there is more than one work in any given year,
+  alphabetically by title. Name/Year/Volume/Title
+  (\texttt{sorting=nyvt}) is the same as Name/Year/Title, except that
+  the volume is considered before title.
 \begin{marginfigure}[-15ex]
   \fbox{
-  \begin{minipage}{0.95\marginparwidth}
- \colorbox{red!50}{\strut Aardvark, A.} (1999) My life.\\
- \colorbox{red!30}{\strut Badger, B.}\colorbox{green!60}{\strut(1999)} Memories.\\
- \colorbox{red!30}{\strut Badger, B.}\colorbox{green!40}{\strut(2005)}\colorbox{blue!50}{Memoirs.}\\
- \colorbox{red!30}{\strut Badger, B.}\colorbox{green!40}{\strut(2005)}\colorbox{blue!30}{Recollection.}
- \colorbox{red!30}{\strut Badger, B.}\colorbox{green!20}{\strut(2010)} Memoirs (2nd ed)
+   \begin{minipage}{0.95\marginparwidth}
+     \colorbox{red!50}{\strut Aardvark, A.} (1999) My life.\\
+%
+     \colorbox{red!30}{\strut Badger, B.}%
+     \colorbox{green!60}{\strut(1999)} Memories.\\
+%
+     \colorbox{red!30}{\strut Badger, B.}%
+     \colorbox{green!40}{\strut(2005)}%
+     \colorbox{blue!50}{Memoirs.}\\
+%
+     \colorbox{red!30}{\strut Badger, B.}%
+     \colorbox{green!40}{\strut(2005)}%
+     \colorbox{blue!30}{Recollection.}\\
+%
+     \colorbox{red!30}{\strut Badger, B.}%
+     \colorbox{green!20}{\strut(2010)} Memoirs (2nd ed)
   \end{minipage}}
-  \vspace{0.5pt}
-  \caption{\texttt{nyt} sorting}
+  \caption[][3pt]{\texttt{nyt} sorting}
   \end{marginfigure}
 \item
   Year/Name/Title (\texttt{sorting=ynt} or \texttt{sorting=ydnt}). Sorts
@@ -102,16 +132,20 @@ produce their own schemes.)
   \begin{marginfigure}[1ex]
   \fbox{
   \begin{minipage}{0.95\marginparwidth}
-  \colorbox{red!50}{\strut 1999.}\colorbox{green!50}{\strut Aardvark, A.}My Life.\\
- \colorbox{red!50}{\strut1999.}\colorbox{green!30}{\strut Badger, B.}Memories.\\
- \colorbox{red!40}{\strut 2001.}Badger, B. Memoirs.\\
- \colorbox{red!30}{\strut 2002.}Badger, B. Recollection.
-\colorbox{red!20}{\strut 2003.}Badger, B. Memoirs (2nd ed).
-  \end{minipage}}
-\vspace{0.5pt}
-  \caption{\texttt{ynt} sorting}
-  \end{marginfigure}
-
+      \colorbox{red!50}{\strut 1999.}%
+      \colorbox{green!50}{\strut Aardvark, A.}My Life.\\
+%
+      \colorbox{red!50}{\strut1999.}%
+      \colorbox{green!30}{\strut Badger, B.}Memories.\\
+%
+      \colorbox{red!40}{\strut 2001.}Badger, B. Memoirs.\\
+%
+      \colorbox{red!30}{\strut 2002.}Badger, B. Recollection.\\
+%
+      \colorbox{red!20}{\strut 2003.}Badger, B. Memoirs (2nd ed).
+\end{minipage}}
+\caption[][3pt]{\texttt{ynt} sorting}
+\end{marginfigure}
 \item
   Alphabetic Lable/Name/Year/Title (\texttt{sorting=anyt}). Sorts
   principally by the alphabetic label --- and obviously therefore
@@ -120,18 +154,17 @@ produce their own schemes.)
   unique, as would usually be the case, these will never need to be
   consulted. There is also a style \texttt{anyvt} which
   considers volume information.
-
-    \begin{marginfigure}[1ex]
+ \begin{marginfigure}[1ex]
   \fbox{
   \begin{minipage}{0.95\marginparwidth}
-\colorbox{red!50}{\strut[Aar00]}A.\,Aardvark.\,My Life.\.2000. \\
-\colorbox{red!40}{\strut[Bad05a]}B.\,Badger.\,Memoirs.\,2005.\\
-\colorbox{red!30}{\strut[Bad05b]}B.\,Badger.\,Recollection.\,2005. \\
-\colorbox{red!20}{\strut[Bad10]}B.\,Badger.\,Memoirs.\,2010. \\
-\colorbox{red!10}{\strut[Bad99]}B.\,Badger.\,Memories.\,1999.
+    \colorbox{red!50}{\strut[Aar00]}A.\,Aardvark.\,My Life.\.2000. \\
+    \colorbox{red!40}{\strut[Bad05a]}B.\,Badger.\,Memoirs.\,2005.\\
+    \colorbox{red!30}{\strut[Bad05b]}B.\,Badger.\,Recollection.\,2005. \\
+    \colorbox{red!20}{\strut[Bad10]}B.\,Badger.\,Memoirs.\,2010. \\
+    \colorbox{red!10}{\strut[Bad99]}B.\,Badger.\,Memories.\,1999.
   \end{minipage}}
 \vspace{0.5pt}
-  \caption{\texttt{anyt} sorting}
+  \caption[][3pt]{\texttt{anyt} sorting}
   \end{marginfigure}
 \item
   Debugging (\texttt{sorting=debug}) this order citations by their
@@ -144,67 +177,67 @@ produce their own schemes.)
 Most of the time, Biblatex and Biber will sort quite well, but there are
 occasions when you may need to intervene.
 
-\emph{Helping out the sorting} The first, and most common, is when for
-some reason the name field that should be printed is inappropriate for
-sorting, and you need to specify a slightly different version for
-sorting purposes only. This can happen for two main reasons:
+\paragraph{Helping out the sorting}\label{sorting:sortname} The first,
+and most common, is when for some reason the name field that should be
+printed is inappropriate for sorting, and you need to specify a
+slightly different version for sorting purposes only. This can happen
+for two main reasons.
 
-  You may just want a different name. For instance, suppose you have an
-  ``institutional'' author:
-
-  author = \{\{The Magoo Trust\}\}
-
+You may just want a different name. For instance, suppose you have an
+``institutional'' author:
+\begin{Verbatim}
+author = {{The Magoo Trust}}
+\end{Verbatim}
 Biblatex is going to try to sort this under T for ``The'' --- but you
-might think it better to have it sorted under M. In such a case, you can
-specify a \texttt{sortname}
-
-\begin{verbatim}
+might think it better to have it sorted under M. In such a case, you
+can specify a \texttt{sortname}
+\begin{Verbatim}
 sortname = {{Magoo Trust The}}
-\end{verbatim}
+\end{Verbatim}
 
-Similar things can happen with titles (indeed, it's more common there)
+Similar things can happen with titles (indeed, it's more common
+there)\label{sorting:sorttitle}
+\begin{Verbatim}
+title      = {The General Principles of EC Law}
+sortitle   = {General Principles of EC Law The}
+\end{Verbatim}
 
-\begin{verbatim}
-title = {The General Principles of EC Law}
-sortitle = {General Principles of EC Law The}
-\end{verbatim}
-
-  If you have used a LaTeX command in a field this may confuse the
-  sorting, and you can use an `unvarnished' version for sorting
-
-  |title = \{\TeX\{\}ing\} sortitle = \{Texing\}|
+If you have used a LaTeX command in a field this may confuse the
+sorting, and you can use an `unvarnished' version for sorting
+\begin{Verbatim}
+title    = {\TeX\}ing,
+sortitle = {Texing}
+\end{Verbatim}
 
 You can set \texttt{sortname}, \texttt{sorttitle}, and \texttt{sortyear}
 fields for these purposes.
 
-\emph{Fiddling with the order} The second change you might sometimes
+\paragraph{Fiddling with the order} The second change you might sometimes
 want to make is something which more drastically manipulates the order.
 
-Take, for instance (and this is actually the commonest example probably)
-a book with no author or one with no date. In a name/title/year system,
-the authorless book gravitates to the top of the list, and in a
-year/name/title system, the dateless work ends up at the end of the
-list. Suppose you want the reverse?
+Take, for instance a book with no author or one with no date. In a
+name/title/year system, the authorless book gravitates to the top of
+the list, and in a year/name/title system, the dateless work ends up
+at the end of the list. Suppose you want the reverse?
 
-The trick is this. Every entry in your \texttt{.bib} file is assumed to
-have a field called \texttt{presort} magically set to \texttt{mm}. And,
-as the name suggests, that is the first field that gets sorted. So if
-you set \texttt{presort} to something higher in the alphabet than
-\texttt{mm} (like, say, \texttt{aa}) the work in question will magically
-appear (alongside everything else with the same presort code) above the
-rest of the list; and if you set it to something lower in the alphabet
-than \texttt{mm} (like, say, \texttt{zz}) it will drop to the bottom.
+The trick is this. Every entry in your \texttt{.bib} file is assumed
+to have a field called \texttt{presort} magically set to
+\texttt{mm}. And, as the name suggests, that is the first field that
+gets sorted. So if you set \texttt{presort} to something higher in the
+alphabet than \texttt{mm} (like, say, \texttt{aa}) the work in
+question will magically appear (alongside everything else with the
+same presort code) above the rest of the list; and if you set it to
+something lower in the alphabet than \texttt{mm} (like, say,
+\texttt{zz}) it will drop to the bottom.
 
 The \texttt{presort} field could be used --- and in the past sometimes
-was --- for other purposes, and in particular for producing topic-based
-bibliographies (for instance by giving all primary sources a presort of
-\texttt{aa}, to move them to the top of the list). With Biblatex there
-are, frankly, better ways of achieving that sort of result.
+was --- for other purposes, and in particular for producing
+topic-based bibliographies (for instance by giving all primary sources
+a presort of \texttt{aa}, to move them to the top of the list). With
+Biblatex there are, frankly, better ways of achieving that sort of
+result.
 
 In desperation you can also use \texttt{sortkey} to fix absolutely and
 unequivocally the `key' by which a work will be sorted. Generally
 speaking, though, this is a counsel of desperation, and it is hard to
 think of a real-life situation in which it would be advised.
-
-
-

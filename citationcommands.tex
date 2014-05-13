@@ -1,5 +1,5 @@
 %!TEX root=biblatex-tutorial.tex
-\chapter{Citation Commands}
+\chapter{Citation Commands}\label{ch:citationcommands}
 
 
 The heart of any citation package, from the user’s point of view, is
@@ -40,7 +40,7 @@ see      &   Jones \ldots\    \\
          &   ibid.        &  202 \\
 \bottomrule
 \end{tabular}
-\caption{The structure of citations}
+\caption[][3pt]{The structure of citations}
 \end{margintable}
 
 The citation commands in \biblatex\ follow the same pattern: they have
@@ -56,9 +56,9 @@ argument is called the \texttt{prenote} and specifies the `signal'.
                    & \textsf{prenote}  & \textsf{postnote} &  \textsf{key} \\
 \midrule
 \cs{cite[See also][]\{jones\}}   & See also    &        & jones \\
-\cs{cite[p. 24]\{jones\}}            &             & p. 24  & jones \\
-\cs{cite[cf.][ch. 3]\{jones\}}   & cf.       & ch. 3  &   jones \\
-\cs{cite[see][]\{jones\}}        & see       &        &  jones \\
+\cs{cite[p. 24]\{jones\}}        &             & p. 24  & jones \\
+\cs{cite[cf.][ch. 3]\{jones\}}   & cf.         & ch. 3  & jones \\
+\cs{cite[see][]\{jones\}}        & see         &        & jones \\
 \bottomrule
 \end{tabular}
 \caption{Citation command with prenotes and postnotes}
@@ -117,12 +117,10 @@ There are, however, limitations. The \cs{autocite} command can cope
 well with citations at the end of sentences; but if citations are
 entangled in the text too much, the result will not be satisfactory. A
 sentence like
-
 \begin{quote}
   Jones (1990) and Smith (1991) `independently concluded' (Doe 2002,
   p.~19) that foos should not be permitted to bar.
 \end{quote}
-
 will probably require some manual intervention.
 
 \paragraph{\textbackslash textcite.} Finally there is \cs{textcite}. It’s not uncommon to have sentences like\begin{quote}
@@ -145,7 +143,15 @@ But that's a bit wordy, and in author/year styles, this trick won't work:
 \end{quote}
 
 Although mainly intended for author/year styles, \cs{textcite} works
-rationally in any style.
+rationally in any style; in verbose styles, the proper form involves printing something in the text (such as ``Jones'') and adding a footnote; if necessary punctuation will be moved for this purpose, so that
+\begin{Verbatim}
+... as \textcite[11]{Jones}, presciently, remarked ...
+\end{Verbatim}
+will produce
+\marginnote{\tikz[overlay]{\draw  (-0.5em,-0.5em) -| ([shift={(0.5ex,2.3ex)}] pic cs:comma)}The comma is moved so that it appears before the footnote.}
+\begin{quote}
+\dots as Jones\colorbox{red!30}{\tikzmark{comma},\textsuperscript{1}} presciently, remarked
+\end{quote}
 
 \subsection{Summary}
 
@@ -407,7 +413,7 @@ types of pagination recognised, and their results, is shown in table \ref{pagina
   \texttt{none} \\
   \bottomrule
 \end{tabular}
-\caption{Standard values for \texttt{pagination}\label{pagination:types}}
+\caption[][3pt]{Standard values for \texttt{pagination}\label{pagination:types}}
 \end{margintable}
 
 
@@ -482,7 +488,7 @@ see Smith 1990, p.\ 10; cf Jones 2000, p.\ 20; Bloggs 2010, p.\ 30
 \cs{Textcite}    & \cs{Textcites}\\
 \bottomrule
 \end{tabular}
-\caption{Multiple citation commands\label{multicites}}
+\caption[][3pt]{Multiple citation commands\label{multicites}}
 \end{margintable}
 
 It's not hard to see what's happening here: basically \biblatex\ is
@@ -574,4 +580,4 @@ There are a number of other commands, each with a particular and
 specialised purpose. They are hardly essential, however: they are
 generally ways of doing in one command what could, in any case, be
 done without much difficulty in two or three. You can read about them
-in the \biblatex\ manual.
+in the \biblatex\ manual.\intref{\emph{Manual}}

@@ -1,4 +1,5 @@
-\chapter{Citation Styles: The Menu}
+%!TEX root=biblatex-tutorial.tex
+\chapter{Styles: The Menu}\label{ch:bibstyles}
 
 There are many different citation and bibliography styles available
 for \biblatex, and half the battle is finding one which meets your
@@ -43,26 +44,26 @@ The first big division is between styles which rely on \emph{labels}
 and those that place full bibliographical information directly into
 citations. In labelled styles the bibliography contains the essential
 information about a citation, and the text contains references which
-are not full or self-contained, but which are intended to operate in
-conjunction with the biography. In contrast, in unlabelled styles,
-full bibliographical information can be found in the citations
+are not intended to be full or self-contained, but are intended to
+operate in conjunction with the biography. In contrast, in unlabelled
+styles, full bibliographical information can be found in the citations
 themselves. It may be repeated in the bibliography. But the reader is
 not expected to need to look anything up in the bibliography to find
 information about the work cited. However, because this consumes so
-much space, it is common to find a system of cross-references
-and abbreviations (including, in extreme cases, a panoply of latin
+much space, it is common to find a system of cross-references and
+abbreviations (including, in extreme cases, a panoply of latin
 gadgets: ibid., op.\ cit., loc.\ cit., supra, infra).
 
 The next big division is between \emph{abstract} labelling systems and
 \emph{partly meaningful} labelling systems. In an abstract labelling
-system, the label carries no real bibliographical information at
-all. It might be simply a number. To make any sense of it, the reader
-must look it up in the bibliography. In a partly meaningful labelling
-system (typically an author/year system), the label does actually
-provide some information which is likely to mean something: it tells
-you who wrote the work, and when. But the information is still not
-comprehensive, and the reader who wanted to track down the specific
-source would still need to use the bibliography.
+system, the label carries no real bibliographical information at all.
+It might be simply a number. To make any sense of it, the reader
+\emph{must} look it up in the bibliography. In a partly meaningful
+labelling system (typically an author/year system), the label does
+actually provide some information which is likely to mean something:
+it tells you who wrote the work, and when. But the information is
+still not comprehensive, and the reader who wanted to track down the
+specific source would still need to use the bibliography.
 
 \begin{table*}[tbh]
 \setfloatalignment{t}
@@ -97,7 +98,7 @@ range of latin gadgets they regard as acceptable or necessary. But
 these differences, though important, are less pronounced than the
 fundamental differences between the types of citation.
 
-Biblatex styles also fall into these three families, and there are
+\package{Biblatex} styles also fall into these three families, and there are
 a number of `standard' styles in each. In principle, \biblatex\
 distinguishes between the `citation style'\marginnote{\cs{usepackage[citestyle=...]\{biblatex\}}} (which determines how
 citations appear in the text) and the `bibliography style'\marginnote{\cs{usepackage[bibstyle=...]\{biblatex\}}} (which
@@ -105,13 +106,13 @@ determines how the list of references is printed; it is possible to
 specify each separately. In practice, however, there tends to be a
 connection between these things, and most users will not specify them
 separately, but will simply specify a \verb|style|option when loading
-\biblatex\, which will load both citation style and bibliography style.
+\biblatex\, which will load both citation style and bibliography style. That is what we assume here.
 
 Another line of division within \biblatex\ styles is between generic
 styles and specific styles. Generic styles (like the standard
 \biblatex\ styles reflect common citation practices but do not insist
 on conforming to any particular style guide). Specific styles aim to
-provide accurate implementations of particular detailed guides.
+provide accurate implementations of particular detailed guides. In principle, there is much to be said for specific styles, which are more likely to be accurate reflections of citation practices in the field to which they relate.
 
 If you are looking for a \biblatex\ style the first question should be
 whether there is an existing style which aims to implement the
@@ -133,10 +134,11 @@ APA            & \texttt{biblatex-apa} & 6.4 & 2013 \\
 APS            & \texttt{biblatex-phys} & 0.9a & 2012 \\
 American Chemical Society & \texttt{biblatex-chem} & 1.1l &
 2013 \\
-Anghewandte Chemie & \texttt{biblatex-chem}           & 1.1l & 2013
+Angewandte Chemie & \texttt{biblatex-chem}           & 1.1l & 2013
 \\
 \textit{Historische Zeitschrift} &\texttt{historische-zeitschrift} & 1
 & 2012 \\
+Chicago          & \texttt{biblatex-chicago} & 0.9.9e & 2014 \\
 IEEE             & \texttt{biblatex-ieee} & 1.1j & 2013 \\
 MLA              & \texttt{biblatex-mla} & 1.5 & 2013 \\
 \textit{Nature}  & \texttt{biblatex-nature} & 1.1c & 2012 \\
@@ -162,14 +164,13 @@ So how should you choose a style? The ideal situation is that the
 exact style you want already exists. There's a good chance that is the
 case. For instance, in the humanities, the Chicago styles (which offer
 both an author/year and a full bibliographical form) are very commonly
-used; and between the APA style (which is an author/year style) and
+used; and between the APA style (which is an author/year style), the MLA style (which is an author/title style) and
 the various styles for scientific journals, you may well find you are
 covered. If so, use that style (and consult its documentation
-carefully).
+carefully). Scientists are also well covered by a variety of different numeric styles. A variety have been illustrated with examples at the end of this document.\intref{See page~\pageref{chapter:examples}.} The \biblatex\ documentation also includes many examples, together with the document that produced them.\footnote[][-2ex]{Type \texttt{texdoc biblatex} to produce a list of them.}
 
-If there isn't an exact style, you will have to find one that comes
-close to your needs, and either live with it or adapt it. And of
-course if your requirements are not rigidly fixed, you can probably
+If there isn't an exact style that is precisely what you want, you will have to find one that comes
+close to your needs, and either live with it or adapt it. Provided your requirements are not rigidly fixed, you can probably
 find something which is satisfactory.
 
 I'm not going to say much more of the precisely tailored styles:
@@ -179,7 +180,7 @@ surveys some of the standard (and a few of the other available
 helpful to consider them family-by-family. But do bear in mind that
 the main strength and purpose of \biblatex\ is not in its in-built
 styles, which are intended rather as starting points for adjustment
-than as a bibliographic \emph{dernier cri}.
+than as a bibliographic \emph{dernier cri}. Still, much of what is said about them is generally applicable.
 
 \subsection{Standard Numeric Styles}
 
@@ -218,10 +219,7 @@ book and article references, formatted as the standard styles do.
 
 If that doesn't look right for you, you will need either to try to
 identify an existing numeric bibliography style which is correct, or
-to adapt the standard in some way. To help you with the first search,
-Appendix [X] provides examples of a number of existing styles. If you
-are planning on making changes yourself, some simple suggestions are
-covered in Chapter [*].
+to adapt the standard in some way.
 
 \newthought{Sorting is the next thing} to consider. In \biblatex\ that
 is dealt with by a package option which specifies the sorting method
@@ -236,9 +234,7 @@ listed in \emph{citation order}, you will need to specify the option
 \begin{center}
 \verb|sorting=none|
 \end{center}
-
-when you load \biblatex. (There's a lot more about sorting in chapter
-[X].)
+when you load \biblatex.\intref{See chapter~\ref{ch:sorting} for much more information on sorting.}
 
 
 \begin{margintable}[4cm]
@@ -272,7 +268,7 @@ terms of order.
 
 When it comes to changing the citation format, the most common
 requirements can be met as follows
-For \smallcaps{superscript citations}, you have three options:
+For \emph{superscript citations}, you have three options:
 \begin{enumerate}
 \item Use the \cs{supercite} command\marginnote{\texttt{blah.}\cs{supercite\{a\}}
     $\rightarrow$blah.$^{1}$} instead of \cs{cite}: this will
@@ -283,16 +279,16 @@ For \smallcaps{superscript citations}, you have three options:
   \verb|superscript| option set.
 \end{enumerate}
 
-Changing the \smallcaps{punctuation between multiple citations} is
+Changing the \emph{punctuation between multiple citations} is
 easy. By default it's a comma. You change it by redefining
-\cs{multicitedelim}. So if you want a semicolon, you would put (in
+\cs{multicitedelim}.\intref{See further, chapter \ref{ch:recipes}.} So if you want a semicolon, you would put (in
 your preamble)
 \begin{center}
 \verb|\renewcommand{\multicitedelim}{\addsemicolon\space}|
 \end{center}
 
-Occasionally one sees styles where the \smallcaps{label is in
-bold}\marginnote{[\textbf{1}, \textbf{2}]} or some other
+Occasionally one sees styles where the label is in
+bold\marginnote{[\textbf{1}, \textbf{2}]} or some other
 funny font. If you have to do that, you need to provide field formats
 for \verb|labelprefix|, \verb|labelnumber| and
 \verb|entrysetcount|. Each takes the same form (in the preamble of
@@ -305,12 +301,12 @@ Or whatever other format you want.
 
 If you want to use \emph{parentheses} instead of brackets around citation labels
 ---so you get (1) instead of [1]---or if you want to dispense with
-these delimeters altogether, you need to do rather a lot more
-work. []
+these delimiters altogether, you need to do rather more
+work. This topic is covered in some detail below.\intref{Page \pageref{recipe:brackets}.}
 
 \section{Alphanumeric Labels}
 
-Alphanumeric labels look like [JW86] or [Jon95]. They are a\footnote{pointless and ugly} half-way house between the elegant
+Alphanumeric labels look like [JW86] or [Jon95]. They are a half-way house between the elegant
 simplicity of numerical citations, and the additional information
 provided by author/year styles.
 
@@ -372,7 +368,7 @@ is still added automatically.
 
 A still more advanced change would be to alter altogether the way that
 labels are generated. This is an advanced customization, which is not
-covered in this document: consult the \biblatex\ documentation.
+covered in this document: consult the \biblatex\ documentation.\intref{\emph{Manual} \S\ 4.5.4}
 
 \newthought{In terms of formatting} there's not much room for
 variation.
@@ -423,16 +419,16 @@ are:\begin{itemize}
   want to see `Doe 1982; Doe 1983' (uncompressed) or `Doe 1982, 1983'
   (compressed).
 \begin{margintable}
-  \begin{tabular}{lll}
-    \toprule
-    & \textsf{compress} & \textsf{ibid} \\
+\begin{tabular}{lll}
+\toprule
+                          & \textsf{compress} & \textsf{ibid} \\
 \midrule
 \texttt{authoryear} \\
-\texttt{authoryear-comp} & \textbullet \\
-\texttt{authoryear-ibid} & & \textbullet \\
+\texttt{authoryear-comp}  & \textbullet \\
+\texttt{authoryear-ibid}  &             & \textbullet \\
 \texttt{authoryear-icomp} & \textbullet & \textbullet \\
 \bottomrule
-  \end{tabular}
+\end{tabular}
 \caption{Author/Year styles\label{authoryear:styles}}
 \end{margintable}
 \item Do you want to use `ibid' for repeated citations of the same
@@ -449,20 +445,21 @@ citations sorted but not compressed, you can set the option
   there's not much room for simple customization; but there are three
 things you may wish to adjust.
 
-First, the number of names that get printed. By default, up to three
+First, the number of names that get printed.\intref{See further, page \pageref{recipes:maxnames}.}
+By default, up to three
 names will be printed, both in the citations and in the
 bibliography. If there are more than three names, they will be
 abbreviated to one name `et al' --- again, both in the citations and
 the bibliography. So, for instance, the entry:
-\begin{verbatim}
+\begin{Verbatim}
 @book{companion,
   author = {Goossens, Michel and Mittelbach, Frank 
             and Samarin, Alexander},
   title = {The LaTeX Companion},
-  date = {1994},
+  date  = {1994},
   ...
 }
-\end{verbatim}
+\end{Verbatim}
 will produce `Goosens, Mittelbach, and Samarin 1994'. If you prefer shorter lists of names, then use the
 option \verb|maxnames|: if \verb|maxnames=1| then no more than one
 name will be used, and so forth. You can, however, still have more
@@ -472,7 +469,7 @@ than one name in the bibliography, because you can set
 will read `Goosens et al', but the bibliography will still read
 `Goosens, Mittelbach, and Samarin \ldots'.
 
-A second adjustment you might want to make is to punctuation
+A second adjustment you might want to make is to punctuation:\intref{See generally, chapter \ref{ch:recipes}.}
 \begin{itemize}
 \item You might change the punctuation
 between author and the year. By default it is a space; but you can
@@ -489,10 +486,10 @@ and citations would become `Author: 1980', and so forth.
 The third set of adjustments that you might like to make arise only if
 you are using one of the style versions that makes use of `ibid'. You
 can control the circumstances in which ibid is used by setting the
-\verb|ibidtracker| option. There are five possible settings for
+\verb|ibidtracker| option.\label{ibidtracking} There are five possible settings for
 \verb|ibidtracker| described in the \biblatex\ documentation; but in
 my experience only three of them are useful
-\begin{description}[font=\ttfamily\upshape\bfseries]
+\begin{description}[font=\ttfamily\upshape]
 \item[ibidtracker=false] Don't ever use ibid.
 \item[ibidtracker=constrict] Use ibid, but be cautious to avoid
   ambiguity. Footnotes and the main text are tracked separately, and
@@ -573,8 +570,8 @@ unnecessarily complex range of options (ibid, p.~100).
 \texttt{authortitle-ticomp} & \textbullet & \textbullet & \textbullet \\
 \bottomrule
 \end{tabular}
-\vspace{1pt}
-\caption{The various author/title styles\label{authortitle:styles}}
+\vspace{3pt}
+\caption{Author/title styles\label{authortitle:styles}}
 \end{margintable}
 \end{enumerate}
 
@@ -586,7 +583,7 @@ citations sorted but not compressed, you can use an uncompressed style
 but set the \verb|sortcites| option.)
 
 \newthought{Customization} is not often required, but resembles that
-for the author/year styles.
+for the author/year styles.\intref{And see chapter \ref{ch:recipes}.}
 \begin{itemize}
 \item Customization of the number of names printed in citations and
   the bibliography is achieved using \verb|maxnames| and
@@ -599,7 +596,7 @@ for the author/year styles.
 \end{verbatim}
 \item The delimiter between multiple citations is usually a
   semicolon. To change it, redefine \cs{multicitedelim}.
-\item If you are using ibid, you can configure it using the options
+\item If you are using ibid,\intref{Page \pageref{ibidtracking}.} you can configure it using the options
   given above.
 \end{itemize}
 

@@ -1,198 +1,100 @@
 %!TEX root=biblatex-tutorial.tex
 \chapter{In brief}
-\twocolumn
 
-Hi
 
-Hi
-f
-f
-f
-f
-
-
-
-
-ff
-f
-
-f
-
-
-f
-f
-
-f
-
-
-f
-f
-
-f
-f
-
-
-
-f
-f
-f
-
-f
-
-fffff
-
-f
-f
-f
-
-f
-f
-
-f
-
-
-
-
-ffff
-
-
-
-ffff
-
-
-fffffff
-
-
-fffffff
-
-
-
-
-
-ff
-f
-f
-f
-f
-f
-f
-
-
-f
-
-
-
-
-
-ff
-
-
-fffff
-
-
-ffffffff
-
-
-
-ffffff
-
-
-fffff
-
-
-ffffff
-
-
-
-fffffff
-
-
-
-ffffffffff
-
-
-
-fffffff
-
-
-fffffffff
-
-
-ffffffff
-
-g
-
-
-
-gggggg
-
-
-gggggg
-
-
-
-ggggg
-g
-g
-g
-
-
-gggg
-
-
-ggggg
-
-
-ggggg
-
-
-f
-f
-f
-f
-ff
-
-
-
-hhhhhh
-hhhh
-
-
-hhhhhh
-hh
-hhh
-
-
-hhhhh
-hh
-
-
-hhhhh
-hhh
-
-
-hhhhhhh
-
-
-hhhhhhhhh
-hhhhh
-
-
-hhhhhh
-
-hhhhhhh
-hhhhhh
-
-
-hhhhhhhh
-hhhhhh
-
-hhhhhhhh
-
-hhhhhhhhh
-
-hhhhhhhh
-hhh
-
-
-
+\paragraph{Load \biblatex\ and \package{csquotes}}
+\begin{pseudoverb}
+\cs{usepackage}[backend=biber,\\
+style=\angled{style},\angled{options}]\{biblatex\}\\
+\cs{usepackage}[style=\angled{style}]\{csquotes\}
+\end{pseudoverb}
+
+Always add a bibliography file with
+\begin{pseudoverb}
+\cs[\angled{bibfile.bib}]{addbibliography}
+\end{pseudoverb}
+
+\paragraph{Languages}
+\begin{pseudoverb}
+\cs{usepackage}[\angled{language}]\{babel\}\\
+\emph{or} \cs{usepackage}\{polyglossia\}
+\end{pseudoverb}
+
+\paragraph{Encodings and accents} Use \smallcaps{utf-8} in |.bib| file, or use \TeX\ accent commands |\`| etc. Prefer unicode. Set input encoding of |.tex| file with \package{inputenc}.
+
+\paragraph{Citations}
+Use |\autocite| and |\cite| in all styles. Use |\textcite| for `running' citations. Use |\parencite| for parenthetical citations. Use |\footcite| for footnote citations.
+
+Citation commands take the form:
+\begin{pseudoverb}
+\cs{cite}[\angled{postnote}]\{\angled{key}\}\\
+\emph{or} \cs{cite}[\angled{prenote}][\angled{postnote}]\{\angled{key}\}
+\end{pseudoverb}
+
+\paragraph{Printing the bibliography}
+\begin{pseudoverb}
+\cs{printbibliography}
+\end{pseudoverb}
+
+\paragraph{Compilation}
+\begin{itemize}
+\item Run \LaTeX.
+\item Run \package{Biber}.
+\item Run \LaTeX twice more.
+\end{itemize}
+
+\paragraph{Database} Entries take the form
+\begin{pseudoverb}
+@\angled{type}\{\angled{key},\\
+ \angled{field} $=$ \{\angled{value}\}, \\
+ \emph{or} \angled{field} $=$ "\angled{value}",
+ \}
+\end{pseudoverb}
+
+\paragraph{Common types:}
+\begin{itemize}
+\item \texttt{@article} for journal article.
+\item \texttt{@book} for book.
+\item \texttt{@incollection} for edited collection.
+\item \texttt{@inbook} for collection by single author.
+\end{itemize}
+
+\paragraph{Common fields:}
+\begin{itemize}
+\item \texttt{title} e.g. `Bleak House'
+\item \texttt{journaltitle} e.g. `Nature'
+\item \texttt{author} e.g. `Shakespeare, William'
+\item \texttt{editor} e.g. `Houseman, A. E.'
+\item \texttt{date} e.g. `2001-11-10', `1999'
+\item \texttt{volume}, \texttt{issue}, \texttt{number}
+\item \texttt{pages} e.g. `1-10'
+\item \texttt{location} e.g. `London'
+\item \texttt{publisher} e.g. `OUP'
+\end{itemize}
+
+\paragraph{Names}
+\begin{pseudoverb}
+von Lastname, Firstname I. \\
+Lastname, F. I. \\
+Firstname Lastname
+\end{pseudoverb}
+
+\paragraph{Multiple authors} Use `and' not `,':
+\begin{pseudoverb}
+A. Thor and Ann Other
+\end{pseudoverb}
+
+\paragraph{Debugging}
+\begin{itemize}
+\item Did \package{biber} run?
+\item What error messages?
+\item Is |bibresource| correctly identified?
+\item Can \TeX\ find it?
+\item Are all relevant |.bib| entries correct?
+\end{itemize}
+
+%%% Local Variables: 
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-master: "biblatex-tutorial"
+%%% End: 
