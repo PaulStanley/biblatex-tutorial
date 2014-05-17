@@ -863,7 +863,7 @@ manual                  & \texttt{report}                                       
 online item             & \texttt{online}                                                              \\
 thesis                  & \texttt{thesis}               & set the \texttt{type} for the type of thesis \\
 \bottomrule
-\END{tabularx}
+\end{tabularx}
 \caption{Sources and entry types\label{entry:summary}}
 \end{table*}
 
@@ -931,17 +931,24 @@ A sourcemap directive is a powerful thing.\intref{\emph{Manual}
   \S~4.5.2.} It tells \package{Biber} to make changes to the input
 file data \emph{before} outputting them for \LaTeX\ to use. In this
 case, it tells it to apply the changes to any |.bib|
-file\footnote{Don't suppose that \texttt{datatype = bibtex} means that
+file.\footnote{Don't suppose that \texttt{datatype = bibtex} means that
   the \bibtex\ \emph{program} can do this. It's a \package{Biber}
-  technique only!} It tells Biber to apply this step to |.bib|
-files.}. The changes consist of a filtering step where it examines the
-|journaltitle| field in any source and, if it matches $\ulcorner$|NYU
-Legal Studies Q|$\lrcorner$, it will replace it with $\ulcorner$|NYU
-Leg Studs Q|$\lrcorner$. This does not actually change your |.bib|
-\emph{file}; but it alters the data as it passes from that file into
+  technique only!}
+
+ The changes consist of a filtering step where it examines the
+|journaltitle| field in any source and, if it matches 
+$\ulcorner$|NYU Legal Studies Q|$\lrcorner$, \biblatex\ will replace it with 
+$\ulcorner$|NYU Leg Studs Q|$\lrcorner$. This does not actually change your 
+|.bib| \emph{file}; but it alters the data as it passes from that file into
 \LaTeX\ for typesetting.
 
 As you can see, this trick will only work if you have been
 \emph{consistent} in the way you have named journals and
 publishers. But so long as you are consistent, it's a powerful
 technique.
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: LaTeX
+%%% TeX-master: "biblatex-tutorial"
+%%% End:

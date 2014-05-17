@@ -79,30 +79,31 @@ There are five basic citation commands: \cs{cite}, \cs{footcite},
 does depends on the citation style. But the general idea of the
 circumstances in which you would use each is more or less the same.
 
-\paragraph{\textbackslash cite.} The \cs{cite} command is “basic”. It simply prints
-the particular style’s idea of a simple citation. So, for instance,
-with a numeric style, \cs{cite} prints [1], and with a verbose style
-it prints full bibliographical details (or ibid., or supra n. \ldots,
-if that would be correct).
+\paragraph{\textbackslash cite.} The \cs{cite} command is “basic”. It
+simply prints the particular style’s idea of a simple citation. So,
+for instance, with a numeric style, \cs{cite} prints [1], and with a
+verbose style it prints full bibliographical details (or ibid., or
+supra n. \ldots, if that would be correct).
 
 
-\paragraph{\textbackslash footcite and \textbackslash parencite.}The \cs{footcite} command tries to
-put its citation in a footnote. So \cs{footcite\{jones\}} is
-  equivalent to \cs{footnote\{\textbackslash cite\{jones\}.\}} ---
-  syntactic sugar. The \cs{parencite} command does a similar thing,
-  but it wraps its citation in parentheses, so that it is equivalent
-  to \texttt{(\cs{cite\{jones\}})}.
+\paragraph{\textbackslash footcite and \textbackslash parencite.}The
+\cs{footcite} command tries to put its citation in a footnote. So
+\cs{footcite\{jones\}} is equivalent to \cs{footnote\{\textbackslash
+  cite\{jones\}.\}} --- syntactic sugar. The \cs{parencite} command
+does a similar thing, but it wraps its citation in parentheses, so
+that it is equivalent to \texttt{(\cs{cite\{jones\}})}.
 
 
-\paragraph{\textbackslash autocite.} This is all very well. But what if
-you’re not sure whether you should use \cs{cite} or \cs{footcite}
-or \cs{parencite}. Suppose you write a paper, expecting to use numerical
-citations; but then you decide to use verbose citations instead. Now
-you have to go through and convert all your \cs{cite}s to \cs{footcite}s. The
-\cs{autocite} command is intended to avoid that. It will use whatever
-citation command is most appropriate to the style selected. So if you
-use \cs{autocite}, you can (try to) change all your citations from in-text
-citations to, say, footnotes simply by changing the style.
+\paragraph{\textbackslash autocite.} This is all very well. But what
+if you’re not sure whether you should use \cs{cite} or \cs{footcite}
+or \cs{parencite}. Suppose you write a paper, expecting to use
+numerical citations; but then you decide to use verbose citations
+instead. Now you have to go through and convert all your \cs{cite}s to
+\cs{footcite}s. The \cs{autocite} command is intended to avoid
+that. It will use whatever citation command is most appropriate to the
+style selected. So if you use \cs{autocite}, you can (try to) change
+all your citations from in-text citations to, say, footnotes simply by
+changing the style.
 
 It does another thing that is, as the kids say, cool. It will shift
 punctuation. It needs to be able to do this because where a citation
@@ -123,8 +124,9 @@ sentence like
 \end{quote}
 will probably require some manual intervention.
 
-\paragraph{\textbackslash textcite.} Finally there is \cs{textcite}. It’s not uncommon to have sentences like\begin{quote}
-
+\paragraph{\textbackslash textcite.} Finally there is
+\cs{textcite}. It’s not uncommon to have sentences like
+\begin{quote}
    \ldots\ as Jones (1990) remarks \ldots
 \end{quote}
 where the citation is `woven' into the text of the sentence.
@@ -143,14 +145,20 @@ But that's a bit wordy, and in author/year styles, this trick won't work:
 \end{quote}
 
 Although mainly intended for author/year styles, \cs{textcite} works
-rationally in any style; in verbose styles, the proper form involves printing something in the text (such as ``Jones'') and adding a footnote; if necessary punctuation will be moved for this purpose, so that
+rationally in any style; in verbose styles, the proper form involves
+printing something in the text (such as ``Jones'') and adding a
+footnote; if necessary punctuation will be moved for this purpose, so
+that
 \begin{Verbatim}
 ... as \textcite[11]{Jones}, presciently, remarked ...
 \end{Verbatim}
-will produce
-\marginnote{\tikz[overlay]{\draw  (-0.5em,-0.5em) -| ([shift={(0.5ex,2.3ex)}] pic cs:comma)}The comma is moved so that it appears before the footnote.}
+will produce \marginnote{\tikz[overlay]{\draw (-0.5em,-0.5em) -|
+    ([shift={(0.5ex,2.3ex)}] pic cs:comma)}The comma is moved so that
+  it appears before the footnote.}
 \begin{quote}
-\dots as Jones\colorbox{red!30}{\tikzmark{comma},\textsuperscript{1}} presciently, remarked
+  \dots as
+  Jones\colorbox{red!30}{\tikzmark{comma},\textsuperscript{1}}
+  presciently, remarked
 \end{quote}
 
 \subsection{Summary}
@@ -162,57 +170,55 @@ operate with the various different standard styles.
 \scriptsize
 \begin{tabular}{llllll}
 \toprule
-& \cs{cite[9]\{jones\}} & \cs{footcite[9]\{jones\}} &
-\cs{parencite[9]\{jones\}} & \cs{autocite[9]\{jones\}} & \texttt{as} \cs{textcite[9]\{jones\}}
-says \\
-\midrule \textsf{numeric} & [1, p.~9] & $^*$1,
-  p.~9. & [1, p.~9] & [1, p.~9] & as Jones [1, p.~9] says\\
-\midrule \textsf{alphabetic} & [Jon94, p.~9] & $^*$Jon94, p.~9 & [Jon94, p.~9]
-& [Jon94, p.~9] & as Jones [Jon94, p.~9] says\\
-\midrule \textsf{authoryear} & Jones 1994, p.~9 & $^*$Jones 1994, p.~9 & (Jones
-1994, p.~9) & (Jones 1994, p.~9) & as Jones (1994,
-p.~9) says \\
-\midrule \textsf{authortitle} & Jones, ``Title'', p.~9 & $^*$Jones, ``Title'',
-p.~9 & (Jones, ``Title'', p.~9) & $^*$Jones, ``Title'', p.~9 & as
-Jones (``Title'', p.~9) says \\
-\midrule \textsf{verbose} & \parbox{2cm}{Jones. ``Title''. In: \emph{Journal}
-  100 (1994), p.~7, p.~9} & \parbox{2.2cm}{$^*$Jones. ``Title''. In:
+                                         & \cs{cite[9]\{jones\}}     & \cs{footcite[9]\{jones\}}  & 
+\cs{parencite[9]\{jones\}}               & \cs{autocite[9]\{jones\}} & \texttt{as} \cs{textcite[9]\{jones\}}
+says                                                                                                                        \\
+\midrule \textsf{numeric}                & [1, p.~9]                 & $^*$1,
+  p.~9.                                  & [1, p.~9]                 & [1, p.~9]                  & as Jones [1, p.~9] says \\
+\midrule \textsf{alphabetic}             & [Jon94, p.~9]             & $^*$Jon94, p.~9            & [Jon94, p.~9]
+                                         & [Jon94, p.~9]             & as Jones [Jon94, p.~9] says                          \\
+\midrule \textsf{authoryear}             & Jones 1994, p.~9          & $^*$Jones 1994, p.~9       & (Jones
+1994, p.~9)                              & (Jones 1994, p.~9)        & as Jones (1994,
+p.~9) says                                                                                                                  \\
+\midrule \textsf{authortitle}            & Jones, ``Title'', p.~9    & $^*$Jones, ``Title'',
+p.~9                                     & (Jones, ``Title'', p.~9)  & $^*$Jones, ``Title'', p.~9 & as
+Jones (``Title'', p.~9) says                                                                                                \\
+\midrule \textsf{verbose}                & \parbox{2cm}{Jones. ``Title''. In: \emph{Journal}
+  100 (1994), p.~7, p.~9}                & \parbox{2.2cm}{$^*$Jones. ``Title''. In:
   \emph{Journal} 100 (1994), p.~7, p.~9} & \parbox{2cm}{(Jones. ``Title''. In: \emph{Journal}
-  100 (1994), p.~7, p.~9)} & \parbox{2cm}{Jones. ``Title''. In: \emph{Journal}
-  100 (1994), p.~7, p.~9} & \parbox{3cm}{as Jones$^*$ says \\---\\
+  100 (1994), p.~7, p.~9)}               & \parbox{2cm}{Jones. ``Title''. In: \emph{Journal}
+  100 (1994), p.~7, p.~9}                & \parbox{3cm}{as Jones$^*$ says                                                   \\---\\
   $^*$Jones. ``Title''. In: \emph{Journal}
-  100 (1994), p.~7, p.~9.}\\
+  100 (1994), p.~7, p.~9.}                                                                                                  \\
 \bottomrule
 \end{tabular}
 \vspace{5pt}
 \caption{Common citation commands in standard styles\label{allcitations}}
 \end{table*}
 
-
-
 \section{Capital Forms}
 
 Each of \cs{cite}, \cs{parencite} and \cs{autocite} have `capital'
 forms (\cs{Cite}, etc) which are appropriate for use where a capital
-would be required. You might wonder why, since most citations
-already begin with a capital, or with a number. The only time
-capitalisation might be needed is if the citation begins with
-something like `von', and you want it capitalised. There is no special
-capital form of \cs{footcite} because it always assumes that the
-citation will begin a sentence so that a capital may be appropriate.
+would be required. You might wonder why, since most citations already
+begin with a capital, or with a number. The only time capitalisation
+might be needed is if the citation begins with something like `von',
+and you want it capitalised. There is no special capital form of
+\cs{footcite} because it always assumes that the citation will begin a
+sentence so that a capital may be appropriate.
 
 \section{Specific to Numerical Styles}
 
-For numerical styles, the command \cs{supercite}\ prints citations as
+For numerical styles, the command \cs{supercite} prints citations as
 superscript numbers. It’s rather unusual to want both regular
 full-size labels and superscript labels in the same document; but if
 you do you can mix \cs{cite} and \cs{supercite} as you wish. Generally
 speaking you want one or the other. For this, the safest course is to
 use the option \texttt{autocite=super}, and use \cs{autocite}.
 
-There is a limitation to \cs{supercite}. It doesn't make sense to try to
-cram signals and pinpoints into superscript numbers. So \cs{supercite}
-will discards prenote and postnote parts
+There is a limitation to \cs{supercite}. It doesn't make sense to try
+to cram signals and pinpoints into superscript numbers. So
+\cs{supercite} will discards prenote and postnote parts
 \begin{quote}
 \cs{supercite[see][25]\{jones\}} \gives\ $^1$
 \end{quote}
@@ -232,19 +238,15 @@ forced, even if they would otherwise not be used). The commands
 \cs{citetitle} and \cs{citetitle*} print the title: abbreviated if
 possible in the regular form, but always in full in the starred form.
 
-\paragraph{Year or date.} The\marginnote{
-{\ttfamily 
-\cs{citeauthor\{key\}}
-published his roman a clef (\cs{citeyear*}\{key\})
-in \cs{citeyear}\{key\}} \gives\
-Locke published his roman a clef (1905b) in 1905
-}
- commands \cs{citeyear} and
-\cs{citeyear*}, and \cs{citedate} and \cs{citedate*}, print year or
-date. The difference is that whereas the unstarred versions just print
-the calendar year or date, the starred versions print any extra label
-that is added to that for the particular work. So if you had, say,
-five works by a particular author in one year,
+\paragraph{Year or date.} The\marginnote{{\ttfamily
+    \cs{citeauthor\{key\}} published his roman a clef
+    (\cs{citeyear*}\{key\}) in \cs{citeyear}\{key\}} \gives\ Locke
+  published his roman a clef (1905b) in 1905} commands \cs{citeyear}
+and \cs{citeyear*}, and \cs{citedate} and \cs{citedate*}, print year
+or date. The difference is that whereas the unstarred versions just
+print the calendar year or date, the starred versions print any extra
+label that is added to that for the particular work. So if you had,
+say, five works by a particular author in one year,
 \verb|\citeyear{prolific86c}| would print `1986', whereas
 \verb|citeyear{prolific86c}| would print `1986c'.
 
@@ -263,9 +265,13 @@ manual at [*].
 
 \section{Entry sets}
 
-In some disciplines it is common to have a single numeric citation refer to a group of sources. This is supported in \biblatex\ by the entry-set.
+In some disciplines it is common to have a single numeric citation
+refer to a group of sources. This is supported in \biblatex\ by the
+entry-set.
 
-There are two ways to define such a set. One way is to define them as a |key| in the |.bib| file. Thus, for instance, your |.bib| file might define
+There are two ways to define such a set. One way is to define them as
+a |key| in the |.bib| file. Thus, for instance, your |.bib| file might
+define
 \begin{Verbatim}
 @set{set1,
   entryset={augustine, cotton}}
@@ -276,9 +282,12 @@ You can then use |\cite{set1}| to get output as in figure \ref{entryset1}.
 \caption{An \texttt{entryset}\label{entryset1}}
 \end{figure}
 
-The alternative, and usually more convenient approach, is to define such sets `on the fly' in each document. This can be done using the command
+The alternative, and usually more convenient approach, is to define
+such sets `on the fly' in each document. This can be done using the
+command
 \begin{pseudoverb}
-\centering\cs{defbibentryset}\{\angled{set-key}\}\{\angled{key$_{1}$ \ldots\ key$_{n}$}\}
+  \centering\cs{defbibentryset}\{\angled{set-key}\}\{\angled{key$_{1}$
+    \ldots\ key$_{n}$}\}
 \end{pseudoverb}
 so that
 \begin{Verbatim}
@@ -286,7 +295,8 @@ so that
 \end{Verbatim}
 will produce the same output as figure \ref{entryset1}.
 
-Different styles will print entry sets in different ways. For instance, the \package{biblatex-chem} wil
+Different styles will print entry sets in different ways. For
+instance, the \package{biblatex-chem} wil
 
 \section{Pinpoints}
 
@@ -294,44 +304,43 @@ It usually makes sense to give pinpoint citations to a particular work
 primarily by reference to one type of marker. So, for instance, books
 are normally cited by page. How such references are styled depend on
 the particular scheme. Some schemes want `p. 23', others want `p 23',
-others just want `23'. To save effort, Biblatex will insert appropriate
-default labels. So if you just type \cs{cite[23]\{key\}}, Biblatex will
-produce `p. 23'  (or whatever is appropriate to your style). It works
-also for multiple pages: \cs{cite[22, 23]\{key\}} will print `pp. 22, 23'
-and \cs{cite[22--25]\{key\}} will print `pp. 22--25', and do forth.
+others just want `23'. To save effort, Biblatex will insert
+appropriate default labels. So if you just type \cs{cite[23]\{key\}},
+Biblatex will produce `p. 23' (or whatever is appropriate to your
+style). It works also for multiple pages: \cs{cite[22, 23]\{key\}}
+will print `pp. 22, 23' and \cs{cite[22--25]\{key\}} will print
+`pp. 22--25', and do forth.
 
 
 What if you want some different prefix? If the problem is with a
 particular citation, you can just enter the prefix manually. For
 instance, if you want to cite chapter 3, just type
-\cs{cite[ch.\textasciitilde 3]\{key\}}. Since Biblatex only adds a prefix where you have
-provided a reference which consists only of numbers, your postnote
-will be printed as you have entered it.
+\cs{cite[ch.\textasciitilde 3]\{key\}}. Since Biblatex only adds a
+prefix where you have provided a reference which consists only of
+numbers, your postnote will be printed as you have entered it.
 
 
 
-\newthought{This is neat and tidy.} But, as so often there are special cases and
-customisations.
+\newthought{This is neat and tidy.} But, as so often there are special
+cases and customisations.
 
 
 \paragraph{No prefixes} You don't want prefixes, even when you enter a
-purely numerical postnote: you want \cs{cite[22]\{key\}} to produce `\angled{key},
-22'. There are a number of ways to achieve this, depending on how
-generally you want to disable the use of prefixes.  For a single
-citation, start the postnote with the special command \cs{nopp}.
-\marginnote
-{{\ttfamily
-\cs{cite}[\cs{nopp}22]\{key\}} \gives\ \angled{key}, 22}
-This is most appropriate where you have a single citation that is
-giving you problems.
+purely numerical postnote: you want \cs{cite[22]\{key\}} to produce
+`\angled{key}, 22'. There are a number of ways to achieve this,
+depending on how generally you want to disable the use of prefixes.
+For a single citation, start the postnote with the special command
+\cs{nopp}.  \marginnote {{\ttfamily \cs{cite}[\cs{nopp}22]\{key\}}
+  \gives\ \angled{key}, 22} This is most appropriate where you have a
+single citation that is giving you problems.
 
 To\marginnote{%
-{\ttfamily @book\{key,...\\
-\quad pagination = \{none\}\}} \\%
-\cs{cite[22]\{key\}} \gives\ \angled{key}, 22}
- stop all additions for a particular source, set that source’s
-pagination to ’none’. This is most appropriate when you generally want
-to use prefixes, but you have a particular source where they are not required.
+  {\ttfamily @book\{key,...\\
+    \quad pagination = \{none\}\}} \\%
+  \cs{cite[22]\{key\}} \gives\ \angled{key}, 22} stop all additions
+for a particular source, set that source’s pagination to ’none’. This
+is most appropriate when you generally want to use prefixes, but you
+have a particular source where they are not required.
 
 To stop all additions, for every source:
 \begin{center}
@@ -346,16 +355,17 @@ you have a source with pages which have letters, like `1234a'. Again,
 there are a number of solutions.
 
 The\marginnote{\cs{cite[p.\textasciitilde 12a]\{key\}} \gives\
-  \angled{key}, p.~12a} easiest thing to do in such cases is simply to type the prefix
-yourself: \cs{cite[p.\textasciitilde 1234a]\{key\}}. But if you think
-it’s worth getting Biblatex to do it for you, you can use
-\cs{pno}\marginnote{\cs{cite[\textbackslash pno 12a]\{key\}} \gives\
-  \angled{key}, p.~12a}
-(for a single page) and \cs{ppno}\marginnote{\cs{cite[\textbackslash ppno 12a-{}-b]\{key\}} \gives\
-  \angled{key}, pp.~12a--b} (for multiple pages). (In theory, the
-\cs{pno} and \cs{ppno} commands could be `better' because you could
-change the style of prefixes and they would adjust automatically. In
-the real world, there's probably not much practical advantage.
+  \angled{key}, p.~12a} easiest thing to do in such cases is simply to
+type the prefix yourself: \cs{cite[p.\textasciitilde
+  1234a]\{key\}}. But if you think it’s worth getting Biblatex to do
+it for you, you can use \cs{pno}\marginnote{\cs{cite[\textbackslash
+    pno 12a]\{key\}} \gives\ \angled{key}, p.~12a} (for a single page)
+and \cs{ppno}\marginnote{\cs{cite[\textbackslash ppno
+    12a-{}-b]\{key\}} \gives\ \angled{key}, pp.~12a--b} (for multiple
+pages). (In theory, the \cs{pno} and \cs{ppno} commands could be
+`better' because you could change the style of prefixes and they would
+adjust automatically. In the real world, there's probably not much
+practical advantage.
 
 \paragraph{Latin gadgets for multiple pages}There is one special
 common case. Suppose you want `p.~20~ff.' or `p.~20 et seq.'  You
@@ -387,30 +397,32 @@ this command:
 
 \paragraph{Correcting \biblatex's guesses} \textsf{Biblatex} tries to
 guess whether to add `p.' or `pp.' by working out whether you have
-cited a single page or a range of pages. But occasionally the form of a
-citation might confuse \biblatex, so that it adds `p.' when you need
+cited a single page or a range of pages. But occasionally the form of
+a citation might confuse \biblatex, so that it adds `p.' when you need
 `pp.', or vice versa. In such cases, either type the whole postnote
-yourself, or use the \cs{pno} or \cs{ppno} commands, as explained above.
+yourself, or use the \cs{pno} or \cs{ppno} commands, as explained
+above.
 
 \paragraph{You want something \ldots\ but not `pp.'} Some sources
-don't use pages for pinpoint citations. For instance, suppose you
-are citing a work which is normally referred to by section, not
-page. In such a case, you can still use the convenience of having
-automatic prefixes. What you need to do is to set the pagination field
-of the source in the \texttt{.bib} file to `section'. A list of the
-types of pagination recognised, and their results, is shown in table \ref{pagination:types}.
+don't use pages for pinpoint citations. For instance, suppose you are
+citing a work which is normally referred to by section, not page. In
+such a case, you can still use the convenience of having automatic
+prefixes. What you need to do is to set the pagination field of the
+source in the \texttt{.bib} file to `section'. A list of the types of
+pagination recognised, and their results, is shown in table
+\ref{pagination:types}.
 \begin{margintable}
 \begin{tabular}{lll}
   \toprule
   \textsf{pagination} & \textsf{singular} & \textsf{plural} \\
   \midrule
-  \texttt{page} & p. & pp. \\
-  \texttt{column} & col. & cols. \\
-  \texttt{section} & \S & \S\S \\
-  \texttt{paragraph} & par. & pars. \\
-  \texttt{verse} & v. & vv. \\
-  \texttt{line} & l. & ll. \\
-  \texttt{none} \\
+  \texttt{page}       & p.                & pp.             \\
+  \texttt{column}     & col.              & cols.           \\
+  \texttt{section}    & \S                & \S\S            \\
+  \texttt{paragraph}  & par.              & pars.           \\
+  \texttt{verse}      & v.                & vv.             \\
+  \texttt{line}       & l.                & ll.             \\
+  \texttt{none}                                             \\
   \bottomrule
 \end{tabular}
 \caption[][3pt]{Standard values for \texttt{pagination}\label{pagination:types}}
@@ -437,8 +449,9 @@ Now all will work as intended.
 
 \paragraph{Modifying standard prefixes} To change change the standard
 prefixes, you can use essentially the same trick -- only you don't
-need to define the relevant bibliography strings because they already exist. So, for instance, if you wanted the abbreviation for page
-to be “pg”, you could redefine the relevant strings as follows
+need to define the relevant bibliography strings because they already
+exist. So, for instance, if you wanted the abbreviation for page to be
+“pg”, you could redefine the relevant strings as follows
 
 \begin{verbatim}
 \DefineBibstrings{american}% or your language
@@ -453,11 +466,11 @@ commands will handle multiple citations: \cs{cite\{key1, key2\}} will
 produce `[1, 2]' or `Jones 1990; Smith 2010', or whatever is in
 keeping with the style you have chosen.
 
-This is fine; but it does'nt handle pre- and postnotes very
-nicely. If we did \cs{cite[prenote][postnote]\{key1,key2\}} we will
-get [prenote 1, 2, postnote]---which will rarely make sense. For this
-purpose, \biblatex\ offers a selection of commands tailored for
-multiple citations.
+This is fine; but it does'nt handle pre- and postnotes very nicely. If
+we did \cs{cite[prenote][postnote]\{key1,key2\}} we will get [prenote
+1, 2, postnote]---which will rarely make sense. For this purpose,
+\biblatex\ offers a selection of commands tailored for multiple
+citations.
 
 The pattern is set by the \cs{cites} command. If we type
 \begin{center}
@@ -498,7 +511,9 @@ they form a unit (so, for instance, the numeric style places them in
 one set of brackets).
 \begin{center}
 \ttfamily
-\cs{cites}\colorbox{red!30}{[see][10]\{key1\}}\,\colorbox{green!30}{[cf][20]\{key2\}}\,\colorbox{blue!30}{[30]\{key3\}}
+\cs{cites}\colorbox{red!30}{[see][10]\{key1\}}\,%
+\colorbox{green!30}{[cf][20]\{key2\}}\,%
+\colorbox{blue!30}{[30]\{key3\}}
 \end{center}
 
 Just to make things even more exciting, you can also have a pre- or
@@ -581,3 +596,9 @@ specialised purpose. They are hardly essential, however: they are
 generally ways of doing in one command what could, in any case, be
 done without much difficulty in two or three. You can read about them
 in the \biblatex\ manual.\intref{\emph{Manual}}
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: LaTeX
+%%% TeX-master: "biblatex-tutorial"
+%%% End:
