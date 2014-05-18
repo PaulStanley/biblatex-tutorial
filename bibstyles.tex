@@ -128,25 +128,25 @@ others are less polished and mature. The only solution is to test.
 \small
 \begin{tabular}{llll}
 \toprule
-\textsf{style} & \textsf{package} & \textsf{version} & \textsf{date}\\
-\midrule AIP   & \texttt{biblatex-phys} & 0.9e & 2012 \\
-APA            & \texttt{biblatex-apa} & 6.4 & 2013 \\
-APS            & \texttt{biblatex-phys} & 0.9a & 2012 \\
-American Chemical Society & \texttt{biblatex-chem} & 1.1l &
-2013 \\
-Angewandte Chemie & \texttt{biblatex-chem}           & 1.1l & 2013
-\\
-\textit{Historische Zeitschrift} &\texttt{historische-zeitschrift} & 1
-& 2012 \\
-Chicago          & \texttt{biblatex-chicago} & 0.9.9e & 2014 \\
-IEEE             & \texttt{biblatex-ieee} & 1.1j & 2013 \\
-MLA              & \texttt{biblatex-mla} & 1.5 & 2013 \\
-\textit{Nature}  & \texttt{biblatex-nature} & 1.1c & 2012 \\
-NEJM             & \texttt{biblatex-nejm} & 0.4 & 2011 \\
-Royal Society of Chemistry & \texttt{biblatex-chem} & 1.1l & 2013 \\
-\textit{Science} & \texttt{biblatex-science} & 1.1d & 2013 \\
-OSCOLA           & \texttt{oscola} & 1.4 & 2014 \\
-Philosophy       & \texttt{biblatex-philosophy} & 0.9 & 2014  \\
+\textsf{style}                   & \textsf{package}                 & \textsf{version} & \textsf{date} \\
+\midrule AIP                     & \texttt{biblatex-phys}           & 0.9e             & 2012          \\
+APA                              & \texttt{biblatex-apa}            & 6.4              & 2013          \\
+APS                              & \texttt{biblatex-phys}           & 0.9a             & 2012          \\
+American Chemical Society        & \texttt{biblatex-chem}           & 1.1l             & 
+2013                                                                                                   \\
+Angewandte Chemie                & \texttt{biblatex-chem}           & 1.1l             & 2013
+                                                                                                       \\
+\textit{Historische Zeitschrift} & \texttt{historische-zeitschrift} & 1
+                                 & 2012                                                                \\
+Chicago                          & \texttt{biblatex-chicago}        & 0.9.9e           & 2014          \\
+IEEE                             & \texttt{biblatex-ieee}           & 1.1j             & 2013          \\
+MLA                              & \texttt{biblatex-mla}            & 1.5              & 2013          \\
+\textit{Nature}                  & \texttt{biblatex-nature}         & 1.1c             & 2012          \\
+NEJM                             & \texttt{biblatex-nejm}           & 0.4              & 2011          \\
+Royal Society of Chemistry       & \texttt{biblatex-chem}           & 1.1l             & 2013          \\
+\textit{Science}                 & \texttt{biblatex-science}        & 1.1d             & 2013          \\
+OSCOLA                           & \texttt{oscola}                  & 1.4              & 2014          \\
+Philosophy                       & \texttt{biblatex-philosophy}     & 0.9              & 2014          \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -164,14 +164,21 @@ So how should you choose a style? The ideal situation is that the
 exact style you want already exists. There's a good chance that is the
 case. For instance, in the humanities, the Chicago styles (which offer
 both an author/year and a full bibliographical form) are very commonly
-used; and between the APA style (which is an author/year style), the MLA style (which is an author/title style) and
-the various styles for scientific journals, you may well find you are
-covered. If so, use that style (and consult its documentation
-carefully). Scientists are also well covered by a variety of different numeric styles. A variety have been illustrated with examples at the end of this document.\intref{See page~\pageref{chapter:examples}.} The \biblatex\ documentation also includes many examples, together with the document that produced them.\footnote[][-2ex]{Type \texttt{texdoc biblatex} to produce a list of them.}
+used; and between the APA style (which is an author/year style), the
+MLA style (which is an author/title style) and the various styles for
+scientific journals, you may well find you are covered. If so, use
+that style (and consult its documentation carefully). Scientists are
+also well covered by a variety of different numeric styles. A variety
+have been illustrated with examples at the end of this
+document.\intref{See page~\pageref{chapter:examples}.} The \biblatex\
+documentation also includes many examples, together with the document
+that produced them.\footnote[][-2ex]{Type \texttt{texdoc biblatex} to
+  produce a list of them.}
 
-If there isn't an exact style that is precisely what you want, you will have to find one that comes
-close to your needs, and either live with it or adapt it. Provided your requirements are not rigidly fixed, you can probably
-find something which is satisfactory.
+If there isn't an exact style that is precisely what you want, you
+will have to find one that comes close to your needs, and either live
+with it or adapt it. Provided your requirements are not rigidly fixed,
+you can probably find something which is satisfactory.
 
 I'm not going to say much more of the precisely tailored styles:
 you'll know if those are what you want. The rest of this chapter
@@ -180,7 +187,8 @@ surveys some of the standard (and a few of the other available
 helpful to consider them family-by-family. But do bear in mind that
 the main strength and purpose of \biblatex\ is not in its in-built
 styles, which are intended rather as starting points for adjustment
-than as a bibliographic \emph{dernier cri}. Still, much of what is said about them is generally applicable.
+than as a bibliographic \emph{dernier cri}. Still, much of what is
+said about them is generally applicable.
 
 \subsection{Standard Numeric Styles}
 
@@ -234,18 +242,19 @@ listed in \emph{citation order}, you will need to specify the option
 \begin{center}
 \verb|sorting=none|
 \end{center}
-when you load \biblatex.\intref{See chapter~\ref{ch:sorting} for much more information on sorting.}
+when you load \biblatex.\intref{See chapter~\ref{ch:sorting} for much
+  more information on sorting.}
 
 
 \begin{margintable}[4cm]
 \begin{tabular}{lll}
 \toprule
-& \textsf{numeric} & \parbox{6ex}{\textsf{numeric-comp}} \\
-\midrule\cs{cite\{a\}} & [1] & [1] \\
-\cs{cite\{a,b\}} & [1, 2] & [1, 2] \\
-\cs{cite\{b,a\}} & [2, 1] & [1, 2] \\
-\cs{cite\{a,b,c\}} & [1, 2, 3] & [1--3] \\
-\cs{cite\{c,a,b\}} & [3, 1, 2] & [1--3] \\
+                       & \textsf{numeric} & \parbox{6ex}{\textsf{numeric-comp}} \\
+\midrule\cs{cite\{a\}} & [1]              & [1]                                 \\
+\cs{cite\{a,b\}}       & [1, 2]           & [1, 2]                              \\
+\cs{cite\{b,a\}}       & [2, 1]           & [1, 2]                              \\
+\cs{cite\{a,b,c\}}     & [1, 2, 3]        & [1--3]                              \\
+\cs{cite\{c,a,b\}}     & [3, 1, 2]        & [1--3]                              \\
 \bottomrule
 \end{tabular}
 \caption{Effect of compressing and sorting}
@@ -255,34 +264,38 @@ this point the standard styles do offer some options, particularly in
 terms of order.
 \begin{enumerate}
 \item If you want references \emph{uncompressed} and \emph{not
-    reordered}, just load the style \verb|numeric|. The package will then print the references you give in any citation in exactly the order you cited them in.
+    reordered}, just load the style \verb|numeric|. The package will
+  then print the references you give in any citation in exactly the
+  order you cited them in.
 \item If you want references \emph{sorted and re-ordered} but
   \emph{not} compressed, then load the style \verb|numeric|, but also
-  add the option |sortcites=true|. (This, at least, you will surely nearly always want!)
-\item If you want references \emph{sorted and compressed}, then load the
-  style \verb|numeric-comp|
+  add the option |sortcites=true|. (This, at least, you will surely
+  nearly always want!)
+\item If you want references \emph{sorted and compressed}, then load
+  the style \verb|numeric-comp|
 \end{enumerate}
 (There's also a style called
   \texttt{numeric-verb}. It's described at in the \biblatex\
   documentation; but it's rather rarely useful.)
 
 When it comes to changing the citation format, the most common
-requirements can be met as follows
-For \emph{superscript citations}, you have three options:
+requirements can be met as follows For \emph{superscript citations},
+you have three options:
 \begin{enumerate}
-\item Use the \cs{supercite} command\marginnote{\texttt{blah.}\cs{supercite\{a\}}
-    $\rightarrow$blah.$^{1}$} instead of \cs{cite}: this will
-  produce superscript citations.
+\item Use the \cs{supercite}
+  command\marginnote{\texttt{blah.}\cs{supercite\{a\}}
+    $\rightarrow$blah.$^{1}$} instead of \cs{cite}: this will produce
+  superscript citations.
 \item Load \biblatex\ with the option \verb|autocite=superscript| and
   then use the \cs{autocite} citation command instead of \cs{cite}.
 \item Remap \cs{cite} to \cs{supercite} (or to \cs{autocite} with the
   \verb|superscript| option set.
 \end{enumerate}
 
-Changing the \emph{punctuation between multiple citations} is
-easy. By default it's a comma. You change it by redefining
-\cs{multicitedelim}.\intref{See further, chapter \ref{ch:recipes}.} So if you want a semicolon, you would put (in
-your preamble)
+Changing the \emph{punctuation between multiple citations} is easy. By
+default it's a comma. You change it by redefining
+\cs{multicitedelim}.\intref{See further, chapter \ref{ch:recipes}.} So
+if you want a semicolon, you would put (in your preamble)
 \begin{center}
 \verb|\renewcommand{\multicitedelim}{\addsemicolon\space}|
 \end{center}
@@ -299,26 +312,26 @@ your document, assuming you wanted bold):
 Or whatever other format you want.
 
 
-If you want to use \emph{parentheses} instead of brackets around citation labels
----so you get (1) instead of [1]---or if you want to dispense with
-these delimiters altogether, you need to do rather more
-work. This topic is covered in some detail below.\intref{Page \pageref{recipe:brackets}.}
+If you want to use \emph{parentheses} instead of brackets around
+citation labels ---so you get (1) instead of [1]---or if you want to
+dispense with these delimiters altogether, you need to do rather more
+work. This topic is covered in some detail below.\intref{Page
+  \pageref{recipe:brackets}.}
 
 \section{Alphanumeric Labels}
 
-Alphanumeric labels look like [JW86] or [Jon95]. They are a half-way house between the elegant
-simplicity of numerical citations, and the additional information
-provided by author/year styles.
+Alphanumeric labels look like [JW86] or [Jon95]. They are a half-way
+house between the elegant simplicity of numerical citations, and the
+additional information provided by author/year styles.
 
 If you need or want to use such a system, load either the style
 \verb|alphabetic| or \verb|alphabetic-verb|. The only difference
 between the styles is how multiple citations are treated: with
 \verb|alphabetic| you get them enclosed in a single set of
-brackets\marginnote{\cs{cite\{a, b\}}\gives [AA01, BB02]}
-separated by commas
-whereas with \verb|alphabetic-verb| you get each reference in its own
-set of brackets, separated by semicolons.\marginnote{\cs{cite\{a,
-    b\}}\gives [AA01]; [BB02]}
+brackets\marginnote{\cs{cite\{a, b\}}\gives [AA01, BB02]} separated by
+commas whereas with \verb|alphabetic-verb| you get each reference in
+its own set of brackets, separated by
+semicolons.\marginnote{\cs{cite\{a, b\}}\gives [AA01]; [BB02]}
 
 The printed bibliography is obviously essential to a style that uses
 alphanumeric labels, because the reader has to have a way of looking
@@ -368,15 +381,16 @@ is still added automatically.
 
 A still more advanced change would be to alter altogether the way that
 labels are generated. This is an advanced customization, which is not
-covered in this document: consult the \biblatex\ documentation.\intref{\emph{Manual} \S\ 4.5.4}
+covered in this document: consult the \biblatex\
+documentation.\intref{\emph{Manual} \S\ 4.5.4}
 
 \newthought{In terms of formatting} there's not much room for
 variation.
 \begin{itemize}
 \item You can change the punctuation that gets printed between
-multiple sources (by default, a comma in \verb|alphabetic| and a
-semicolon in \verb|alphabetic-verb|) by redefining
-\cs{multicitedelim}.
+  multiple sources (by default, a comma in \verb|alphabetic| and a
+  semicolon in \verb|alphabetic-verb|) by redefining
+  \cs{multicitedelim}.
 \item You can alter the font in which the label gets printed: you will
   need to alter the field format for both \verb|labelalpha| and
   \verb|extraalpha|. So, for instance, for bold labels you want
@@ -441,16 +455,16 @@ as shown in table \ref{authoryear:styles}. (If you want multiple
 citations sorted but not compressed, you can set the option
 \verb|sortcites| while loading an uncompressed style.)
 
-\newthought{Besides selecting} from the range of styles,
-  there's not much room for simple customization; but there are three
-things you may wish to adjust.
+\newthought{Besides selecting} from the range of styles, there's not
+much room for simple customization; but there are three things you may
+wish to adjust.
 
-First, the number of names that get printed.\intref{See further, page \pageref{recipes:maxnames}.}
-By default, up to three
-names will be printed, both in the citations and in the
-bibliography. If there are more than three names, they will be
-abbreviated to one name `et al' --- again, both in the citations and
-the bibliography. So, for instance, the entry:
+First, the number of names that get printed.\intref{See further, page
+  \pageref{recipes:maxnames}.}  By default, up to three names will be
+printed, both in the citations and in the bibliography. If there are
+more than three names, they will be abbreviated to one name `et al'
+--- again, both in the citations and the bibliography. So, for
+instance, the entry:
 \begin{Verbatim}
 @book{companion,
   author = {Goossens, Michel and Mittelbach, Frank 
@@ -460,21 +474,23 @@ the bibliography. So, for instance, the entry:
   ...
 }
 \end{Verbatim}
-will produce `Goosens, Mittelbach, and Samarin 1994'. If you prefer shorter lists of names, then use the
-option \verb|maxnames|: if \verb|maxnames=1| then no more than one
-name will be used, and so forth. You can, however, still have more
-than one name in the bibliography, because you can set
-\verb|maxbibnames| to a different number. So if, for instance,
-\verb|maxnames=1| but \verb|maxbibnames=3|, then the in-text citations
-will read `Goosens et al', but the bibliography will still read
-`Goosens, Mittelbach, and Samarin \ldots'.
+will produce `Goosens, Mittelbach, and Samarin 1994'. If you prefer
+shorter lists of names, then use the option \verb|maxnames|: if
+\verb|maxnames=1| then no more than one name will be used, and so
+forth. You can, however, still have more than one name in the
+bibliography, because you can set \verb|maxbibnames| to a different
+number. So if, for instance, \verb|maxnames=1| but
+\verb|maxbibnames=3|, then the in-text citations will read `Goosens et
+al', but the bibliography will still read `Goosens, Mittelbach, and
+Samarin \ldots'.
 
-A second adjustment you might want to make is to punctuation:\intref{See generally, chapter \ref{ch:recipes}.}
+A second adjustment you might want to make is to
+punctuation:\intref{See generally, chapter \ref{ch:recipes}.}
 \begin{itemize}
-\item You might change the punctuation
-between author and the year. By default it is a space; but you can
-change it by renewing the \verb|\nameyeardelim|. For instance, if you
-wanted to place a colon, rather than a comma, you would
+\item You might change the punctuation between author and the year. By
+  default it is a space; but you can change it by renewing the
+  \verb|\nameyeardelim|. For instance, if you wanted to place a colon,
+  rather than a comma, you would
 \begin{verbatim}
 \renewcommand{\nameyear}{\addcolon\space}
 \end{verbatim}
@@ -486,9 +502,9 @@ and citations would become `Author: 1980', and so forth.
 The third set of adjustments that you might like to make arise only if
 you are using one of the style versions that makes use of `ibid'. You
 can control the circumstances in which ibid is used by setting the
-\verb|ibidtracker| option.\label{ibidtracking} There are five possible settings for
-\verb|ibidtracker| described in the \biblatex\ documentation; but in
-my experience only three of them are useful
+\verb|ibidtracker| option.\label{ibidtracking} There are five possible
+settings for \verb|ibidtracker| described in the \biblatex\
+documentation; but in my experience only three of them are useful
 \begin{description}[font=\ttfamily\upshape]
 \item[ibidtracker=false] Don't ever use ibid.
 \item[ibidtracker=constrict] Use ibid, but be cautious to avoid
@@ -500,9 +516,6 @@ my experience only three of them are useful
 \end{description}
 In most cases, the use of any setting sloppier than \texttt{constrict}
 seems questionable (and this is the default setting).
-
-
-
 
 \section{Author/Title Styles}
 
@@ -530,23 +543,22 @@ three questions:
 
 
 \begin{enumerate}
-\item Do 
-you want citations \emph{sorted and compressed}. Suppose you
+\item Do you want citations \emph{sorted and compressed}. Suppose you
   have two works by Joseph Bloggs, his \emph{First Book} and his
   \emph{Second Book}, and one by John Smith, his \emph{Book}. If you
   \verb|\cite{bloggs1,smith,bloggs2}| an uncompressed style will give
-  you ``Bloggs, \emph{First Book}; Smith, \emph{Book}; Bloogs,
-  \emph{Second Book}''. A compressed style will give you ``Bloggs,
-  \emph{First Book}, \emph{Second Book}; Smith, \emph{Book}''.
+  you `Bloggs, \emph{First Book}; Smith, \emph{Book}; Bloogs,
+  \emph{Second Book}'. A compressed style will give you `Bloggs,
+  \emph{First Book}, \emph{Second Book}; Smith, \emph{Book}'.
 \item Do you want citations to be \emph{terse}. If you use terse
   citations, then titles will be included only if they are required in
   order uniquely to identify the source. So, in the above example,
   titles will be included for Bloggs (because you are citing two works
   by him), but not for Smith, because you are citing only one. So
-  \cs{cite}\texttt{\{bloggs1, bloggs2, smith\}} will give you ``Bloggs,
-  \emph{First Book}; Bloggs, \emph{Second Book}; Smith''.
+  \cs{cite}\texttt{\{bloggs1, bloggs2, smith\}} will give you `Bloggs,
+  \emph{First Book}; Bloggs, \emph{Second Book}; Smith'.
 \item If you cite the same work successively, do you want to use
-  ``ibid''. If you do, then
+  `ibid'. If you do, then
 \begin{quote}
 \ttfamily
 Some \verb|\parencite{smith}}| have pointed out that this is an unnecessarily
@@ -560,14 +572,14 @@ unnecessarily complex range of options (ibid, p.~100).
 \begin{margintable}
 \begin{tabular}{lccc}
 \toprule
-& \textsf{compress} & \textsf{terse} & \textsf{ibid} \\
-\midrule \textsf{authortitle} \\
-\texttt{authortitle-comp} & \textbullet \\
-\texttt{authortitle-terse} & & \textbullet \\
-\texttt{authortitle-ibid} & & & \textbullet \\
-\texttt{authortitle-icomp} & \textbullet & & \textbullet \\
-\texttt{authortitle-tcomp} & \textbullet & \textbullet \\
-\texttt{authortitle-ticomp} & \textbullet & \textbullet & \textbullet \\
+                            & \textsf{compress} & \textsf{terse} & \textsf{ibid} \\
+\midrule \textsf{authortitle}                                                    \\
+\texttt{authortitle-comp}   & \textbullet                                        \\
+\texttt{authortitle-terse}  &                   & \textbullet                    \\
+\texttt{authortitle-ibid}   &                   &                & \textbullet   \\
+\texttt{authortitle-icomp}  & \textbullet       &                & \textbullet   \\
+\texttt{authortitle-tcomp}  & \textbullet       & \textbullet                    \\
+\texttt{authortitle-ticomp} & \textbullet       & \textbullet    & \textbullet   \\
 \bottomrule
 \end{tabular}
 \vspace{3pt}
@@ -625,15 +637,16 @@ author/title bibliography in figure
 
 Standard\marginnote{The standard verbose styles are, I think, not
   especially usable as they stand; but they form an excellent starting
-  point for customization.} \biblatex\ offers no fewer than seven different flavours of
-verbose citation style. For practical use, there should be added to
-these the \verb|footnote-dw| style from Dominik Waßenhoven's
-\package{biblatex-dw} bundle, the \package{biblatex-chicago}
-package, with option \verb|notes| and the \package{oscola} style ---
-all of which build on the standard styles to handle quite complex
-citations. In many cases these may be found more convenient, though
-the standard styles are definitely the right place to start if you are
-looking to produce a custom style of your own.
+  point for customization.} \biblatex\ offers no fewer than seven
+different flavours of verbose citation style. For practical use, there
+should be added to these the \verb|footnote-dw| style from Dominik
+Waßenhoven's \package{biblatex-dw} bundle, the
+\package{biblatex-chicago} package, with option \verb|notes| and the
+\package{oscola} style --- all of which build on the standard styles
+to handle quite complex citations. In many cases these may be found
+more convenient, though the standard styles are definitely the right
+place to start if you are looking to produce a custom style of your
+own.
 
 As in the author/year and author/title styles, the essential choice
 from the menu of verbose styles can be made by asking a few simple
@@ -645,8 +658,8 @@ questions.
   citation. But do you want that shortened citation to be simply a
   short name? Or do you want a cross-reference added to the note in
   which the source was first cited?
-\item Do you want to use \emph{ibid} where two immediately sequential citations
-  are to the same source?
+\item Do you want to use \emph{ibid} where two immediately sequential
+  citations are to the same source?
 \item Do you want to use additional scholarly abbreviations such as
   \emph{op cit} and \emph{loc cit}?
 \end{enumerate}
@@ -655,29 +668,29 @@ questions.
 \small
 \begin{tabular}{lp{1.7in}p{1.7in}p{1.7in}}
 \toprule
-& \textsf{first citation} & \textsf{subsequent} &
-\textsf{repeated} \\
-\midrule verbose & Frank Albert Cotton et al. \emph{Advanced inorganic
-  chemistry}. 6th ed. Chichester: Wiley, 1999 & Cotton et al.,
-\emph{Advanced inorganic chemistry} & Cotton et al., \emph{Advanced
-  inorganic chemistry}\\
-verbose-ibid & Frank Albert Cotton et al. \emph{Advanced inorganic
-  chemistry}. 6th ed. Chichester: Wiley, 1999 & Cotton et al.,
-\emph{Advanced inorganic chemistry} & Ibid. \\
-verbose-note & Frank Albert Cotton et al. \emph{Advanced inorganic
-  chemistry}. 6th ed. Chichester: Wiley, 1999 & Cotton et al.,
+                                               & \textsf{first citation} & \textsf{subsequent} & 
+\textsf{repeated}                                      \\
+\midrule verbose                               & Frank Albert Cotton et al. \emph{Advanced inorganic
+  chemistry}. 6th ed. Chichester: Wiley, 1999  & Cotton et al.,
+\emph{Advanced inorganic chemistry}            & Cotton et al., \emph{Advanced
+  inorganic chemistry}                                 \\
+verbose-ibid                                   & Frank Albert Cotton et al. \emph{Advanced inorganic
+  chemistry}. 6th ed. Chichester: Wiley, 1999  & Cotton et al.,
+\emph{Advanced inorganic chemistry}            & Ibid. \\
+verbose-note                                   & Frank Albert Cotton et al. \emph{Advanced inorganic
+  chemistry}. 6th ed. Chichester: Wiley, 1999  & Cotton et al.,
 \emph{Advanced inorganic chemistry}, see n. ?? & Cotton et al.,
-\emph{Advanced inorganic chemistry}, see n. ??\\
-verbose-inote & Frank Albert Cotton et al. \emph{Advanced inorganic
-  chemistry}. 6th ed. Chichester: Wiley, 1999 & Cotton et al.,
+\emph{Advanced inorganic chemistry}, see n. ??         \\
+verbose-inote                                  & Frank Albert Cotton et al. \emph{Advanced inorganic
+  chemistry}. 6th ed. Chichester: Wiley, 1999  & Cotton et al.,
 \emph{Advanced inorganic chemistry}, see n. ?? & Ibid. \\
-verbose-trad1 & Frank Albert Cotton et al. \emph{Advanced inorganic
-  chemistry}. 6th ed. Chichester: Wiley, 1999 & Cotton et al.,
-op.\ cit. & Ibid. \\
-verbose-trad2 & Frank Albert Cotton et al. \emph{Advanced inorganic
-  chemistry}. 6th ed. Chichester: Wiley, 1999 & Cotton et al.,
+verbose-trad1                                  & Frank Albert Cotton et al. \emph{Advanced inorganic
+  chemistry}. 6th ed. Chichester: Wiley, 1999  & Cotton et al.,
+op.\ cit.                                      & Ibid. \\
+verbose-trad2                                  & Frank Albert Cotton et al. \emph{Advanced inorganic
+  chemistry}. 6th ed. Chichester: Wiley, 1999  & Cotton et al.,
 \emph{Advanced inorganic chemistry},
-op.\ cit. & Ibid. \\
+op.\ cit.                                      & Ibid. \\
 \bottomrule
 \end{tabular}
 \caption[][1em]{Various verbose styles.\label{bibliography:examples:verbose}}
@@ -691,7 +704,7 @@ well outside the ambit of this chapter.
 
 However there are some options which can be adjusted: the behaviour of
 \verb|ibid| (see above), for example, or sorting schemes (see chapter
-*).
+\ref{ch:sorting}).
 
 %%% Local Variables:
 %%% coding: utf-8

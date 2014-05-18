@@ -27,7 +27,7 @@
 \newcommand{\bibtex}{\package{{\scshape bib}\TeX}}
 \newcommand{\prefacedate}{\today}
 \newcommand{\gives}{\ensuremath{\rightarrow}}
-\newcommand{\angled}[1]{
+\newcommand{\angled}[1]{%
   \ensuremath{\langle}%
   {\normalfont\itshape #1\/}%
   \ensuremath{\rangle}}
@@ -39,11 +39,11 @@
   #3%
   \ifblank{#2}%
     {\ifblank{#1}
-      {}
-      {\{#1\}}}
+      {}%
+      {\{#1\}}}%
     {[#1]}%
-  \ifblank{#2}
-    {}
+  \ifblank{#2}%
+    {}%
     {\{#2\}}%
   \endgroup}
 \newcommand{\URL}{\smallcaps{url}}

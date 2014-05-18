@@ -1,4 +1,6 @@
-\chapter{Multiple Bibliographies}
+%!TEX root=biblatex-tutorial.tex
+\chapter{Multiple Bibliographies}\label{ch:subdivisions}
+
 
 We now come to consider the various methods of producing
 \emph{multiple} bibliographies in a single TeX document. The detail
@@ -402,7 +404,7 @@ or, instead of \cs[\angled{filename}]{addbibresource} use
 \cs[\angled{filename}]{addglobalbib} in the preamble: this will
 declare a resource which is automatically made available to every
 refsection. So
-\begin{Verbatim}|
+\begin{Verbatim}
   \addglobalbib{./bibfiles/common.bib}
 \end{Verbatim} 
 will make |common.bib| accessible to every refsection, without any
