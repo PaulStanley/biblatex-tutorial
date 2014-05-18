@@ -1,37 +1,36 @@
 \chapter{Multiple Bibliographies}
 
-We now come to consider the various methods of producing \emph{multiple}
-bibliographies in a single TeX document. The detail can become
-overwhelming unless you first understand the logic, so that is where we
-will start.
+We now come to consider the various methods of producing
+\emph{multiple} bibliographies in a single TeX document. The detail
+can become overwhelming unless you first understand the logic, so that
+is where we will start.
 
-There are two main ``patterns'' to split bibliographies:
+There are two main `patterns' to split bibliographies:
 
 \begin{enumerate}
-\item
-  Division that is determined by characteristics of the \emph{source}
-  where some types of source get put in one bibliography and other types
-  of source get put in another. The dividing line might be between
-  primary and secondary sources. It might be between works about foology
-  and everything else (``topic based''). It might be between the most
-  important works and the rest. It might be between the works of Dr
-  Drofnats and everyone else's works. But however the dividing-line is
-  drawn, it is based on something about the underlying source, which is
-  why I'm going to call these \emph{source-based} divisions.
-\item
-  Division that is determined by the source's \emph{citation}, and in
-  particular by \emph{where} the source is cited --- so that, for
-  instance, there are separate bibliographies for Chapter 1, Chapter 2,
-  and so forth. In an ``extreme form'' the bibliographies need to be
-  completely self-contained; that's often needed, for instance, if a
-  single document is being used to typeset papers by different authors
-  into a collection or journal issue. I'm going to call these
+\item Division that is determined by characteristics of the
+  \emph{source} where some types of source get put in one bibliography
+  and other types of source get put in another. The dividing line
+  might be between primary and secondary sources. It might be between
+  works about foology and everything else (``topic based''). It might
+  be between the most important works and the rest. It might be
+  between the works of Dr Drofnats and everyone else's works. But
+  however the dividing-line is drawn, it is based on something about
+  the underlying source, which is why I'm going to call these
+  \emph{source-based} divisions.
+\item Division that is determined by the source's \emph{citation}, and
+  in particular by \emph{where} the source is cited --- so that, for
+  instance, there are separate bibliographies for Chapter 1, Chapter
+  2, and so forth. In an ``extreme form'' the bibliographies need to
+  be completely self-contained; that's often needed, for instance, if
+  a single document is being used to typeset papers by different
+  authors into a collection or journal issue. I'm going to call these
   \emph{document-based} divisions.
 \end{enumerate}
 These categories are not, of course, mutually exclusive. You
-\emph{could} have, in a single document, both subdivision by source (say
-into primary and secondary sources) and subdivision by location in the
-document.
+\emph{could} have, in a single document, both subdivision by source
+(say into primary and secondary sources) and subdivision by location
+in the document.
 
 Biblatex provides mechanisms to handle both types of division. It is
 designed to be comprehensive. Before Biblatex was written there were
@@ -46,17 +45,17 @@ In principle, source-based division is simple. You provide some way for
 Biblatex to identify the different types of source, and then you print
 separate bibliographies for each:
 
-\begin{verbatim}
+\begin{Verbatim}
 \printbibliography[title=“Primary Sources”,
                    filter=primary:sources]
 \printbibliography[title=“Secondary Literature”,
                    filter=secondary:sources]
-\end{verbatim}
-Usually in these cases, however, the separate bibliographies are seen as
-``sub-bibliographies'', in which case a little bit more work is done to
-get the formatting right
+\end{Verbatim}
+Usually in these cases, however, the separate bibliographies are seen
+as ``sub-bibliographies'', in which case a little bit more work is
+done to get the formatting right
 
-\begin{verbatim}
+\begin{Verbatim}
 \printbibheading
 \printbibliography[heading=subbibliography,
                    title="Primary Sources",
@@ -64,29 +63,34 @@ get the formatting right
 \printbibliography[heading=subbibliography,
                    title="Secondary Literature",
                    filter=secondary:sources]
-\end{verbatim}
-We use \cs{printbibheading} simply as a convenience to print a standard `top level' heading for the whole bibliography, but then use the |heading| and |title| options when actually printing the bibliography. As far as Biblatex is concerned, a document
-can contain as many \texttt{\textbackslash{}printbibliography} commands
-as you like, and each can contain as many or as few sources as you like.
-The real trick lies in how you teach \biblatex\ to distinguish
-between different sources. In all cases, the method used is to add an
-option to the \texttt{\textbackslash{}printbibliography} command which
-tells \biblatex\ what filter to use.
+\end{Verbatim}
+We use \cs{printbibheading} simply as a convenience to print a
+standard `top level' heading for the whole bibliography, but then use
+the |heading| and |title| options when actually printing the
+bibliography. As far as Biblatex is concerned, a document can contain
+as many \texttt{\textbackslash{}printbibliography} commands as you
+like, and each can contain as many or as few sources as you like.  The
+real trick lies in how you teach \biblatex\ to distinguish between
+different sources. In all cases, the method used is to add an option
+to the \texttt{\textbackslash{}printbibliography} command which tells
+\biblatex\ what filter to use.
 
-To simplify somewhat there are three basic ways you can do that,
-and a convenient way of combining them. The basic ways involve:
-\emph{entrytypes}, \emph{keywords} and \emph{categories}. The combining
-device is the \emph{filter}, which enables complex assemblies of
-conditions to be defined and used simply.
+To simplify somewhat there are three basic ways you can do that, and a
+convenient way of combining them. The basic ways involve:
+\emph{entrytypes}, \emph{keywords} and \emph{categories}. The
+combining device is the \emph{filter}, which enables complex
+assemblies of conditions to be defined and used simply.
 
 \paragraph{How Biblatex chooses.} All these distinctions are brought
-into operation using an option in the bibliography heading. These follow
-a standard pattern: 
-\begin{quote} 
+into operation using an option in the bibliography heading. These
+follow a standard pattern:
+\begin{quote}
 \angled{descriptor} \texttt{=} \angled{value}
 \end{quote}
 (e.g. \texttt{type=book}): include in the bibliography entries of this
-type. You can only specify \emph{one} |type| descriptor. (If you want to select, positively, more than one type, then you will need to define a |bibfilter| as explained below.)
+type. You can only specify \emph{one} |type| descriptor. (If you want
+to select, positively, more than one type, then you will need to
+define a |bibfilter| as explained below.)
 
 If you prefer to look on the negative side:
 \begin{quote}
@@ -97,29 +101,28 @@ this type. You can have multiple `excluders', which are applied
 cumulatively: \texttt{{[}nottype=online,} \texttt{nottype=misc{]}} will
 \emph{exclude} both \texttt{online} and \texttt{misc} entry types.
 
-\newthought{The easiest type of choice} to build in to a bibliography is
-between different entry types. Every source necessarily has an entry
-type, and this can be a convenient way of producing some kinds of
-subdivided bibliography. For instance, if you wanted to distinguish
+\newthought{The easiest type of choice} to build in to a bibliography
+is between different entry types. Every source necessarily has an
+entry type, and this can be a convenient way of producing some kinds
+of subdivided bibliography. For instance, if you wanted to distinguish
 between printed sources (the bibliography) and online sources (the
 `webography') it might be sufficient to distinguish between. Here you
-can use: 
+can use:
 \begin{itemize}
 \item \texttt{type}, to include (only) particular entrytypes, e.g.
-\texttt{type=book} to include only books;
-\item \texttt{nottype}, to exclude
-particular entrytypes, e.g. \texttt{nottype=book} to exclude books;
+  \texttt{type=book} to include only books;
+\item \texttt{nottype}, to exclude particular entrytypes,
+  e.g. \texttt{nottype=book} to exclude books;
 \item \texttt{subtype}, to include particular entrysubtypes (some
-bibliographic styles make use of subtypes to further divide types, or to
-specialised types such as \texttt{misc}) 
-\item \texttt{notsubtype}, to
-exclude particular entrysubtypes.
+  bibliographic styles make use of subtypes to further divide types,
+  or to specialised types such as \texttt{misc})
+\item \texttt{notsubtype}, to exclude particular entrysubtypes.
 \end{itemize}
 
-So, for example, we could build a separate `webography' and `bibliography'
-along these lines:
+So, for example, we could build a separate `webography' and
+`bibliography' along these lines:
 
-\begin{verbatim}
+\begin{Verbatim}
 \printbibheading
 \printbibliography[heading=subbibliography,
                    title="Webography",
@@ -127,109 +130,109 @@ along these lines:
 \printbibliography[heading=subbibliography,
                    title="Paperography",
                    nottype=online]
-\end{verbatim}
+\end{Verbatim}
 
 \newthought{However, type of source is often not sufficient}: many
-potentially interesting divisions (such as between primary and secondary
-sources, or by subject) cut across source types. The trouble here is that,
-for obvious reasons, \biblatex\ is not going to know about the underlying
-subject-matter of a source or whether it is primary or secondary and so
-forth unless you tell it. There are two ways to do this:
+potentially interesting divisions (such as between primary and
+secondary sources, or by subject) cut across source types. The trouble
+here is that, for obvious reasons, \biblatex\ is not going to know
+about the underlying subject-matter of a source or whether it is
+primary or secondary and so forth unless you tell it. There are two
+ways to do this:
 \begin{itemize}
-\item
-  You can store the information \emph{in the .bib file} using the
+\item You can store the information \emph{in the .bib file} using the
   \emph{keywords} field, and then filter inclusion in a particular
   bibliography using the keyword and notkeyword instructions. So, for
   instance, you might mark every piece of primary literature using the
   keyword `primary' in the \texttt{.bib} file. You could then
   distinguish between primary literature and secondary sources as
   follows:
-\begin{verbatim}
+\begin{Verbatim}
   \printbibliography[title = “Primary Sources”,
                      keyword = primary]
   \printbibliography[title = “Secondary Material”,
                      notkeyword = primary]
-\end{verbatim}
+\end{Verbatim}
 \item You can enter the information in the \emph{document source
-    (}|.tex|\emph{) file} using the \emph{categories} system. To do this, (1) you
-  first define a category in the preamble of the document, and then
-  use a command to identify which sources are within a particular
-  category. For instance, suppose you wanted to print `crucial'
-  works separately in some notes for your students, you would create
-  that crucial category in your preamble:
+    (}|.tex|\emph{) file} using the \emph{categories} system. To do
+  this, (1) you first define a category in the preamble of the
+  document, and then use a command to identify which sources are
+  within a particular category. For instance, suppose you wanted to
+  print `crucial' works separately in some notes for your students,
+  you would create that crucial category in your preamble:
   |\DeclareBibliographyCategory{crucial}| (2) You then add individual
   sources to it anywhere in the document using
   \texttt{\textbackslash{}addtocategory\{\}\{\}}.
 
-\begin{verbatim}
+\begin{Verbatim}
   \addtocategory{crucial}{<key1>, … <key2>}
-\end{verbatim}
+\end{Verbatim}
 
 (You can have multiple keys and multiple
 \texttt{\textbackslash{}addtocategory\{\}\{\}} commands as well.)
-Then, (3) when it comes to the bibliography, you control what is printed
-using \texttt{category=\textless{}category\textgreater{}} and
+Then, (3) when it comes to the bibliography, you control what is
+printed using \texttt{category=\textless{}category\textgreater{}} and
 \texttt{notcategory=\textless{}category\textgreater{}}.
-\begin{verbatim}
+\begin{Verbatim}
 \printbibliography[heading = “Key sources”,
                    category = crucial]
 \printbibliography[heading = “Other sources”,
                    notcategory = crucial]
-\end{verbatim}
+\end{Verbatim}
 \end{itemize}
 
-So, as you can see, both keywords and categories are ways of arbitrarily
-allocating sources to groups. The difference between them is that
-keywords are defined in the database, and categories in the document
-where the database is used. This should give you a hint about the best
-way of using them. A keyword should really say something permanently
-true about a source: they are a pretty reasonable candidate for dividing
-sources into primary and secondary, or original and translated, or
-identifying their topic as foology rather than barography. Categories
-need only be true for the particular document: they are a good candidate
-for specifying a source as ``important'' in a set of student notes for
-instance, or for quick-and-dirty work where you don't want to alter a
-database file permanently.
+So, as you can see, both keywords and categories are ways of
+arbitrarily allocating sources to groups. The difference between them
+is that keywords are defined in the database, and categories in the
+document where the database is used. This should give you a hint about
+the best way of using them. A keyword should really say something
+permanently true about a source: they are a pretty reasonable
+candidate for dividing sources into primary and secondary, or original
+and translated, or identifying their topic as foology rather than
+barography. Categories need only be true for the particular document:
+they are a good candidate for specifying a source as `important' in a
+set of student notes for instance, or for quick-and-dirty work where
+you don't want to alter a database file permanently.
 
 \subsection{Combining criteria with user-defined filters}
 
 Suppose you want to combine filters in complicated ways: for instance
-you want a sub-bibliography which contains only crucial primary sources
-which are not online. For such purposes, one reaches for a user-defined
-filter. Such a filter is defined using
+you want a sub-bibliography which contains only crucial primary
+sources which are not online. For such purposes, one reaches for a
+user-defined filter. Such a filter is defined using
 \texttt{\textbackslash{}defbibfilter\{\textless{}name\textgreater{}\}\{\textless{}definition\textgreater{}\}}.
 This enables you to combine the type, subtype, keyword and category
 filters using logical operators (and, or, not) and parentheses for
-grouping. Having defined the filter, it can then be used to construct a
-bibliography with the option
+grouping. Having defined the filter, it can then be used to construct
+a bibliography with the option
 \texttt{filter=\textless{}filtername\textgreater{}}.
 
-So, for example, we could define the selection filter mentioned above as
-follows:
+So, for example, we could define the selection filter mentioned above
+as follows:
 
-\begin{verbatim}
+\begin{Verbatim}
 \defbibfilter{croffprim}{
     keyword=primary
     and category=crucial
     and not type=online}
-\end{verbatim}
+\end{Verbatim}
 And we could the use it:
 
-\begin{verbatim}
+\begin{Verbatim}
 \printbibheading
 …
 \printbibliography[heading=subbibliography,
                    title=“Crucial offline primary sources”,
                    filter=croffprim]
-\end{verbatim}
+\end{Verbatim}
 
 \subsection{Automation}
 
 Both keyword and category filters ultimately depend on direct user
 intervention, key-by-key. Is there any way to automate this? For
 instance, could you automatically assign (say) all the sources in a
-particular \texttt{.bib} file to a given category? Or could could assign
-all the works of a particular author?
+particular \texttt{.bib} file to a given category? Or could could
+assign all the works of a particular author?
 
 The answer is that you often can do so. But it's rather an advanced
 topic. Besides, the range of possible uses and circumstances is very
@@ -237,23 +240,19 @@ wide. This section, therefore, is going to sketch some ideas, rather
 than provide a set of recipes.
 
 \begin{itemize}
-\item
-  Define a low-level user-defined filter using defbibcheck, which then
-  uses the \texttt{check=\textless{}name\textgreater{}} filter. For
-  instance the Biblatex manual demonstrates using such a mechanism to
-  examine the year of an entry and print a bibliography of ``recent''
-  literature.
-\item
-  Use a sourcemap to add keywords. This could easily be done, say, for a
-  particular file, or for a particular author's work; you could then use
-  a keyword filter.
-\item
-  Use the \texttt{\textbackslash{}AtEveryCitekey} hook to execute code
-  at every citation to check data and decide whether to add that key to
-  a category.
-\item
-  Use the \texttt{\textbackslash{}AtDataInput} to execute code as each
-  entry is read in and decide whether to add it to a category.
+\item Define a low-level user-defined filter using defbibcheck, which
+  then uses the \texttt{check=\textless{}name\textgreater{}}
+  filter. For instance the Biblatex manual demonstrates using such a
+  mechanism to examine the year of an entry and print a bibliography
+  of ``recent'' literature.
+\item Use a sourcemap to add keywords. This could easily be done, say,
+  for a particular file, or for a particular author's work; you could
+  then use a keyword filter.
+\item Use the \texttt{\textbackslash{}AtEveryCitekey} hook to execute
+  code at every citation to check data and decide whether to add that
+  key to a category.
+\item Use the \texttt{\textbackslash{}AtDataInput} to execute code as
+  each entry is read in and decide whether to add it to a category.
 \end{itemize}
 
 \section{Document-based division}
@@ -263,10 +262,9 @@ categorised based on where the citation is used in the LaTeX source
 file:
 
 \begin{itemize}
-\item
-  A \emph{refsection} is (nearly) a fully self-contained `unit' which
-  might have its own |.bib| files, and is expected to produce a basically
-  self-contained bibliography. It is the obvious choice, for
+\item A \emph{refsection} is (nearly) a fully self-contained `unit'
+  which might have its own |.bib| files, and is expected to produce a
+  basically self-contained bibliography. It is the obvious choice, for
   instance, if producing a collection of papers, each of which had a
   different author who had used his or her own \texttt{.bib} file.
 \item A \emph{refsegment} is a less strongly-marked division, which
@@ -283,25 +281,25 @@ expected to appear in two different bibliographies with a
 \emph{different} number: each bibliography is entirely self-contained,
 and the labels are unique within each but not between each. If, on the
 other hand, the same work is cited in two different \emph{refsegments}
-then it will have a single, unique, label which will be common to both.
-The bibliography for each segment may print all and only the sources
-referred to in that segment; but although a source that is referred to
-in two different segments will be printed in both segments'
-bibliographies, it will have the \emph{same} label in each.
+then it will have a single, unique, label which will be common to
+both.  The bibliography for each segment may print all and only the
+sources referred to in that segment; but although a source that is
+referred to in two different segments will be printed in both
+segments' bibliographies, it will have the \emph{same} label in each.
 
 Another key difference is that whereas \emph{refsegments} share the
 same |.bib| files, \emph{refsections} need not.  Some resources can be
 defined so as to be global, but individual refsections can also have
-their own `private' resources. Why does this matter? Suppose
-that Dr Drofnats and Dr Frobwangler each writes a paper for a
-collection. In their field, the seminal work is Mangel-Wurzel's famous
-paper, `How to Foo Bars'. Dr Drofnats has this paper in his personal
-|.bib| file as `|mw:foo|'. Dr Frobwangler has it in her personal |.bib|
-file as `|wurzel:bars|'. Each cites accordingly.
+their own `private' resources. Why does this matter? Suppose that Dr
+Drofnats and Dr Frobwangler each writes a paper for a collection. In
+their field, the seminal work is Mangel-Wurzel's famous paper, `How to
+Foo Bars'. Dr Drofnats has this paper in his personal |.bib| file as
+`|mw:foo|'. Dr Frobwangler has it in her personal |.bib| file as
+`|wurzel:bars|'. Each cites accordingly.
 
 One possibility of course is to produce a unified |.bib| file for the
-whole document, and edit the citations in each paper. And sometimes that
-might be necessary. But if the bibliographies are \emph{truly}
+whole document, and edit the citations in each paper. And sometimes
+that might be necessary. But if the bibliographies are \emph{truly}
 self-contained and free-standing, it should be possible to use Dr
 Drofnats' file for his paper, and Dr Frobwangler's file for hers.
 
@@ -339,12 +337,11 @@ and ends. There are three ways you can do this:
   \texttt{\textbackslash endrefsection}
   \end{minipage}}
   \end{marginfigure}
-  Using the commands |\newrefsection| and |\newrefsegment|. Each of these
-  ends the existing refsegment or refsection (if need be) and starts a
-  new one. You can mark the end of refsegments or
-  refsections with |\endrefsegment| or |\endrefsection|.
-\item
-  By telling Biblatex automatically to start a new refsegment or
+  Using the commands |\newrefsection| and |\newrefsegment|. Each of
+  these ends the existing refsegment or refsection (if need be) and
+  starts a new one. You can mark the end of refsegments or refsections
+  with |\endrefsegment| or |\endrefsection|.
+\item By telling Biblatex automatically to start a new refsegment or
   refsection whenever a new part, or chapter, or section begins. To do
   this you pass the option part, chapter, section or subsection as a
   value for the refsection or refsegment option when loading Biblatex.
@@ -359,16 +356,16 @@ and ends. There are three ways you can do this:
   \texttt{\textbackslash endrefsection}
   \end{minipage}}
   \end{marginfigure}
-\begin{verbatim}
+\begin{Verbatim}
   \usepackage[...
               refsection=chapter]{biblatex}
-\end{verbatim}
+\end{Verbatim}
 \end{enumerate}
 
 \subsection{Identifying resources for refsections}
 
-Refsegments share the bibliography resources (|.bib| files) of
-the entire document. Refsections can have their own resources. The full
+Refsegments share the bibliography resources (|.bib| files) of the
+entire document. Refsections can have their own resources. The full
 details are rather complex. What follows is a simplified set of
 instructions.
 
@@ -377,40 +374,39 @@ instructions.
   that be undivided, or divided into segments, or divided into
   sections but with the same .bib files used in all sections --- then
   just use |\addbibresource{}| in the preamble.
-\item
-  If you are using refsections and you want each to have its \emph{own}
-  |.bib| file(s), then proceed as follows: (a) In the preamble, use
-  |\addbibresource{}| to identify each resource, but make use of the
-  optional label argument to give each a label:
-\begin{verbatim}
+\item If you are using refsections and you want each to have its
+  \emph{own} |.bib| file(s), then proceed as follows: (a) In the
+  preamble, use |\addbibresource{}| to identify each resource, but
+  make use of the optional label argument to give each a label:
+\begin{Verbatim}
   \addbibresource[label=drofnats]{./bibfiles/drofnats.bib}
   \addbibresource[label=frobwangler]{./bibfiles/frobwangler.bib}
-\end{verbatim}
-\item  
-  Use explicit refsection commands.\footnote{Either \cs[refsection]{begin} and \cs[refsection]{end} or \cs{newrefsection}.} As each section begins, include a
-  list of the labels of the applicable resources as an optional
-  argument:
-\begin{verbatim}
+\end{Verbatim}
+\item Use explicit refsection commands.\footnote{Either
+    \cs[refsection]{begin} and \cs[refsection]{end} or
+    \cs{newrefsection}.} As each section begins, include a list of the
+  labels of the applicable resources as an optional argument:
+\begin{Verbatim}
   \newrefsection[drofnats]
   ... 
   \newrefsection[frobwangler]
-\end{verbatim}
-\item
-  If there are |.bib| files that you want to have available in all
+\end{Verbatim}
+\item If there are |.bib| files that you want to have available in all
   sections then identify them as shown above
-\begin{verbatim}
+\begin{Verbatim}
   \addbibresource[label=everyone]{./bibfiles/common.bib}
   ...
   \newrefsection[drofnats,everyone]
-\end{verbatim}
-  or, instead of \cs[\angled{filename}]{addbibresource} use
-  \cs[\angled{filename}]{addglobalbib} in the preamble: this will
-  declare a resource which is automatically made available to every
-  refsection. So
-\begin{verbatim}|
+\end{Verbatim}
+or, instead of \cs[\angled{filename}]{addbibresource} use
+\cs[\angled{filename}]{addglobalbib} in the preamble: this will
+declare a resource which is automatically made available to every
+refsection. So
+\begin{Verbatim}|
   \addglobalbib{./bibfiles/common.bib}
-\end{verbatim} 
-will make |common.bib| accessible to every refsection, without any need to include it in the optional argument.
+\end{Verbatim} 
+will make |common.bib| accessible to every refsection, without any
+need to include it in the optional argument.
 \end{enumerate}
 \subsection{Printing the bibliographies}
 
@@ -419,30 +415,30 @@ things. First, you can explicitly identify the section for which you
 want the bibliography printed. You do this using the section's
 \emph{number}:
 
-\begin{verbatim}
+\begin{Verbatim}
 \printbibliography[section=1]
-\end{verbatim}
+\end{Verbatim}
 
 What is this number? Basically, all the sections you create (with
-|\begin{refsection}...\end{refsection}|,
-or |\newrefsection|, or implicitly at the start of chapters and so on) are
-numbered, starting with 1. (Anything that happens \emph{before} the
-first section or \emph{after} the last is regarded as belonging in a
-section numbered 0.) So you can specify the section whose bibliography
-you want printed.
+|\begin{refsection}...\end{refsection}|, or |\newrefsection|, or
+implicitly at the start of chapters and so on) are numbered, starting
+with 1. (Anything that happens \emph{before} the first section or
+\emph{after} the last is regarded as belonging in a section numbered
+0.) So you can specify the section whose bibliography you want
+printed.
 
-You can also do this for refsegments too in just the same way: the first
-segment you create is refsegment 1, the next is 2 and so on -- and you
-can choose which gets printed:
+You can also do this for refsegments too in just the same way: the
+first segment you create is refsegment 1, the next is 2 and so on --
+and you can choose which gets printed:
 
-\begin{verbatim}
+\begin{Verbatim}
 \printbibliography[segment=2]
-\end{verbatim}
+\end{Verbatim}
 
 With \emph{refsections only} (\emph{not} with segments) there is
-another way. If you include a |\printbibliography| command \emph{within} a
-refsection, \biblatex\ will assume that you only want to include that
-section.
+another way. If you include a |\printbibliography| command
+\emph{within} a refsection, \biblatex\ will assume that you only want
+to include that section.
 
 \begin{figure*}
 \begin{minipage}[b]{0.5\textwidth}
@@ -474,10 +470,7 @@ section.
 
 \tikz{\node(exppbnode) [text width=5cm] {only the bibliography for this refsection will be printed};}
 
-
 \vspace{9ex}
-
-
 \end{minipage}
 \begin{tikzpicture}[overlay,line width=1pt]
 \draw[red] (resnode.south) -| (labelnode.north);
@@ -487,20 +480,34 @@ section.
 \caption{Exemplary refsections\label{refsections}}
 \end{figure*}
 
-Finally, because a possible ``use case'' is to loop through each section
-or segment, printing the bibliography for that section or segment, and
-then doing the same for the next, there are special commands designed to
-achieve this: |\bibbysection| and |\bibbysegment|. They are ``smart'' in
-that they will not print a bibliography if a particular segment or
-section contains no citations at all.
+Finally, because a possible use case is to loop through each
+section or segment, printing the bibliography for that section or
+segment, and then doing the same for the next, there are special
+commands designed to achieve this: |\bibbysection| and
+|\bibbysegment|. They are `smart' in that they will not print a
+bibliography if a particular segment or section contains no citations
+at all.
 
-If you want \emph{both} subdivided bibliographies and a single ``global'' bibliography, there are two approaches. (1) You can use |refsegments|. If you then print a bibliography with \emph{no} |segment=...| selector, all segments will be printed. (2) If \emph{only} your cited sources are in the |.bib| file, you can use a |\nocite{*}| instruction within a |section| to print everything. Unfortunately there is no way to tell \biblatex\ to print a combined bibliography of multiple sections.
+If you want \emph{both} subdivided bibliographies and a main,
+consolidated, bibliography, there are two approaches. (1) You can use
+|refsegments|. If you then print a bibliography with \emph{no}
+|segment=...| selector, all segments will be printed. (2) If
+\emph{only} your cited sources are in the |.bib| file, you can use a
+|\nocite{*}| instruction within a |section| to print
+everything. Unfortunately there is no way to tell \biblatex\ to print
+a combined bibliography of multiple sections.
 
 \subsection{Some advice}
 
-In many cases, excessively divided bibliographies are more harmful than
-helpful. Before deciding to divide bibliographies at all, do think
-seriously about how a reader uses a bibliography. Don't introduce
-unnecessary complexity. Apart from the most obvious case (self-contained
-papers which need their own bibliographies, for instance) subdivision
-can easily be over done.
+In many cases, excessively divided bibliographies are more harmful
+than helpful. Before deciding to divide bibliographies at all, do
+think seriously about how a reader uses a bibliography. Don't
+introduce unnecessary complexity. Apart from the most obvious case
+(self-contained papers which need their own bibliographies, for
+instance) subdivision can easily be over done.
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: LaTeX
+%%% TeX-master: "biblatex-tutorial"
+%%% End:

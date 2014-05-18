@@ -20,15 +20,20 @@ Always add a bibliography file with
 \emph{or} \cs{usepackage}\{polyglossia\}
 \end{pseudoverb}
 
-\paragraph{Encodings and accents} Use \smallcaps{utf-8} in |.bib| file, or use \TeX\ accent commands |\`| etc. Prefer unicode. Set input encoding of |.tex| file with \package{inputenc}.
+\paragraph{Encodings and accents} Use \smallcaps{utf-8} in |.bib|
+file, or use \TeX\ accent commands |\`| etc. Prefer unicode. Set input
+encoding of |.tex| file with \package{inputenc}.
 
 \paragraph{Citations}
-Use |\autocite| and |\cite| in all styles. Use |\textcite| for `running' citations. Use |\parencite| for parenthetical citations. Use |\footcite| for footnote citations.
+Use |\autocite| and |\cite| in all styles. Use |\textcite| for
+`running' citations. Use |\parencite| for parenthetical citations. Use
+|\footcite| for footnote citations.
 
 Citation commands take the form:
 \begin{pseudoverb}
-\cs{cite}[\angled{postnote}]\{\angled{key}\}\\
-\emph{or} \cs{cite}[\angled{prenote}][\angled{postnote}]\{\angled{key}\}
+  \cs{cite}[\angled{postnote}]\{\angled{key}\}\\
+  \emph{or}
+  \cs{cite}[\angled{prenote}][\angled{postnote}]\{\angled{key}\}
 \end{pseudoverb}
 
 \paragraph{Printing the bibliography}

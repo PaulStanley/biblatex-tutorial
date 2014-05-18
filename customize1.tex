@@ -5,19 +5,21 @@ We are about to dive into the details of using \biblatex. As we go
 through them, we are going to be thinking a bit about
 customization. Before we do that, a stern lecture is in order.
 
-\textsf{Biblatex} is highly customizable. That, in the end, is
-its point. At one extreme, if you are setting out to write a
-bibliography style you might be customizing a great deal. But at that
-point, of course, it gets very complicated. If you are trying to do
-anything that difficult you will really want to understand the
-internals of \biblatex---which will involve reading the
-manual carefully,\intref{\emph{Manual} \S~4} and also looking at some of the source code.\sidenote{Especially \texttt{standard.def} and the \texttt{.bbx} and \texttt{.cbx} files for the various standard files.} This
-document is not trying to teach you how to do that. But there are lots
-of customizations that are well within the reach of the `ordinary'
-user, and it does make sense to discuss them.
+\textsf{Biblatex} is highly customizable. That, in the end, is its
+point. At one extreme, if you are setting out to write a bibliography
+style you might be customizing a great deal. But at that point, of
+course, it gets very complicated. If you are trying to do anything
+that difficult you will really want to understand the internals of
+\biblatex---which will involve reading the manual
+carefully,\intref{\emph{Manual} \S~4} and also looking at some of the
+source code.\sidenote{Especially \texttt{standard.def} and the
+  \texttt{.bbx} and \texttt{.cbx} files for the various standard
+  files.} This document is not trying to teach you how to do that. But
+there are lots of customizations that are well within the reach of the
+`ordinary' user, and it does make sense to discuss them.
 
-In order to keep things simple, I am going quite often to
-explain \emph{how} to obtain certain commonly needed changes, without
+In order to keep things simple, I am going quite often to explain
+\emph{how} to obtain certain commonly needed changes, without
 necessarily explaining exactly why it works---what internal mechanism
 is in play.
 
@@ -34,11 +36,11 @@ suggested. Generally, I've tried to keep things as simple as possible.
 
 \section{The common methods}
 
-\paragraph{Using an option.}\intref{\emph{Manual} \S~3.1} Many `customizations' can be achieved
-simply by setting one of \biblatex's package options. This is done
-when you load \biblatex. For instance, to change the way the
-bibliography is sorted, you might set the \verb|sorting| option to
-\verb|none|, by loading
+\paragraph{Using an option.}\intref{\emph{Manual} \S~3.1}
+Many `customizations' can be achieved simply by setting one of
+\biblatex's package options. This is done when you load \biblatex. For
+instance, to change the way the bibliography is sorted, you might set
+the \verb|sorting| option to \verb|none|, by loading
 \begin{verbatim}
 \usepackage[style=numeric,
             sorting=none]{biblatex}
@@ -46,19 +48,20 @@ bibliography is sorted, you might set the \verb|sorting| option to
 
 Apart from the package itself, some commands also have options. For
 instance, there are a number of options that can be given to the
-\cs{printbibliography}\intref{See chapter~\ref{ch:customize1}.} command to affect how the bibliography is
-printed.
+\cs{printbibliography}\intref{See chapter~\ref{ch:customize1}.}
+command to affect how the bibliography is printed.
 
 \paragraph{Redefining a command.} It's quite common for a change to be
 made by redefining a command. For instance, in many cases \biblatex\
 uses a command to insert a piece of punctuation, so that if you want
-to change the punctuation,\intref{See p~\pageref{sec:punctuation}.} you can redefine the command to produce a
-different punctuation mark.
+to change the punctuation,\intref{See p~\pageref{sec:punctuation}.}
+you can redefine the command to produce a different punctuation mark.
 
 For instance, there's a command called \cs{multicitedelim} which
 inserts the punctuation between multiple citations. Styles set it
 differently, but it's usually a comma or a semicolon. Suppose, for
-some really odd reason we wanted to make it `AND'. To do this, you use \cs{renewcommand}.
+some really odd reason we wanted to make it `AND'. To do this, you use
+\cs{renewcommand}.
 \begin{verbatim}
 \renewcommand{\multicitedelim}{\addspace AND\space}
 \end{verbatim}
@@ -93,7 +96,9 @@ customization, use the various commands that \biblatex\ offers.
 \vspace{3pt}
 \caption{The \textbackslash add... commands\label{addcommands}}
 \end{margintable}
-\intref[3ex]{For spacing commands see the \emph{Manual} \S~4.7.4.} These (see table \ref{addcommands}) all take the form
+
+\intref[3ex]{For spacing commands see the \emph{Manual} \S~4.7.4.}
+These (see table \ref{addcommands}) all take the form
 \cs{add...}. Where they often have the edge on simply using
 punctuation marks directly, is that they are context sensitive: they
 will not add marks if it is inappropriate (for instance, they won't
@@ -101,12 +106,12 @@ add a comma after a question-mark), and they will remove unnecessary
 white space before the mark. The best way to think of them is as
 `context-sensitive' punctuation.
 
-\paragraph{Bibliography strings.} Apart from the bits of\intref{\emph{Manual} \S~4.9.1}
-bibliographical information assembled from the database, all sorts
-of bits of text get printed in a bibliography: `ed.', `vol.', `pp.'
-and so on. These are handled by \biblatex\ using bibliography
-strings. One quite common customisation is to change these. This is
-done using the command
+\paragraph{Bibliography strings.} Apart from the bits
+of\intref{\emph{Manual} \S~4.9.1} bibliographical information
+assembled from the database, all sorts of bits of text get printed in
+a bibliography: `ed.', `vol.', `pp.'  and so on. These are handled by
+\biblatex\ using bibliography strings. One quite common customisation
+is to change these. This is done using the command
 \begin{quotation}
 \ttfamily
 \cs{DefineBibliographyStrings}%
@@ -147,22 +152,24 @@ would print the title surrounded by three asterisks, or
 \end{pseudoverb}
 would print the title in small capitals.
 
-\paragraph{Hooks.} There\intref{\emph{Manual} \S~4.10.6} are a number of `hooks' offered by \biblatex\
-at which it is made relatively easy to insert user-defined commands
-which might do something useful. For instance \cs{AtEveryCitekey} allows
-one to execute some code whenever a source is about to be cited, at a
-time when its data is available but has not yet been handled;
-\cs{AtEveryBibitem} offers a similar facility in relation to the
-printing of bibliography items. Particularly useful, sometimes, is the
-hook \cs{AtDataInput}, which is executed when data is first `read in'
-to become available for citation. From time to time you may be
-encouraged to use these hooks for various purposes.
+\paragraph{Hooks.} There\intref{\emph{Manual} \S~4.10.6} are a number
+of `hooks' offered by \biblatex\ at which it is made relatively easy
+to insert user-defined commands which might do something useful. For
+instance \cs{AtEveryCitekey} allows one to execute some code whenever
+a source is about to be cited, at a time when its data is available
+but has not yet been handled; \cs{AtEveryBibitem} offers a similar
+facility in relation to the printing of bibliography
+items. Particularly useful, sometimes, is the hook \cs{AtDataInput},
+which is executed when data is first `read in' to become available for
+citation. From time to time you may be encouraged to use these hooks
+for various purposes.
 
-\paragraph{Source mapping.} In fact,\intref{\emph{Manual} \S~4.5.2.} \biblatex\ can `get at' the data
-even before it is read in---indeed, while it is being processed by
-\package{biber}. The facilities providing for source mapping enable
-one to play various useful tricks with the \verb|.bib| file. We've
-already seen an example of this on page \pageref{datamap}.
+\paragraph{Source mapping.} In fact,\intref{\emph{Manual} \S~4.5.2.}
+\biblatex\ can `get at' the data even before it is read in---indeed,
+while it is being processed by \package{biber}. The facilities
+providing for source mapping enable one to play various useful tricks
+with the \verb|.bib| file. We've already seen an example of this on
+page \pageref{datamap}.
 
 \paragraph{Deeper and darker.}
 All these techniques (options, redefinition of `hook' commands, and
@@ -189,9 +196,22 @@ intended to be used in all your documents.
   I specifically mention it.
 \end{itemize}
 \item If you want a standard set of options to apply to all your
-  documents, put them in a file called |biblatex.cfg|, which should be put in your
-  \emph{local} \textsc{texmf} tree at |/tex/latex/biblatex|. If there is such
-  a file it will be loaded after biblatex. It can be used to redefine commands
-  and to set (most, but not all) bibliography options, using \cs{ExecuteBibliographyOptions}\braced{\angled{options}}. You cannot, however, set the bibliography style there: that at least you must do when you load \biblatex.
-\item If\intref{\emph{Manual} \S~4.2} you get to the point that you are developing a comprehensive style, you will want to write |.bbx|, |.lbx| and |.cbx| files which can be loaded as a style. That, however, is beyond the scope of this document.
+  documents, put them in a file called |biblatex.cfg|, which should be
+  put in your \emph{local} \textsc{texmf} tree at
+  |/tex/latex/biblatex|. If there is such a file it will be loaded
+  after biblatex. It can be used to redefine commands and to set
+  (most, but not all) bibliography options, using
+  \cs{ExecuteBibliographyOptions}\braced{\angled{options}}. You
+  cannot, however, set the bibliography style there: that at least you
+  must do when you load \biblatex.
+\item If\intref{\emph{Manual} \S~4.2} you get to the point that you
+  are developing a comprehensive style, you will want to write |.bbx|,
+  |.lbx| and |.cbx| files which can be loaded as a style. That,
+  however, is beyond the scope of this document.
 \end{itemize}
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: LaTeX
+%%% TeX-master: "biblatex-tutorial"
+%%% End:
