@@ -425,7 +425,8 @@ pagination recognised, and their results, is shown in table
   \texttt{none}                                             \\
   \bottomrule
 \end{tabular}
-\caption[3pt]{Standard values for \texttt{pagination}\label{pagination:types}}
+\vspace{3pt}
+\caption{Standard values for \texttt{pagination}\label{pagination:types}}
 \end{margintable}
 
 
@@ -466,6 +467,27 @@ commands will handle multiple citations: \cs{cite\{key1, key2\}} will
 produce `[1, 2]' or `Jones 1990; Smith 2010', or whatever is in
 keeping with the style you have chosen.
 
+\begin{margintable}
+\begin{tabular}{ll}
+\toprule
+\textsf{regular} & \textsf{multi-cite version} \\
+\midrule
+\cs{cite}        & \cs{cites} \\
+\cs{footcite}    & \cs{footcites} \\
+\cs{parencite}   & \cs{parencites} \\
+\cs{autocite}    & \cs{autocites} \\
+\cs{textcite}    & \cs{textcites} \\
+\cs{Cite}        & \cs{Cites} \\
+\cs{Parencite}   & \cs{Parencites} \\
+\cs{Autocite}    & \cs{Autocites} \\
+\cs{Textcite}    & \cs{Textcites}\\
+\bottomrule
+\end{tabular}
+\vspace{3pt}
+\caption{Multiple citation commands\label{multicites}}
+\end{margintable}
+
+
 This is fine; but it does'nt handle pre- and postnotes very nicely. If
 we did \cs{cite[prenote][postnote]\{key1,key2\}} we will get [prenote
 1, 2, postnote]---which will rarely make sense. For this purpose,
@@ -484,25 +506,6 @@ or (in an alphabetic style)
 \begin{center}
 see Smith 1990, p.\ 10; cf Jones 2000, p.\ 20; Bloggs 2010, p.\ 30
 \end{center}
-
-\begin{margintable}
-\begin{tabular}{ll}
-\toprule
-\textsf{regular} & \textsf{multi-cite version} \\
-\midrule
-\cs{cite}        & \cs{cites} \\
-\cs{footcite}    & \cs{footcites} \\
-\cs{parencite}   & \cs{parencites} \\
-\cs{autocite}    & \cs{autocites} \\
-\cs{textcite}    & \cs{textcites} \\
-\cs{Cite}        & \cs{Cites} \\
-\cs{Parencite}   & \cs{Parencites} \\
-\cs{Autocite}    & \cs{Autocites} \\
-\cs{Textcite}    & \cs{Textcites}\\
-\bottomrule
-\end{tabular}
-\caption[][3pt]{Multiple citation commands\label{multicites}}
-\end{margintable}
 
 It's not hard to see what's happening here: basically \biblatex\ is
 interpreting the command as a set of individual \cs{cite} commands,
