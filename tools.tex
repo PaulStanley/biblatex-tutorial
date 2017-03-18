@@ -141,31 +141,16 @@ tools are \package{JabRef} and (for Mac OSX) \package{BibDesk}. Each
 provides a graphical interface for entering bibliographic data, and
 useful reminders of the fields that you will need to complete.
 
-At present, \package{JabRef} has a \biblatex\ mode. \package{BibDesk}
-does not. You can still use it to maintain a database (especially if
-you mostly use `ordinary' types of source, like books and articles):
-but there are some fields where, ideally, \biblatex\ prefers something
-different: for instance it uses a |date| field (rather than |year| and
-|month|) and a |location| field (rather than |address|). This is not
-usually a big problem, because \biblatex\ is mostly able to understand
-a file produced in the `traditional' format. But some of \biblatex's
-more advanced features will not be automatically supported. You can,
-however, always edit the fields and entry types in the `preferences'
-section, effectively producing \biblatex\ `compliance' yourself. In
-either case you are likely to find this necessary if you use
-`non-standard' entry types (legal material, musical material,
-recordings and so forth).
-
 Such packages are designed for maintaining a database file (or files)
 on a particular computer. Increasingly there are web- and cloud-based
-bibliography tools such as \package{Mendeley} and
-\package{Zotero}. Support of \biblatex\ in these tools is patchy,
-though \package{Zotero} does have a `translator' that is supposed to
-produce \biblatex\ compatible |.bib| files. Most such services can
-produce `traditional' \bibtex, which can be used as a base. Other
-web-based services (such as Google Scholar) will often also offer
-pre-formed \bibtex\ records. These need to be scrutinized with care,
-because they are not always accurate or complete.
+bibliography tools such as \package{Mendeley} and \package{Zotero}.
+Other web-based services (such as Google Scholar) will often also
+offer pre-formed \bibtex\ records. These need to be scrutinized with
+care, because they are not always accurate or complete.
+
+Support for \biblatex\ in these tools varies, and changes over
+time. You may be able to find useful up-to-date information at
+\url{http://tex.stackexchange.com/questions/23942/bibliography-tools-that-are-compatible-with-biblatex-and-biber}.
 
 %%% Local Variables:
 %%% coding: utf-8

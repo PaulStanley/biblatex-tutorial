@@ -7,9 +7,9 @@ all: cotton-alphabeticu.pdf cotton-authoryearu.pdf cotton-numericu.pdf\
 	database-eg2.pdf database-eg3.pdf database-eg4.pdf cotton-springer-myenv.pdf\
 	sorting-eg1.pdf sorting-eg2.pdf mla.pdf oscola.pdf chicago-authordate.pdf\
 	chicagonotes.pdf ieee.pdf apa.pdf dw-authortitle.pdf dw-footnote.pdf\
-	duallanguage.pdf proust1.pdf proust2.pdf nature.pdf punctcite.pdf punctcite1.pdf\
+	duallanguage.pdf proust1.pdf proust2.pdf nature.pdf punctcite.pdf\
 	punctcite2.pdf punctcite3.pdf punctcite4.pdf punctcite5.pdf punctcite6.pdf\
-	punctcite7.pdf punctcite8.pdf punctcite9.pdf punctcite10.pdf punctcite11.pdf\
+	punctcite7.pdf punctcite8.pdf punctcite10.pdf punctcite11.pdf\
 	punctcite12.pdf punctcite13.pdf entryset1.pdf
 
 %.pdf: %.bbl

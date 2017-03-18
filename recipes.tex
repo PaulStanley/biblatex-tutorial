@@ -143,10 +143,10 @@ the OSCOLA package code, which does something along these lines.)
 
 \paragraph{I want names printed in bold/italic/small capitals etc.}
 How names are printed depends on four standard commands:
-\cs{mkbibnamefirst} (which prints the initials or first names),
+\cs{mkbibnamegiven} (which prints the initials or first names),
 \cs{mkbibnameprefix} (which prints the `de' or `von' parts),
-\cs{mkbibnamelast} (which prints the last name) and
-\cs{mkbibnameaffix} (which prints the `Jr' part). Each or all of these
+\cs{mkbibnamefamily} (which prints the last name) and
+\cs{mkbibnamesuffix} (which prints the `Jr' part). Each or all of these
 can be redefined to alter the way names are printed. Each takes a
 single argument (the relevant part of the name), and can be used to
 format it.\footnote{For formatting emphatically or in bold, you should
@@ -157,42 +157,42 @@ requirements: We want first names printed in bold, we want `von' and
 `Jr' parts printed emphatically, and we want the last name in small
 capitals. We define the following
 \begin{Verbatim}
-\renewcommand{\mkbibnamefirst}[1]{\mkbibbold{#1}}
+\renewcommand{\mkbibnamegiven}[1]{\mkbibbold{#1}}
 \renewcommand{\mkbibnameprefix}[1]{\mkbibemph{#1}}
-\renewcommand{\mkbibnameaffix}[1]{\mkbibemph{#1}}
-\renewcommand{\mkbibnamelast}[1]{\textsc{#1}}
+\renewcommand{\mkbibnamesuffix}[1]{\mkbibemph{#1}}
+\renewcommand{\mkbibnamefamily}[1]{\textsc{#1}}
 \end{Verbatim} 
 And obtain results as shown in figure \ref{namestyle}.
 \begin{figure}
 \begin{minipage}[t]{3in}
  \tikz[thick]{
- \node(firstname)[fill=red!40, xshift=25ex]{\strut\texttt{Klaus}};
+ \node(givenname)[fill=red!40, xshift=25ex]{\strut\texttt{Klaus}};
  \node(prefixname)[fill=blue!40, xshift=32ex]{\strut\texttt{von}};
- \node(lastname)[fill=green!40, xshift=39.5ex]{\strut\texttt{Bulow}};
- \node(affixname)[fill=orange!40, xshift=46ex]{\strut\texttt{III}};
- \node(mkbibfirst)[fill=red!40,yshift=-10ex]{\cs[Klaus]{mkbibnamefirst}};
+ \node(familyname)[fill=green!40, xshift=39.5ex]{\strut\texttt{Bulow}};
+ \node(suffixname)[fill=orange!40, xshift=46ex]{\strut\texttt{III}};
+ \node(mkbibgiven)[fill=red!40,yshift=-10ex]{\cs[Klaus]{mkbibnamegiven}};
  \node(mkbibbold)[fill=red!40,yshift=-20ex]{\cs[Klaus]{mkbibbold}};
  \node(boldklaus)[fill=red!40,yshift=-30ex,xshift=25ex]{\strut\textbf{Klaus}};
  \node(mkbibprefix)[fill=blue!40, xshift=19ex, yshift=-15ex]{\cs[von]{mkbibprefix}};
  \node(mkbibemph1)[fill=blue!40, xshift=19ex, yshift=-25ex]{\cs[von]{mkbibemph}};
  \node(emvon)[fill=blue!40, xshift=32ex, yshift=-30ex]{\emph{\strut von}};
- \node(mkbiblast)[fill=green!40, xshift=39.5ex, yshift=-10ex]{\cs[Bulow]{mkbibnamelast}};
+ \node(mkbibfamily)[fill=green!40, xshift=39.5ex, yshift=-10ex]{\cs[Bulow]{mkbibnamefamily}};
  \node(scname)[fill=green!40, xshift=39.5ex, yshift=-20ex]{\cs[Bulow]{textsc}};
  \node(scbulow)[fill=green!40, xshift=39.5ex, yshift=-30ex]{\strut\textsc{Bulow}};
- \node(mkbibaffix)[fill=orange!40, xshift=55ex, yshift=-15ex]{\cs[III]{mkbibaffix}};
+ \node(mkbibsuffix)[fill=orange!40, xshift=55ex, yshift=-15ex]{\cs[III]{mkbibsuffix}};
  \node(mkbibemph2)[fill=orange!40, xshift=55ex, yshift=-25ex]{\cs[III]{mkbibemph}};
  \node(emiii)[fill=orange!40, xshift=46ex, yshift=-30ex]{\strut\emph{III}};
- \path[-stealth] (firstname.west) edge [out=180, in=90] (mkbibfirst.north);
- \path[-stealth] (mkbibfirst.south) edge [out=-90, in=90] (mkbibbold.north);
+ \path[-stealth] (givenname.west) edge [out=180, in=90] (mkbibgiven.north);
+ \path[-stealth] (mkbibgiven.south) edge [out=-90, in=90] (mkbibbold.north);
  \path[-stealth] (mkbibbold.south) edge [out=-90, in=180] (boldklaus.west);
  \path[-stealth] (prefixname.south) edge [out=-90, in=90] (mkbibprefix.north);
  \path[-stealth] (mkbibprefix.south) edge [out=-90, in=90] (mkbibemph1.north);
  \path[-stealth] (mkbibemph1.east) edge [out=0, in=90] (emvon.north);
- \path[-stealth] (lastname.south) edge [out=-90, in=90] (mkbiblast.north);
- \path[-stealth] (mkbiblast.south) edge [out=-90, in=90] (scname.north);
+ \path[-stealth] (familyname.south) edge [out=-90, in=90] (mkbibfamily.north);
+ \path[-stealth] (mkbibfamily.south) edge [out=-90, in=90] (scname.north);
  \path[-stealth] (scname.south) edge [out=-90, in=90] (scbulow.north);
- \path[-stealth] (affixname.east) edge [out=0, in=90] (mkbibaffix.north);
- \path[-stealth] (mkbibaffix.south) edge [out=-90, in=90] (mkbibemph2.north);
+ \path[-stealth] (suffixname.east) edge [out=0, in=90] (mkbibsuffix.north);
+ \path[-stealth] (mkbibsuffix.south) edge [out=-90, in=90] (mkbibemph2.north);
  \path[-stealth] (mkbibemph2.south) edge [out=-90, in=0] (emiii.east);
  }
 \end{minipage}

@@ -164,6 +164,7 @@ pip-log.txt
 
 # TeX Stuff
 *.aux
+*.dvi
 *.ind
 *.idx
 *.bbl

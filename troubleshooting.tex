@@ -79,28 +79,6 @@ step. If you see any lines in the log which begin |ERROR| or |WARN|
 then there was some sort of problem, and you will need to do more
 digging.
 
-\newthought{Just occasionally}\label{cache} a strange and annoying
-error occurs at this point, and you see reference on the console (or
-in the log file) to something along the following lines (the exact
-file name will be different)
-\begin{verbatim}
-data source /var/folders/jx/xzkq2pcj0bg4gls726dy08b40000gn/T/
-par-7061756c7374616e6c6579cache-1ea1c894d061cba85b64a1b380f
-6c297de02c7c4//inc/lib/Biber/LaTeX/recode_data.xml 
-not found in .
-\end{verbatim}
-This error occurs because of some problem with the method by which
-\package{biber} is packaged up via a perl wrapper. The solution is to
-delete the `cache', which you can identify either from the error
-message (it's everything up to and including the long name), or by
-running
-\begin{verbatim}
-biber --cache
-\end{verbatim}
-You need to delete this file. The next time \package{biber} runs it
-will be slow to start up, but the error should disappear. Its
-reappearance is intermittent and somewhat annoying.
-
 \newthought{Once \package{biber} has actually run}, even with
 warnings, you will find that the log provides a useful diagnostic
 tool. The most common errors are set out in table \ref{biber:errors},
