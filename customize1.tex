@@ -36,6 +36,9 @@ suggested. Generally, I've tried to keep things as simple as possible.
 
 \section{The common methods}
 
+\indexstart{customization!general techniques}
+\index{Biblatex!package options|see{options}}
+\index{options}
 \paragraph{Using an option.}\intref{\emph{Manual} \S~3.1}
 Many `customizations' can be achieved simply by setting one of
 \biblatex's package options. This is done when you load \biblatex. For
@@ -66,6 +69,7 @@ some really odd reason we wanted to make it `AND'. To do this, you use
 \renewcommand{\multicitedelim}{\addspace AND\space}
 \end{verbatim}
 
+\index{punctuation}
 \paragraph{Punctuation.} At this point, one feature of
 bibliography-bashing is worth attention. If you do much of it, you
 will find yourself spending quite a bit of time fiddling with
@@ -78,6 +82,10 @@ work, they don't `play' nicely with some of the clever tricks
 \biblatex\ uses to keep punctuation straight. Instead, when engaged in
 customization, use the various commands that \biblatex\ offers.
 
+\csindex{adddot}\csindex{addperiod}\csindex{addcomma}\csindex{addcolon}\csindex{addsemicolon}
+\csindex{addspace}\csindex{addnbspace}\csindex{addexclam}\csindex{addquestion}
+\index{punctuation!period}\index{punctuation!comma}\index{punctuation!semicolon}\index{punctuation!colon}
+\index{spaces}\index{punctuation!exclamation mark}\index{punctuation!question mark}
 \begin{margintable}
 \begin{tabular}{lll}
 \toprule
@@ -97,6 +105,7 @@ customization, use the various commands that \biblatex\ offers.
 \caption{The \textbackslash add... commands\label{addcommands}}
 \end{margintable}
 
+\index{spaces}
 \intref[3ex]{For spacing commands see the \emph{Manual} \S~4.7.4.}
 These (see table \ref{addcommands}) all take the form
 \cs{add...}. Where they often have the edge on simply using
@@ -106,6 +115,8 @@ add a comma after a question-mark), and they will remove unnecessary
 white space before the mark. The best way to think of them is as
 `context-sensitive' punctuation.
 
+\index{strings!commonly used}
+\csindex{DefineBibliographyStrings}
 \paragraph{Bibliography strings.} Apart from the bits
 of\intref{\emph{Manual} \S~4.9.1} bibliographical information
 assembled from the database, all sorts of bits of text get printed in
@@ -127,6 +138,8 @@ by', \biblatex\ would produce `conjured by' we could alter the
     { byeditor = {conjured by}, }
 \end{verbatim}
 
+\index{formatting!field formats}
+\csindex{DeclareFieldFormat}
 \paragraph{Field formats.} Internally, when it prints some data from
 the \verb|.bib| file, \biblatex\ passes the data through a filter that
 is defined for that field and entry-type. Although there are some
@@ -164,6 +177,7 @@ which is executed when data is first `read in' to become available for
 citation. From time to time you may be encouraged to use these hooks
 for various purposes.
 
+\index{sourcemap directive}
 \paragraph{Source mapping.} In fact,\intref{\emph{Manual} \S~4.5.2.}
 \biblatex\ can `get at' the data even before it is read in---indeed,
 while it is being processed by \package{biber}. The facilities
@@ -180,20 +194,22 @@ of citation commands, the redefinition of things called bibmacros, and
 ultimately the rewriting of bibliography drivers. Although we may
 touch on these from time to time, I'm not going to go into depth about
 them until chapter [x].
+\indexstop{customization!general techniques}
 
 \section{Where to put customizations}
 
+\indexstart{customization!file locations}
 This all depends on whether your customizations are `one off' or
 intended to be used in all your documents.
 \begin{itemize}
 \item For one off customizations:
 \begin{itemize}
 \item customization by options should go in the options that you list
-  when loading \biblatex.
+  when loading \biblatex.\index{options}
 \item most other customizations should go in the document preamble, after
   \biblatex\ has been loaded but before |\begin{document}|. In a \emph{very
   few} cases it's better to put them at some other point. Where that is so
-  I specifically mention it.
+  I specifically mention it.\index{customization!in preamble}
 \end{itemize}
 \item If you want a standard set of options to apply to all your
   documents, put them in a file called |biblatex.cfg|, which should be
@@ -203,12 +219,13 @@ intended to be used in all your documents.
   (most, but not all) bibliography options, using
   \cs{ExecuteBibliographyOptions}\braced{\angled{options}}. You
   cannot, however, set the bibliography style there: that at least you
-  must do when you load \biblatex.
+  must do when you load \biblatex.\index{customization!biblatex.cfg@\texttt{biblatex.cfg}}\index{files!biblatex.cfg@\texttt{biblatex.cfg}}
 \item If\intref{\emph{Manual} \S~4.2} you get to the point that you
   are developing a comprehensive style, you will want to write |.bbx|,
   |.lbx| and |.cbx| files which can be loaded as a style. That,
   however, is beyond the scope of this document.
 \end{itemize}
+\indexstop{customization!file locations}
 
 %%% Local Variables:
 %%% coding: utf-8

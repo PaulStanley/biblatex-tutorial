@@ -48,28 +48,24 @@ will have the extension |.blg|). If all has gone well you will see
 something like figure \ref{biber:run}.
 \begin{figure}
 \begin{Verbatim}[frame=single,fontsize=\small]
-[0] Config.pm:318> INFO - This is Biber 1.8
-[0] Config.pm:321> INFO - Logfile is 'dw-authortitle.blg'
-[73] biber-darwin:275> INFO - === Sun Mar 16, 2014, 11:10:02
-[73] Biber.pm:333> INFO - Reading 'dw-authortitle.bcf'
-[142] Biber.pm:630> INFO - Found 4 citekeys in bib section 0
-[169] Biber.pm:3053> INFO - Processing section 0
-[203] Biber.pm:3190> INFO - Looking for bibtex format file 
-  'biblatex-examples.bib' for section 0
-[763] bibtex.pm:937> INFO - Decoding LaTeX character macros 
-   into UTF-8
-[780] bibtex.pm:812> INFO - Found BibTeX data source 
-  '/usr/local/texlive/2013/texmf-dist/bibtex/bib/biblatex/
-  biblatex/biblatex-examples.bib'
-[833] Biber.pm:2939> INFO - Overriding locale 'en_GB.UTF-8' 
-   default tailoring 'variable = shifted' with 'variable = non-
-   ignorable'
-[833] Biber.pm:2945> INFO - Sorting 'entry' list 'nty' keys
-[834] Biber.pm:2949> INFO - No sort tailoring available for
-   locale 'en_GB.UTF-8'
-[846] bbl.pm:482> INFO - Writing 'dw-authortitle.bbl' with 
-   encoding 'UTF-8'
-[847] bbl.pm:555> INFO - Output to dw-authortitle.bbl
+INFO - This is Biber 2.7
+INFO - Logfile is 'punctcite13.blg'
+INFO - Reading 'punctcite13.bcf'
+INFO - Found 1 citekeys in bib section 0
+INFO - Processing section 0
+INFO - Looking for bibtex format file 'biblatex-examples.bib' 
+       for section 0
+INFO - Decoding LaTeX character macros into UTF-8
+INFO - Found BibTeX data source '/biblatex-examples.bib'
+INFO - Overriding locale 'en-US' defaults 'variable = shifted'
+        with 'variable = non-ignorable'
+INFO - Overriding locale 'en-US' defaults 'normalization = NFD' 
+       with 'normalization = prenormalized'
+INFO - Sorting list 'nty/global/' of type 'entry' with scheme 'nty' 
+       and locale 'en-US'
+INFO - No sort tailoring available for locale 'en-US'
+INFO - Writing 'punctcite13.bbl' with encoding 'ascii'
+INFO - Output to punctcite13.bbl
 \end{Verbatim}
 \caption{Log of a successful \package{biber} run\label{biber:run}}
 \end{figure}

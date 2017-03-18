@@ -53,18 +53,32 @@
     \raisebox{-1.5pt}{\color{BrickRed}\FilledTriangleRight}%
     \,\parbox[t]{\marginparwidth - 1em}{#2}}}
 
-\newcommand{\csindex}[1]{%
-  \index{#1@\cs{#1}}}
 \newcommand{\packindex}[1]{%
   \index{#1@\package{#1}}}
-\newcommand{\indexstart}[1]{%
-  \index{#1|(}}
-\newcommand{\indexstop}[1]{%
-  \index{#1|)}}
+\makeatletter
+\newrobustcmd{\indexstart}[1]{%
+  \def\@tempa{#1\string|(}%
+  \protected@edef\theindexentry{%
+    \unexpanded{\index}
+    {\@tempa}}%
+  \theindexentry}
+\newrobustcmd{\indexstop}[1]{%
+  \def\@tempa{#1\string|)}%
+  \protected@edef\theindexentry{%
+    \unexpanded{\index}
+    {\@tempa}}%
+  \theindexentry}
+\newrobustcmd{\csindex}[1]{%
+  \def\@tempa{#1@\cs{#1}}%
+  \protected@edef\theindexentry{%
+    \unexpanded{\index}
+    {\@tempa}}
+  \theindexentry}
+\makeatother
 
 \setcounter{secnumdepth}{0}
 
-\makeindex[columns=1]
+\makeindex[columns=2]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % INCLUSIONS
@@ -93,7 +107,7 @@
 
 \author{Paul Stanley}
 
-\date{2014}
+\date{2017}
 
 \begin{document}
 

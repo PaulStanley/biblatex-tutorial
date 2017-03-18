@@ -11,7 +11,7 @@ section.
 \section{For the true neophyte}
 
 \subsection{The basic idea}
-
+\indexstart{Biblatex!very basic introduction}
 Academic writing usually cites sources. The exact form of these
 citations varies: different disciplines have different practices, and
 different publishers and journals too. But the underlying idea is
@@ -136,6 +136,7 @@ This `pattern' (\LaTeX, \package{Biber}, \LaTeX, (\LaTeX)) is repeated
 whenever you need to compile your document.\footnote{Not quite true:
   it is often unnecessary to re-run \package{Biber} if no new
   citations have been added. But it is never wrong to do so.}
+\indexstop{Biblatex!very basic introduction}
 
 \subsection{A quick demonstration\label{neophyte:example}}
 
@@ -238,8 +239,9 @@ There is still quite a bit to learn, of course. To some extent it's up
 to you how you go from here, but the following chapters take what I
 think is a reasonably logical order.
 
-\section{For the more experienced}\index{bibtex@\bibtex!compared to biblatex@compared to \biblatex|(}
+\section{For the more experienced}
 
+\indexstart{Biblatex!compared to bibtex}
 From the user's perspective, the basic pattern followed by \biblatex\
 is similar to the one you will be accustomed to if you use \bibtex\
 with \verb|.bst| files, or citation packages such as \package{Natbib}:
@@ -280,6 +282,7 @@ So, what are the main differences?
   itself -- is more flexible and powerful than \bibtex\ is, and
   doesn't suffer from some of the \bibtex's historical limitations.
 \end{itemize}
+\indexstop{Biblatex!compared to bibtex}
 
 You may well be asking: should I use \biblatex? Most users probably
 fall anto one of three groups.
@@ -311,6 +314,7 @@ in multiple languages.
 
 \subsection{The required changes}
 
+\indexstart{Biblatex!compared to bibtex}
 The main differences between using \biblatex\ and `standard' \bibtex\
 are as follows:\label{bibtex:simple:eg}
 
@@ -343,6 +347,7 @@ cannot be directly used by \biblatex.\sidenote{There is a project to
   only reached version 0.2, and does not seem to have been actively
   developed recently.}  The `standard' styles in \biblatex\ do not
 precisely correspond to the standard styles in \bibtex.
+\indexstop{Biblatex!compared to bibtex}
 
 \subsection{An example}
 
@@ -396,16 +401,15 @@ is a more modern program with many advantages.
 
 \subsection{The \package{Natbib} package}
 
+\index{Natbib}
 Many \LaTeX\ users use the \package{Natbib} package. This is a sort of
 `half-way house' between \bibtex\ and \biblatex. It's somewhat more
 flexible than a pure \bibtex\ solution, and has (in particular) a
 wider range of citation commands to deal with author\slash year
 citation systems. But it still uses \bibtex\ under the hood, and it
-doesn't have \biblatex's flexibility.\index{bibtex@\bibtex!compared to
-  biblatex@compared to \biblatex|)}
+doesn't have \biblatex's flexibility.
 
 Biblatex has a \package{Natbib} `compatibility mode'.%
-\index{Natbib compatibility}
 If you load \biblatex\ with the option \texttt{natbib} (or
 \texttt{natbib\allowbreak =\allowbreak true}), then it will let you
 use some \package{Natbib}-like citation commands, like \cs{citet} and
@@ -416,7 +420,6 @@ extends beyond the citation commands, and the actual formatting of the
 citations (which will depend on the style you specify) will be
 determined by \biblatex. In general, it's probably a better idea to
 get used to the \biblatex\ citation commands.
-
 %%% Local Variables:
 %%% coding: utf-8
 %%% mode: LaTeX
