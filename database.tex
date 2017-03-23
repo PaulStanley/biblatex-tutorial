@@ -971,11 +971,11 @@ file.\footnote{Don't suppose that \texttt{datatype = bibtex} means that
   technique only!}
 
  The changes consist of a filtering step where it examines the
-|journaltitle| field in any source and, if it matches 
-$\ulcorner$|NYU Legal Studies Q|$\lrcorner$, \biblatex\ will replace it with 
-$\ulcorner$|NYU Leg Studs Q|$\lrcorner$. This does not actually change your 
+|journaltitle| field in any source and, if that field matches\linebreak 
+|NYU Legal Studies Q|, \package{Biber} will replace it with 
+|NYU Leg Studs Q|. This does not actually change your 
 |.bib| \emph{file}; but it alters the data as it passes from that file into
-\LaTeX\ for typesetting.
+\biblatex\ for formatting.
 
 As you can see, this trick will only work if you have been
 \emph{consistent} in the way you have named journals and
