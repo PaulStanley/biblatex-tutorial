@@ -1,4 +1,3 @@
-%!TEX root=biblatex-tutorial.tex
 \chapter{Multiple Bibliographies}\label{ch:subdivisions}
 
 
@@ -14,7 +13,7 @@ There are two main `patterns' to split bibliographies:
   \emph{source} where some types of source get put in one bibliography
   and other types of source get put in another. The dividing line
   might be between primary and secondary sources. It might be between
-  works about foology and everything else (``topic based''). It might
+  works about foology and everything else (`topic based'). It might
   be between the most important works and the rest. It might be
   between the works of Dr Drofnats and everyone else's works. But
   however the dividing-line is drawn, it is based on something about
@@ -23,7 +22,7 @@ There are two main `patterns' to split bibliographies:
 \item Division that is determined by the source's \emph{citation}, and
   in particular by \emph{where} the source is cited --- so that, for
   instance, there are separate bibliographies for Chapter 1, Chapter
-  2, and so forth. In an ``extreme form'' the bibliographies need to
+  2, and so forth. In an `extreme form' the bibliographies need to
   be completely self-contained; that's often needed, for instance, if
   a single document is being used to typeset papers by different
   authors into a collection or journal issue. I'm going to call these
@@ -34,17 +33,18 @@ These categories are not, of course, mutually exclusive. You
 (say into primary and secondary sources) and subdivision by location
 in the document.
 
-Biblatex provides mechanisms to handle both types of division. It is
-designed to be comprehensive. Before Biblatex was written there were
-many competing packages (multibib, splitbib, chapterbib, bibunits,
-bibtopic) which provided these facilities with biblatex. These are
-\emph{not} compatible with Biblatex; you cannot use them together ---
-and you don't need to.
+\biblatex\ provides mechanisms to handle both types of division. It is
+designed to be comprehensive. Before \biblatex\ there were many
+competing packages (\package{multibib}, \package{splitbib},
+\package{chapterbib}, \package{bibunits}, \package{bibtopic}) which
+provided these facilities with biblatex. These are \emph{not}
+compatible with \biblatex; you cannot use them together --- and you
+don't need to.
 
 \section{Source-based division}
 
 In principle, source-based division is simple. You provide some way for
-Biblatex to identify the different types of source, and then you print
+\biblatex\ to identify the different types of source, and then you print
 separate bibliographies for each:
 
 \begin{Verbatim}
@@ -54,7 +54,7 @@ separate bibliographies for each:
                    filter=secondary:sources]
 \end{Verbatim}
 Usually in these cases, however, the separate bibliographies are seen
-as ``sub-bibliographies'', in which case a little bit more work is
+as `sub-bibliographies', in which case a little bit more work is
 done to get the formatting right
 
 \begin{Verbatim}
@@ -69,7 +69,7 @@ done to get the formatting right
 We use \cs{printbibheading} simply as a convenience to print a
 standard `top level' heading for the whole bibliography, but then use
 the |heading| and |title| options when actually printing the
-bibliography. As far as Biblatex is concerned, a document can contain
+bibliography. As far as \biblatex\ is concerned, a document can contain
 as many \texttt{\textbackslash{}printbibliography} commands as you
 like, and each can contain as many or as few sources as you like.  The
 real trick lies in how you teach \biblatex\ to distinguish between
@@ -83,7 +83,7 @@ convenient way of combining them. The basic ways involve:
 combining device is the \emph{filter}, which enables complex
 assemblies of conditions to be defined and used simply.
 
-\paragraph{How Biblatex chooses.} All these distinctions are brought
+\paragraph{How \biblatex\ chooses.} All these distinctions are brought
 into operation using an option in the bibliography heading. These
 follow a standard pattern:
 \begin{quote}
@@ -244,9 +244,9 @@ than provide a set of recipes.
 \begin{itemize}
 \item Define a low-level user-defined filter using defbibcheck, which
   then uses the \texttt{check=\textless{}name\textgreater{}}
-  filter. For instance the Biblatex manual demonstrates using such a
+  filter. For instance the \biblatex\ manual demonstrates using such a
   mechanism to examine the year of an entry and print a bibliography
-  of ``recent'' literature.
+  of `recent' literature.
 \item Use a sourcemap to add keywords. This could easily be done, say,
   for a particular file, or for a particular author's work; you could
   then use a keyword filter.
@@ -259,7 +259,7 @@ than provide a set of recipes.
 
 \section{Document-based division}
 
-Biblatex offers two main devices for producing bibliographies that are
+\biblatex\ offers two main devices for producing bibliographies that are
 categorised based on where the citation is used in the LaTeX source
 file:
 
@@ -307,12 +307,12 @@ Drofnats' file for his paper, and Dr Frobwangler's file for hers.
 
 \subsection{Identifying segments and sections}
 
-Obviously, Biblatex needs to know where each segment or section begins
+Obviously, \biblatex\ needs to know where each segment or section begins
 and ends. There are three ways you can do this:
 
 \begin{enumerate}
 \item
-  \begin{marginfigure}
+  \begin{marginfigure}`
   \fbox{
   \begin{minipage}{0.9\marginparwidth}
   \texttt{\textbackslash begin\{refsection\}}\\
@@ -343,10 +343,10 @@ and ends. There are three ways you can do this:
   these ends the existing refsegment or refsection (if need be) and
   starts a new one. You can mark the end of refsegments or refsections
   with |\endrefsegment| or |\endrefsection|.
-\item By telling Biblatex automatically to start a new refsegment or
+\item By telling \biblatex\ automatically to start a new refsegment or
   refsection whenever a new part, or chapter, or section begins. To do
   this you pass the option part, chapter, section or subsection as a
-  value for the refsection or refsegment option when loading Biblatex.
+  value for the refsection or refsegment option when loading \biblatex.
   So to make each chapter a free-standing section, you would put
   \begin{marginfigure}
   \fbox{

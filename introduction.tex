@@ -3,28 +3,30 @@
 
 This chapter has two different sections, intended for different
 audiences. If you are new to automated bibliography tools in \LaTeX,
-then you should read the first section. If you already have experience
-of using automated bibliography tools in \LaTeX, such as \bibtex\ and
-\package{Natbib}, then you can probably jump straight to the second
-section.
+then you should read the first section.\intref{p~\pageref{newbie}} If you
+already have experience of using automated bibliography tools in
+\LaTeX, such as \bibtex\ and \package{Natbib}, then you can probably
+jump straight to the second section.\intref{p~\pageref{expert}}
 
 \section{For the true neophyte}
 
 \subsection{The basic idea}
+\label{newbie}
 \indexstart{Biblatex!very basic introduction}
+
 Academic writing usually cites sources. The exact form of these
 citations varies: different disciplines have different practices, and
 different publishers and journals too. But the underlying idea is
 similar: there are references in the text (or footnotes) that enable
 the reader to identify a source for a particular statement or
-quotation. This could be a number in a list of references (like [1]),
+quotation. This may be a number in a list of references (like [1]),
 or a combination of author and year (like Author 2014), or even a
 footnote which identifies the source.\footnote{Like: Author, `Paper
   Title' in \emph{Learned Journal}, Vol.\ 10 (2014), p.\ 111.}
 Alongside this there is a bibliography: a list of all the sources
 which have been cited, which will nearly always enable the reader to
 look up the source in a library, and sometimes provide (in itself)
-some useful information about the source, such as its date, or where
+useful information about the source, such as its date, or where
 and how it was published.
 
 It is, of course, possible to produce all these indications entirely
@@ -60,7 +62,7 @@ The idea of a citation system is to \emph{separate content from
 database file: the author(s), title, date, publisher and so forth. As
 you write, you use a short reference to indicate the work you want to
 cite at that point in your paper. And then you let the computer take
-care of extracting the information from your database and inserting
+care of extracting the information from your database, then inserting
 and formatting it into your paper. And in fact, in many fields, you
 can find existing databases which you can borrow from which will
 contain data you need.
@@ -95,7 +97,7 @@ you may wish to cite. The format of such a file is described in
 chapter \ref{ch:database}. It is a plain text file, which you can
 either produce by hand (using a text editor, such as the one you use
 to write \LaTeX\ source code) or can be maintained by one of a number
-of available `helper' programs (which we consider in chapter []).
+of available `helper' programs.\intref{chapter:tools}
 
 The \LaTeX\ source file conventionally has the suffix \texttt{.tex}
 and contains all your text, marked up in \LaTeX\ format. It also
@@ -132,7 +134,7 @@ following things to happen:
 \item (Sometimes), run \LaTeX\ yet \emph{again} to finalize cross-references.
 \end{itemize}
 
-This `pattern' (\LaTeX, \package{Biber}, \LaTeX, (\LaTeX)) is repeated
+This `pattern' (\LaTeX, \package{Biber}, \LaTeX, [\LaTeX]) is repeated
 whenever you need to compile your document.\footnote{Not quite true:
   it is often unnecessary to re-run \package{Biber} if no new
   citations have been added. But it is never wrong to do so.}
@@ -194,7 +196,7 @@ typeset document, it should look something like figure
 \caption{Before running \package{Biber}}\label{nussbaum1}
 \end{figure}
 
-The reference `[\textbf{nussbaum:95}~]' appears in square brackets
+The reference `[\textbf{nussbaum:95}]' appears in square brackets
 because although \LaTeX\ can `see' that there is going to be a
 citation, it doesn't yet have the data that will enable it to
 construct that citation, since \package{Biber} has not been run.
@@ -240,11 +242,12 @@ to you how you go from here, but the following chapters take what I
 think is a reasonably logical order.
 
 \section{For the more experienced}
+\label{expert}
 
 \indexstart{Biblatex!compared to bibtex}
 From the user's perspective, the basic pattern followed by \biblatex\
 is similar to the one you will be accustomed to if you use \bibtex\
-with \verb|.bst| files, or citation packages such as \package{Natbib}:
+to produce \verb|.bst| files, or citation packages such as \package{Natbib}:
 \begin{itemize}
 \item Your bibliographical data is still stored in \verb|.bib| files,
   which have largely the same format as \bibtex\ files. (But
@@ -297,7 +300,7 @@ than |date| fields).
 
 Some people \emph{don't need} to switch. If you have existing \bibtex\
 styles which work for you, and do everything you need, then there is
-no reason to switch. You can. But you don't need to. The existing
+no reason to change. You can. But you don't need to. The existing
 programs have the advantage of stability in such cases. On the other
 hand, switching will accustom you to \biblatex\ and put its more
 powerful features at your disposal. It's really a matter of
@@ -343,10 +346,9 @@ are as follows:\label{bibtex:simple:eg}
 One important point to understand: existing \bibtex\ \emph{styles}
 cannot be directly used by \biblatex.\sidenote{There is a project to
   provide \biblatex\ styles that are identical to the standard
-  \bibtex\ ones: the \package{biblatex-trad} package. It has, however,
-  only reached version 0.2, and does not seem to have been actively
-  developed recently.}  The `standard' styles in \biblatex\ do not
-precisely correspond to the standard styles in \bibtex.
+  \bibtex\ ones: the \package{biblatex-trad} package. Development
+  seems to have been sporadic.}  The `standard' styles in \biblatex\
+do not precisely correspond to the standard styles in \bibtex.
 \indexstop{Biblatex!compared to bibtex}
 
 \subsection{An example}
@@ -403,17 +405,17 @@ is a more modern program with many advantages.
 
 \index{Natbib}
 Many \LaTeX\ users use the \package{Natbib} package. This is a sort of
-`half-way house' between \bibtex\ and \biblatex. It's somewhat more
+half-way house between \bibtex\ and \biblatex. It's somewhat more
 flexible than a pure \bibtex\ solution, and has (in particular) a
 wider range of citation commands to deal with author\slash year
 citation systems. But it still uses \bibtex\ under the hood, and it
 doesn't have \biblatex's flexibility.
 
-Biblatex has a \package{Natbib} `compatibility mode'.%
+Biblatex has a \package{Natbib} `compatibility mode'.
 If you load \biblatex\ with the option \texttt{natbib} (or
 \texttt{natbib\allowbreak =\allowbreak true}), then it will let you
 use some \package{Natbib}-like citation commands, like \cs{citet} and
-\cs{citep}. However, the ``compatibility'' is really only skin-deep;
+\cs{citep}. However, the compatibility is really only skin-deep;
 it hardly\footnote{It does modify the punctuation used to separate an
 author's name from the year to match the \package{Natbib} default.}
 extends beyond the citation commands, and the actual formatting of the

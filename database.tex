@@ -33,7 +33,7 @@ The \bibtex\ format database file conventionally has the suffix
 can use any unicode characters.
 
 It consists of a number of `entries', each of which relates to a
-particular bibliographical source: each entry consists of an
+particular bibliographical source. Each entry consists of an
 \emph{entrytype specifier} which explains what sort of source it is:
 like book, or article; a \emph{key} which uniquely identifies the
 source and which you will use for citations; and a set of
@@ -130,31 +130,29 @@ particular source, and it should be something memorable enough and
 short enough to be practical for you, since you will be using it in
 documents you write.
 
-{\newcommand{\romcom}{{\normalfont , }} 
-
 Although a \verb|key| can include quite a range of characters, there
-are some that you should avoid: {\ttfamily \textquotedbl\romcom
-    @\romcom \textquotesingle\romcom \textbackslash\romcom \#\romcom
-    \{\romcom \}\romcom \textasciitilde\romcom \%\romcom
-    \textunderscore\romcom \&\romcom \$\romcom ,\romcom {\normalfont
-      and }\^{}}; nor may a key include spaces. It's a good idea to be
-more-or-less consistent in the form your keys take, and to use
-common sense. For instance, \texttt{nussbaum:1995} or
-\texttt{nussbaum:poetic} might be quite good keys, but \texttt{nb}
-could easily clash with others keys,
+are some that you should avoid;\footnote{{\ttfamily
+      \textquotedbl\ @ \textquotesingle\
+      \textbackslash\ \# \{ \}
+      \textasciitilde\ \%\ \textunderscore\
+      \&\ \$\ , \textasciicircum}} nor may a
+key include spaces. It's a good idea to be more-or-less consistent
+in the form your keys take, and to use common sense. For instance,
+\texttt{nussbaum:1995} or \texttt{nussbaum:poetic} might be quite
+good keys, but \texttt{nb} could easily clash with others keys,
 \texttt{nussbaum:1995:poetic-justice} is arguably too long, and
 \texttt{nbpoj95} may be hard to remember or work with. Use your
-common sense.}
+common sense.
 
-Immediately after the \verb|key| place a comma. The rest of the
+Immediately after the \verb|key|, place a comma. The rest of the
 source record consists of a set of fields and values entered
 (usually)\footnote{Occasionally neither braces nor quote marks are
     needed.} in either the form
-\begin{center}\texttt{field = "value",}\end{center}
-or in the form
 \begin{center}\texttt{field = \{value\},}\end{center}
-These must be separated by commas. It is permissible (though not
-required) to have a comma after the last one, I always make sure a
+or, if you prefer, in the form
+\begin{center}\texttt{field = "value",}\end{center}
+Fields must be separated by commas. It is permissible (though not
+required) to have a comma after the last one. I always make sure a
 comma is added to every field: it makes editing easier, because if you
 add another field you won't forget the comma.
 
@@ -180,7 +178,7 @@ just as when you are writing \LaTeX, you can break lines and end up
 with just a single space, which also helps you to arrange things
 neatly.
 
-If one looks at the fields defined in figure \ref{basic:source:eg} one
+As figure \ref{basic:source:eg} shows one
 can see that they are mostly self-explanatory. It's important to
 appreciate that they are intended as data sources: the raw material
 from which \biblatex\ will construct citations, not the citations
@@ -200,7 +198,7 @@ it.
 
 \section{Field types}
 
-\section{database!fields}
+\index{database!fields}
 When you read the \biblatex\ manual,\intref{\emph{Manual} \S~2.2.1}
 you will see that it distinguishes between five main types of field:
 name fields, list fields, verbatim fields, date fields and other
@@ -249,7 +247,11 @@ but they are quite simple.)
   \biblatex\footnote{\package{Biber}, actually.} knows that \verb|A|
   is an initial. If it sees \verb|A Smith| it might think that `A' is
   a (very short) name. Since this \emph{can} matter, usually when you
-  least expect it, always include the dot.
+  least expect it, always include the dot. This doesn't mean that
+  \biblatex\ will necessarily \emph{print} any dot when it outputs
+  the bibliography. That is controlled by the bibliography style, so
+  you can safely include the dots in your \verb|.bib| file and lose
+  them later.
 \item Always put any \emph{von} (or equivalent, such as \emph{van} or
   \emph{de la}) \emph{before} the last name, as shown above.
 \item For names \emph{without Jr.\ or numbers} use \emph{either}
@@ -306,7 +308,7 @@ available.
 \subsection{Dates}
 
 \index{database!dates, in}\index{date!database, in|see{database}}
-With \biblatex\ always use dates in the form |YYYY-MM-DD|. So the 28th
+Enter dates in the form |YYYY-MM-DD|. So the 28th day in
 of February 2012 is |2012-02-28|. In general, most \biblatex\ styles
 will work with less-than-complete dates, and of course in many cases
 you won't know the full date (for instance, the date when a book was
@@ -347,7 +349,7 @@ or
 
 |title = {{\`A} l'ombre des jeune filles en fleurs}|
 
-or
+or (better)
 
 |title = {Du côté de chez Swann}|
 \end{center}
@@ -389,32 +391,37 @@ general there is no particular difficulty with this sort of
 information. It is just plain text, still included in braces, and
 (sometimes) a comma-separated list.
 
-Of these various fields, two stand out for special mention at this
+Of these various fields, three stand out for special mention at this
 point.
 
 \index{database!languages}\index{language!specification in database|see{database}}
-\paragraph{Specifying hyphenation patterns}\intref{See
-  chapter~\ref{ch:languages}.}Different languages are hyphenated in
-different ways. If you are writing a document in English, but cite a
-book whose title is in French, \LaTeX\ will have trouble hyphenating
-it correctly. You can specify the language in the |langid|
-field. Then, \emph{provided you set the package option}
-|autolang=hyphen|, the entry will be hyphenated using the appropriate
-language.
+\paragraph{Specifying hyphenation patterns}Different languages are
+hyphenated in different ways.\intref{Chapter~\ref{ch:languages}}
+If you are writing a document in English, but cite a book whose title
+is in French, \LaTeX\ will have trouble hyphenating it correctly. You
+can specify the language in the |langid| field. Then, \emph{provided
+  you set the package option} |autolang=hyphen|, the entry will be
+hyphenated using the appropriate language.
 
 \paragraph{Keywords} The |keywords| field enables you to provide one
 or more keywords (separated by commas). These can be useful if you
 want to separate out different kinds of source. For instance, if you
-wanted to produce different bibliographies by topic for an annotated
+wanted to produce different bibliographies by topic\intref{Chapter~\ref{ch:subdivisions}} for an annotated
 bibliography, you could assign sources to particular topics using
-keywords. This subject is considered in more detail in [??] below.
+keywords.
 
 Other meta-data fields include |options|, |sorttitle|, |labeltitle|,
 |indextitle| and |indexsorttitle|. These are all used for specialised
 purposes to enable you to over-ride defaults in the way that
 \biblatex\ would construct citations, sort the bibliography, or index
 an entry. Some of these are discussed as appropriate later in this
-book,\intref{Chapter~\ref{ch:sorting}.} where their use is explained.
+book,\intref{Chapter~\ref{ch:sorting}} where their use is explained.
+
+\paragraph{Sub-types} Some bibliography styles want to handle, say,
+an article in a newspaper differently from an article in a journal. For this
+purpose there is an \verb|entrysubtype| field. This can also be useful when
+preparing subdivided bibliographies, where it can be used to select which
+works get printed in which section.
 
 \section{Common entry types}
 
@@ -495,20 +502,22 @@ Some self-contained works are published as part of a series. If you
 want to record that information, put the series in the |series| field.
 
 \paragraph{The edition} in the |edition| field. This is usually
-omitted for the first edition. If this is a number, just enter the
-cardinal number: |{2}|, not |second| or |2nd| --- the right suffix
-will be added by \biblatex. If it's something more involved like
-`revised' or `corrected', type that.
+omitted for the first edition if only one edition was published. If
+this is a number, just enter the cardinal number: |{2}|, not |second|
+or |2nd| --- the right suffix will be added by \biblatex. If it's
+something like `revised' or `corrected', type that.
 
 \paragraph{Publication information} 
 
 In the |date| field. The year will usually suffice. The older \bibtex\
 style was to enter the date in the |year| field. That will work fine,
-but it's probably better to use |date|, which is `correct'. In some
-cases you will want to record two dates: the date of original
-publication, and the date of the particular edition you are referring
-to. In that case, put the date of the particular edition in the |date|
-field, and the date of original publication in the |origdate| field.
+but it's probably better to use |date|,\footnote{Unless you need your
+  \texttt{.bib} file to be usable in \bibtex\, in which case stick
+  with year.} which is `correct'. In some cases you will want to
+record two dates: the date of original publication, and the date of
+the particular edition you are referring to. In that case, put the
+date of the particular edition in the |date| field, and the date of
+original publication in the |origdate| field.
 
 The place of publication should be specified in the |location|
 field. You can also use a field called |address|, which is provided
@@ -524,7 +533,7 @@ publisher = \{Publisher A \textbf{and} Publisher B \textbf{and} Publisher C\},
 \end{center}
 
 In some disciplines it is not customary to print the publisher's name,
-or the place of publication, or both, and you may think that's pretty
+or the place of publication, and you may think that's pretty
 sensible since in most cases they are of no interest. Even so, unless
 you are very certain that you will never want this information, it's
 better to fill it in. It's always fairly straightforward to tell
@@ -585,7 +594,7 @@ or |commentator|, into which you can put the name(s). If you have some
 oddity, you can make use of upt to two fields called |editora| and
 |editorb|. These are `generic' fields, into which you can put
 names. If you do that, you also need to fill in the |editoratype| (or
-|editorbtype| ...) fields, with the `role' of the person. Biblatex
+|editorbtype| ...) fields, with the `role' of the person. \biblatex\
 recognises as possible roles: `editor', `compiler', `founder',
 `reviser' and `collaborator', and the enigmatic figures of `redactor'
 and `continuator' too. You can add others as well, though it's not a
@@ -629,9 +638,9 @@ bibliographic schemes require that the \emph{date} on which that \URL\
 was last checked is also given, and that date should therefore be
 included in the |urldate| field.
 
-\index{arXiv}\index{JSTOR}
+\index{arXiv}\index{JSTOR@\textsc{jstor}}
 A second possibility is that the work is available in a specialised
-electronic repository, such as arXiv or JSTOR. If that is the case,
+electronic repository, such as arXiv or \textsc{jstor}. If that is the case,
 you can make use of the |eprint|, |eprinttype| and |eprintclass|
 fields to provide a reference for the work. \intref{See
   \emph{Manual}~\S~3.11.7.} Not every bibliographic style will use
@@ -649,8 +658,8 @@ change.\sidenote{\url{http:\\www.doi.org}. Again this feature can be
 included a book's \smallcaps{isbn} (International Standard Book
 Number) in the |isbn| field. As with \smallcaps{doi}s, not every style
 will print \smallcaps{isbn}s (and they can always be turned
-off\footnote{by setting the option \texttt{isbn = false} when loading
-  \biblatex.}.)
+off).\footnote{by setting the option \texttt{isbn = false} when loading
+  \biblatex.}
 
 \paragraph{Other information} The \biblatex\ package allows quite a
 wide range of other information to be included in a |.bib| file,
@@ -729,8 +738,9 @@ The publication details are entered using fields for:
 \begin{itemize}
 \item |journaltitle| for the name of the journal.\footnote{For
     backwards compatibility reasons, \texttt{journal} will work too,
-    but prefer \texttt{journaltitle}.} (There is also a
-  |journalsubtitle| field, though it is very seldom required.)
+    but prefer \texttt{journaltitle} unless you need \bibtex\
+    compatibility.} (There is also a |journalsubtitle| field, though
+  it is very seldom required.)
 \item |series| for the journal's series (if any).
 \item |volume| for the journal volume (if any).
 \item |number| for the journal number (if any).
@@ -741,8 +751,7 @@ The publication details are entered using fields for:
 \item |month| for the journal's month, if that matters for
   citation. This should be either an integer (1 = January, and so
   forth) \emph{or} a three letter code which should be entered
-  \emph{without} braces: |jan| not |{jan}|. Frankly it's better to put
-  the month, if it matters, in the |issue| field.
+  \emph{without} braces: |jan| not |{jan}|.
 \item |pages| for the pages occupied by the article in question.
 \item |date| for the date of the publication.
 \end{itemize}
@@ -841,7 +850,7 @@ Alternatively, you could set things up as follows:
 }
 \end{Verbatim}
 
-A citation of |\cite{sedley:ashes}| will produce exactly the same
+A citation of |\cite{sedley:skulls}| will produce exactly the same
 output in either case. My fairly strong advice is to prefer the second
 method, because it is more flexible -- it enables citation of the
 whole book separately, and it enables you easily to add additional
@@ -850,9 +859,9 @@ means that, once a certain threshold is reached, the entire book will
 be added to the bibliography, which is often a convenience to
 readers. (By default, the `parent' work is added to the bibliography
 if two `children' are cited. You can change this number by giving a
-value to |mincrossrefs| in the options to biblatex. So to set it to
+value to |mincrossrefs| in the options to \biblatex. So to set it to
 include the parent only when four `children' are cited, you would
-include |mincrossrefs = 4| when loading \biblatex.
+include |mincrossrefs = 4| when loading \biblatex.)
 \indexstop{database!incollection type}
 
 \section{A summary by type of literature}
@@ -910,7 +919,7 @@ life as difficult as possible.
 
 If you want to make your life difficult, be sure to enter articles in
 a radically inconsistent way, using different forms of the journal
-name or publisher. So, at the very least, be consistent.
+name or publisher.
 
 The two ways you can make your life easy are as follows.
 
@@ -933,12 +942,12 @@ read `NYU Legal Studies Q', you just have to change one line (in the
 |string| definition.
 
 The alternative is to be, at least, completely consistent. Then you
-can use the power of |Biber| to search for and replace strings in your
-file. For instance, suppose that throughout your file you had entered
-the above-mentioned (fictitious) journal as |NYU Legal Studies Q|, but
-you are now writing a paper in which the proper abbreviation is `NYU
-Leg Studs Q'. The following lines, placed in the preamble to your
-file, will accomplish the necessary change:\label{datamap}
+can use the power of \package{Biber} to search for and replace strings
+in your file. For instance, suppose that throughout your file you had
+entered the above-mentioned (fictitious) journal as |NYU Legal StudiesQ|,
+but you are now writing a paper in which the proper abbreviation
+is `NYU Leg Studs Q'. The following lines, placed in the preamble to
+your file, will accomplish the necessary change:\label{datamap}
 
 \begin{Verbatim}
 \DeclareSourcemap{
