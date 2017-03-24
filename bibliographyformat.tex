@@ -1,11 +1,14 @@
 \chapter{The Bibliography}
+\index{customization!bibliography title|see{bibliography, title}}
+\index{customization!bibliography heading|see{bibliography, heading}}
 
+\index{bibliography!printing}
 Citations written, we come to the actual printing of the
-bibliography. The magic command is:
+bibliography. The magic command is:\csindex{printbibliography}\manref{\S~3.7.7}
 \begin{center}
 \cs{printbibliography}\manref{\S~3.7.2}
 \end{center}
-And, for simple cases, it may even be as simple as that! But there are
+And, for simple cases, it may even be as easy as that! But there are
 quite a number of refinements.
 
 The refinements can be classified as follows:
@@ -32,17 +35,18 @@ the bibliography.
 
 \section{Headings}
 
+\indexstart{bibliography!heading}
 In a \LaTeX\ document, a heading is more than just its words: a
 heading command (such as \cs{chapter} or \cs{section}) doesn't just
 print its text, formatted a certain way. It may add a number, and
 advance a counter. It may change what gets printed in the running
 headers or footers.
 
-Let's start with the actual title. A default\footnote{The default is
-  `Bibliography' for books and articles, and `References' for
-  articles.} will be set by the |heading| option, described below; but
-by far the easiest way to control it is using the |title| option in
-the \cs{printbibliography} command.
+\index{bibliography!title} Let's start with the actual title. A
+default\footnote{The default is `Bibliography' for books and articles,
+  and `References' for articles.} will be set by the |heading| option,
+described below. The easiest way to change it is using the |title|
+option in the \cs{printbibliography} command.
 
 So, for instance, if we wanted to call our bibliography `List of
 Sources', we could put the following:
@@ -68,7 +72,7 @@ the following options:
   but you don't want it numbered, then add the option
   |heading=bibintoc| to your \cs{printbibliography} command.
 \item If\marginnote{\gives\ \textbf{6.\ References}\\(in table
-    of contents)}you want the heading numbered and added to the table
+    of contents)} you want the heading numbered and added to the table
   of contents, then add the option |heading=bibnumbered| to your
   \cs{printbibliography} command.
 \end{itemize}
@@ -89,24 +93,24 @@ as a sub-section (in the |article| class:
 Finally (and perhaps easiest of all), if you want no heading at all,
 just choose |heading=none|.
 
-These are all the options that \biblatex\ gives you by
+\newthought{These are all the options} that \biblatex\ gives you by
 default. Combined with |title=...| (to overrride the default titles)
 this will usually suffice. If, however, you want to define a special
 heading for your bibliography, you will need to proceed as
 follows:\intref{\emph{Manual} \S\ 3.6.7}
 \begin{enumerate}
-\item Define a bibliography heading style using
+\item Define a bibliography heading style using\csindex{defbibheading}
 \begin{center}
   \cs[\angled{title}][\angled{definition}]{defbibheading\{\angled{name}\}}
 \end{center}
-The \angled{name} is a name you will use to refer to the environment
-you have defined; it can be anything you choose. The \angled{title} is
-the default title for your heading. The definition part is a complete
-set of commands to create a heading and anything (such as the marking
-of headers and footers, table of contents, and so forth) that needs to
-go with it. It takes the form of a macro definition which assumes it
-will be passed the title of the bibliography as its single argument,
-\#1.
+The \angled{name} is a name you will use, as an option passed to\linebreak
+\cs{printbibliography}, to refer to the type of heading that you have
+defined; it can be anything you choose. The \angled{title} is the
+default title for your heading. The definition part is a complete set
+of commands to create a heading and anything (such as the marking of
+headers and footers, table of contents, and so forth) that needs to go
+with it. It takes the form of a macro definition which assumes it will
+be passed the title of the bibliography as its single argument, |#1|.
 \item Use the name of the |heading| you have defined as the
   |heading| option to your \cs{printbibliography} command.
 \end{enumerate}
@@ -127,9 +131,11 @@ do all your customization in the preamble of your document, before you
 (or \LaTeX) gets to \cs[document]{begin}. But for bibliography
 headings (and title, and notes) it's actually better to set them up
 after \cs[document]{begin}.
+\indexstop{bibliography!heading}
 
-\section{Bibliography Format}
+\section{Bibliography appearance}
 
+\indexstart{bibliography!appearance}
 The appearance of a bibliography is largely controlled by a
 pre-defined bibliography environment. You can change the default by
 defining a modified bibliography environment of your own, and then
@@ -138,6 +144,8 @@ passing the name of that environment as
 \cs{printbibliography[env=\angled{your environment}]}
 \end{center}
 
+\csindex{defbibenvironment}
+\index{customization!bibliography appearance}
 The environment needs to be set up in advance, for that purpose, you
 use the command \cs{defbibenvironment}:
 \begin{center}
@@ -180,6 +188,40 @@ we get
 \framebox{\includegraphics{./examples/cotton-springer-myenv.pdf}}
 \caption{Customized bibliography environment\label{custom-env}}
 \end{figure}
+\indexstop{bibliography!appearance}
+
+\section{Other lists and indexing}
+
+\index{shorthand!list of shorthands}
+If you use `shorthands'\intref{See p~\pageref{shorthands}} to define abbreviations for particular works, you can print these with the command:
+\begin{pseudoverb}
+  \centering
+  \cs{printbiblist}[\angled{options}]\{shorthand\}
+\end{pseudoverb}
+
+\index{indexing}
+You will almost certainly want to provide a suitable title using the
+option |title=...|. As the general form of the command suggests, it is
+in fact an instance of a general way of printing special forms of
+bibliographical list.\manref{\S~3.7.3}
+
+\biblatex\ also enables styles to permit the creation of an
+\emph{index} of sources. The details are elaborate, and you will need
+to understand something about how \LaTeX's indexing methods work. Some
+styles (such as \package{oscola}) make very extensive and complex use
+of this facility. But, as it is a rather advanced topic, the curious
+reader is referred to the manual, both for \biblatex\manref{\S~3.1.1}
+and for any package that is being used.
+
+\index{backreferences|see{bibliography, references}}\index{bibliography!references}
+Slightly simpler, however, than an index (which is a separate
+document), it is possible also with standard styles to print, in the
+bibliography, a list of the pages where the source in question was
+referred to. To do this, you pass \biblatex\ the option
+|backref=true|. There are various options\manref{\S~3.1.1} for
+|backrefstyle| which will determine how back references are actually
+printed (for instance, when references in consecutive pages are
+compressed).
 
 %%% Local Variables:
 %%% coding: utf-8

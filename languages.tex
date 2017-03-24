@@ -1,14 +1,14 @@
-%!TEX root=biblatex-tutorial.tex
 \chapter{Languages}\label{ch:languages}
 
 Dealing with different languages is not straightforward; but
-\biblatex\ is pretty well set up for the task. This section aims to
+\biblatex\ is fairly well set up for the task. This section aims to
 provide basic information; there is actually considerably more on
 offer in \biblatex\ for sophisticated language use than this section
 deals with. This section basically assumes the `normal' user who
 produces documents in a single language, but may occasionally need to
 deal with bibliographic sources in other languages.
 
+\index{languages!possible changes}
 There are a number of different ways that a bibliographic system may
 need to adjust to different languages. Most basically, a number of
 words and abbreviations may need to change: `ed' in English becomes
@@ -24,6 +24,7 @@ glyphs are turned into machine-readable sequences of numbers.
 
 \section{A dogmatic approach}
 
+\index{languages!recommendations}
 Later sections of this chapter try to provide a better explanation of
 how all these various things can be done. But here is a dogmatic `just
 do this' approach, which will work in many cases.
@@ -54,7 +55,8 @@ do this' approach, which will work in many cases.
  \end{pseudoverb}
 \item Load \biblatex\ with the style |autolang=hyphen|, which will
   make sure that appropriate hyphenation patterns are used based on
-  the |langid| field of the entry, if it has been set.
+  the |langid| field of the entry, if it has been set. Set that field
+  where you think it will be helpful.
 \item If you are using anything other than the standard bibliography
   style, consult that style's documentation to find out whether you
   need to `connect' your language to a particular style-specific
@@ -72,7 +74,8 @@ do this' approach, which will work in many cases.
 
 \subsection{Encodings}
 
-\package{Biblatex} (or, more accurately, \package{biber}) is perfectly
+\index{encoding}
+\biblatex\ (or, more accurately, \package{Biber}) is perfectly
 happy working with unicode (indeed, internally this is what it always
 tries to do). It is generally best, unless your use of accents and
 diacritics is minimal, to use a \smallcaps{utf-8} encoded |.bib|
@@ -84,9 +87,9 @@ use Xe\TeX\ or Lua\TeX, which handle unicode natively, or use the
 \package{inputenc} package to set the encoding to |utf8|.
 
 Occasionally, notwithstanding such precautions, there can be
-difficulties caused by the way \TeX\ and \package{biber} deal with
+difficulties caused by the way \TeX\ and \package{Biber} deal with
 encodings. In such cases it may be necessary to set input and output
-encodings explicitly; on this, you should consult the \package{biber}
+encodings explicitly; on this, you should consult the \package{Biber}
 documentation.
 
 \subsection{Language}
@@ -120,6 +123,7 @@ for you by the writer of the bibliography style; sometimes it needs to
 be explicitly done (especially if the style provides a limited range
 of language definitions).
 
+\indexstart{languages!multiple}
 It is perfectly permissible to have a document in more than one
 language: the citation and bibliography commands will use whichever
 language is active at the relevant time. So, for instance (to take a
@@ -168,7 +172,7 @@ printed.\sidenote[][-4ex]{For instance, a style might print:
   Aristotle, \emph{De Anima} (Greek).} So |language| and
 |origlanguage| relate to the \emph{source} not the
 \emph{entry}. However ther is a field
-|langid|\footnote{\texttt{langid} was previouslly called
+|langid|\footnote{\texttt{langid} was previously called
   \texttt{hyphenation}.} which is specifically designed for this
 purpose. You set the |langid| field to indicate that the language of
 the entry should (potentially) be fixed in a particular way. For
@@ -186,6 +190,7 @@ language, it may be natural to specify an appropriate language ID:
 }
 \end{verbatim}
 
+\index{database!langid field@\texttt{langid} field}
 However, simply specifying the language ID does not directly make any
 difference: the entry simply gets printed in the ordinary way (see
 figure \ref{proust1}).
@@ -194,7 +199,8 @@ figure \ref{proust1}).
 \caption{The language ID: not necessarily any difference\label{proust1}}
 \end{figure}
 
-However, you can make it make a difference by using an option when \biblatex\ is loaded:
+However, you can make it make a difference by using an option when
+\biblatex\ is loaded:
 \begin{itemize}
 \item |autolang=hyphen| will activate hyphenation rules for the
   specified language. This may or may not make any difference
@@ -222,9 +228,11 @@ support seems to me generally a rather peculiar thing to do in general
 There are further and deeper complexities for users of
 \package{polyglossia}, for whom still more complex features are
 available. But those are beyond the scope of this book.
+\indexstop{languages!multiple}
 
 \subsection{Sorting}
 
+\index{sorting!language specific}
 There is a tendency to consider alphabetical order, drilled into us as
 children, as if it were fixed and immutable. But in fact alphabetical
 order can vary from language to language. For instance, in Czech and
@@ -233,7 +241,7 @@ letters (so \'{E}mil comes after Emily), in Norwegian `Aa' is
 considered the same as \r{A}, and placed at the end of the alphabet
 (so Aardvark comes after Zebra!).
 
-This sort of detail is under the control of \package{biber}, not of
+This sort of detail is under the control of \package{Biber}, not of
 \biblatex. Normally you can assume that an appropriate locale will be
 set based on environment variables in your computer. But you may
 sometimes need to specify the locale. You can do this by specifying a
@@ -243,11 +251,12 @@ instance, to have a Norwegian sorting scheme, you would specify
 \usepackage[sortlocale=nb_NO]{biblatex}
 \end{verbatim}
 
-You can see the effect of this in figures \ref{zebra:en} and
-\ref{zebra:no}. The bibliography used is the same in each case, but
-figure \ref{zebra:en} is sorted using \texttt{sortlocale=en\_GB},
-whereas figure \ref{zebra:no} is sorted using
-\texttt{sortlocale=nb\_NO}.
+You should\footnote{Though at the time of writing \package{Biber}
+  seems to be broken.} see the effect of this in figures
+\ref{zebra:en} and \ref{zebra:no}. The bibliography used is the same
+in each case, but figure \ref{zebra:en} is sorted using
+\texttt{sortlocale=en\_GB}, whereas figure \ref{zebra:no} is sorted
+using \texttt{sortlocale=nb\_NO}.
 
 \begin{figure}
 \fbox{\includegraphics{./examples/sorting-eg1.pdf}}
@@ -258,6 +267,15 @@ whereas figure \ref{zebra:no} is sorted using
 \fbox{\includegraphics{./examples/sorting-eg2.pdf}}
 \caption{Sorted with \texttt{sortlocale=nb\_NO}\label{zebra:no}}
 \end{figure}
+
+\section{Limitations}
+Although \biblatex\ has many features designed to deal with different
+languages, there are still limits. The limits are, as things stand,
+reached when different languages have fundamentally different ideas
+about the sort of information that should be output, or the order in
+which it shoudl be output. To cope with this it is necessary to carry
+out deep changes to the bibliography drivers, and the existing styles
+do not support this.
 
 %%% Local Variables:
 %%% coding: utf-8

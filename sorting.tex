@@ -1,6 +1,6 @@
-%!TEX root=biblatex-tutorial.tex
 \chapter{Sorting}\label{ch:sorting}
 
+\indexstart{sorting!general}
 A bibliography style will usually define a sorting scheme which is
 appropriate for that style. For instance, consider the following works:
 
@@ -26,7 +26,7 @@ make sense to list them as
     {Smith, J. \emph{Zoology for the Amateur}. Oxbridge: Pubco 2000.}
 \medskip
 
-In an ``alphanumeric'' system, the correct order will normally be one
+In an alphanumeric system, the correct order will normally be one
 that make sense of the labels.
 
 \medskip
@@ -39,38 +39,40 @@ that make sense of the labels.
 \medskip
 
 A numeric system may either sort its bibliography in some way (usually
-along the lines of the author/title system) or has the bibliography in
+along the lines of the author/title system) or print the bibliography in
 the order of citation in the text -- a system that is conveniently and
 inaccurately described as involving an \emph{unsorted} bibliography, and
-which one achieves by loading biblatex with the option
+which one achieves by loading \biblatex\ with the option
 \texttt{sorting=none}.
 
-Biblatex allows for a wide variety of sorting schemes, and there is
+\biblatex\ allows for a wide variety of sorting schemes, and there is
 considerable flexibility to define new schemes. But that largely lies
 outside the scope of this book, which is aimed at the ordinary user. So
 what we are going to do is to describe the common schemes, explain how
 you can make simple and reasonable changes to them, and pay a bit of
 attention to some special fields in the \texttt{.bib} file that can be
 used to influence sorting.
+\indexstop{sorting!general}
 
 \section{The built-in schemes}
 
-The following are the basic schemes, and a basic definition of what they
-are intended to achieve. (Note that individual bibliography styles may
-produce their own schemes.)
+\indexstart{sorting!predefined schemes}
+The following are the basic schemes,\manref{\S\S\ 3.1.2.1, 3.5} and a
+basic definition of what they are intended to achieve. (Note that
+individual bibliography styles may produce their own schemes.)
 
 \begin{itemize}
 \item
-  Unsorted (\texttt{sorting=none}) --- a misnomer, really, in so far as
+  \emph{Unsorted.} (\texttt{sorting=none}) --- a misnomer, really, in so far as
   it suggests that the bibliography might appear in some sort of random
   order. The bibliography will be printed in the order the works are
-  first cited in the text.
+  first cited in the text.\index{sorting!citation order}\index{sorting!none}
 \item
-  Name/Title/Year (\texttt{sorting=nty}). Works are first sorted by the
+  \emph{Name/Title/Year} (\texttt{sorting=nty}). Works are first sorted by the
   name of the author (or editor), so all works by Albert Aardvark appear
   before anything written by Benjamin Badger. Within each name, the
   works are sorted by title. And if titles are identical, then the
-  earlier in time is placed first.
+  earlier in time is placed first.\index{sorting!name/title/year}
   \begin{marginfigure}[-20ex]
   \fbox{
   \begin{minipage}{0.95\marginparwidth}
@@ -93,14 +95,14 @@ produce their own schemes.)
   \vspace{3pt}
   \caption[][]{\texttt{nty} sorting}
   \end{marginfigure}
-\item Name/Year/Title (\texttt{sorting=nyt} or \texttt{sorting=nyvt}).
+\item \emph{Name/Year/Title} (\texttt{sorting=nyt} or \texttt{sorting=nyvt}).
   Works are first sorted by the name of the author (or editor), so
   that all works by Albert Aardvark appear before anything written by
   Benjamin Badger. Within each name, the works are sorted first by
   year and then, if there is more than one work in any given year,
   alphabetically by title. Name/Year/Volume/Title
   (\texttt{sorting=nyvt}) is the same as Name/Year/Title, except that
-  the volume is considered before title.
+  the volume is considered before title.\index{sorting!name/year/title}
 \begin{marginfigure}[-15ex]
   \fbox{
    \begin{minipage}{0.95\marginparwidth}
@@ -124,12 +126,12 @@ produce their own schemes.)
   \caption[][]{\texttt{nyt} sorting}
   \end{marginfigure}
 \item
-  Year/Name/Title (\texttt{sorting=ynt} or \texttt{sorting=ydnt}). Sorts
+  \emph{Year/Name/Title} (\texttt{sorting=ynt} or \texttt{sorting=ydnt}). Sorts
   by the year first, then the name, then the title (can be useful for
   producing a chronologically organized bibliography). The difference
   between \texttt{ynt} and \texttt{ydng} is that \texttt{ynt} works
   upwards (2013 comes after 2000), whereas \texttt{ydnt} works downwards
-  (2000 comes after 2013).
+  (2000 comes after 2013).\index{sorting!year/name/title}
   \begin{marginfigure}[1ex]
   \fbox{
   \begin{minipage}{0.95\marginparwidth}
@@ -149,13 +151,13 @@ produce their own schemes.)
 \caption[][]{\texttt{ynt} sorting}
 \end{marginfigure}
 \item
-  Alphabetic Lable/Name/Year/Title (\texttt{sorting=anyt}). Sorts
+  \emph{Alphabetic Label/Name/Year/Title} (\texttt{sorting=anyt}). Sorts
   principally by the alphabetic label --- and obviously therefore
   intended only for alphabetic styles. The \biblatex~manual says that it
   then sorts by name, year and title: but so long as the labels are
   unique, as would usually be the case, these will never need to be
   consulted. There is also a style \texttt{anyvt} which
-  considers volume information.
+  considers volume information.\index{sorting!alphanumeric labels}
  \begin{marginfigure}[1ex]
   \fbox{
   \begin{minipage}{0.95\marginparwidth}
@@ -168,17 +170,21 @@ produce their own schemes.)
 \vspace{3pt}
   \caption[][]{\texttt{anyt} sorting}
   \end{marginfigure}
-\item
-  Debugging (\texttt{sorting=debug}) this order citations by their
-  \emph{key}, and is (as its name suggests) exclusively intended for
-  styles which are used for debugging \texttt{.bib} files.
+\item \emph{By order in the \texttt{.bib} file}
+  (\texttt{sorting=debug}) this order citations by their \emph{key},
+  and is (as its name suggests) exclusively intended for styles which
+  are used for debugging \texttt{.bib} files.\index{sorting!debug}\index{sorting!in .bib file order@in \texttt{.bib} file order}
 \end{itemize}
+\indexstop{sorting!predefined schemes}
 
 \section{Ad hoc manipulations in the \texttt{.bib} file.}
 
-Most of the time, Biblatex and Biber will sort quite well, but there are
-occasions when you may need to intervene.
+\index{sorting!special cases}
+Most of the time, \biblatex\ and \package{biber} will sort quite well,
+but there are occasions when you may need to intervene.
 
+\index{sorting!sortname@texttt{sortname}}\index{database!sortname
+field@\texttt{sortname} field}
 \paragraph{Helping out the sorting}\label{sorting:sortname} The first,
 and most common, is when for some reason the name field that should be
 printed is inappropriate for sorting, and you need to specify a
@@ -186,17 +192,19 @@ slightly different version for sorting purposes only. This can happen
 for two main reasons.
 
 You may just want a different name. For instance, suppose you have an
-``institutional'' author:
+`institutional' author:
 \begin{Verbatim}
 author = {{The Magoo Trust}}
 \end{Verbatim}
-Biblatex is going to try to sort this under T for ``The'' --- but you
+\biblatex\ is going to try to sort this under T for `The' --- but you
 might think it better to have it sorted under M. In such a case, you
 can specify a \texttt{sortname}
 \begin{Verbatim}
 sortname = {{Magoo Trust The}}
 \end{Verbatim}
 
+\index{sorting!sorttitle@texttt{sorttitle}}\index{database!sorttitle
+field@\texttt{sorttitle} field}
 Similar things can happen with titles (indeed, it's more common
 there)\label{sorting:sorttitle}
 \begin{Verbatim}
@@ -204,7 +212,8 @@ title      = {The General Principles of EC Law}
 sortitle   = {General Principles of EC Law The}
 \end{Verbatim}
 
-If you have used a LaTeX command in a field this may confuse the
+\index{database!latex in@\LaTeX\ in}
+If you have used a \LaTeX\ command in a field this may confuse the
 sorting, and you can use an `unvarnished' version for sorting
 \begin{Verbatim}
 title    = {\TeX\}ing,
@@ -214,6 +223,7 @@ sortitle = {Texing}
 You can set \texttt{sortname}, \texttt{sorttitle}, and \texttt{sortyear}
 fields for these purposes.
 
+\index{sorting!altering order}
 \paragraph{Fiddling with the order} The second change you might sometimes
 want to make is something which more drastically manipulates the order.
 
@@ -222,6 +232,7 @@ name/title/year system, the authorless book gravitates to the top of
 the list, and in a year/name/title system, the dateless work ends up
 at the end of the list. Suppose you want the reverse?
 
+\index{database!presort field@\texttt{presort} field}\index{sorting!pre-sorting}
 The trick is this. Every entry in your \texttt{.bib} file is assumed
 to have a field called \texttt{presort} magically set to
 \texttt{mm}. And, as the name suggests, that is the first field that
@@ -236,9 +247,10 @@ The \texttt{presort} field could be used --- and in the past sometimes
 was --- for other purposes, and in particular for producing
 topic-based bibliographies (for instance by giving all primary sources
 a presort of \texttt{aa}, to move them to the top of the list). With
-Biblatex there are, frankly, better ways of achieving that sort of
+\biblatex\ there are better ways of achieving that sort of
 result.
 
+\index{database!sortkey@\texttt{sortkey}}\index{sorting!sortkey as last resort@\texttt{sortkey} as last resort}
 In desperation you can also use \texttt{sortkey} to fix absolutely and
 unequivocally the `key' by which a work will be sorted. Generally
 speaking, though, this is a counsel of desperation, and it is hard to

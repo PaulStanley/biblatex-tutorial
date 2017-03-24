@@ -1,7 +1,6 @@
-%!TEX root=biblatex-tutorial.tex
 \chapter{Styles: The Menu}\label{ch:bibstyles}
 
-\indexstart{styles}{overview}
+\indexstart{styles!overview}
 There are many different citation and bibliography styles available
 for \biblatex, and half the battle is finding one which meets your
 needs as closely as possible. But before looking at them in detail,
@@ -45,9 +44,9 @@ The first big division is between styles which rely on \emph{labels}
 and those that place full bibliographical information directly into
 citations. In labelled styles the bibliography contains the essential
 information about a citation, and the text contains references which
-are not intended to be full or self-contained, but are intended to
-operate in conjunction with the biography. In contrast, in unlabelled
-styles, full bibliographical information can be found in the citations
+are not self-contained, but are intended to allow the reader to
+cross-refer to the bibliography. In contrast, in unlabelled styles,
+bibliographical information can be found in the citations
 themselves. It may be repeated in the bibliography. But the reader is
 not expected to need to look anything up in the bibliography to find
 information about the work cited. However, because this consumes so
@@ -55,13 +54,13 @@ much space, it is common to find a system of cross-references and
 abbreviations (including, in extreme cases, a panoply of latin
 gadgets: ibid., op.\ cit., loc.\ cit., supra, infra).
 
-The next big division is between \emph{abstract} labelling systems and
+The next division is between \emph{abstract} labelling systems and
 \emph{partly meaningful} labelling systems. In an abstract labelling
-system, the label carries no real bibliographical information at all.
-It might be simply a number. To make any sense of it, the reader
+system, the label carries no bibliographical information at all.
+It might be simply a number. To follow it up, the reader
 \emph{must} look it up in the bibliography. In a partly meaningful
 labelling system (typically an author/year system), the label does
-actually provide some information which is likely to mean something:
+provide some information which is likely to mean something:
 it tells you who wrote the work, and when. But the information is
 still not comprehensive, and the reader who wanted to track down the
 specific source would still need to use the bibliography.
@@ -109,7 +108,7 @@ style'\marginnote{\cs{usepackage[bibstyle=...]\{biblatex\}}} (which
 determines how the list of references is printed; it is possible to
 specify each separately. In practice, however, there tends to be a
 connection between these things, and most users will not specify them
-separately, but will simply specify a \verb|style|option when loading
+separately, but will simply specify a \verb|style| option when loading
 \biblatex\, which will load both citation style and bibliography
 style. That is what we assume here.
 
@@ -194,10 +193,9 @@ scientific journals, you may well find you are covered. If so, use
 that style (and consult its documentation carefully). Scientists are
 also well covered by a variety of different numeric styles. A variety
 have been illustrated with examples at the end of this
-document.\intref{See page~\pageref{chapter:examples}.} The \biblatex\
+document.\intref{See page~\pageref{chapter:examples}} The \biblatex\
 documentation also includes many examples, together with the document
-that produced them.\footnote[][-2ex]{Type \texttt{texdoc biblatex} to
-  produce a list of them.}
+that produced them.
 
 If there isn't an exact style that is precisely what you want, you
 will have to find one that comes close to your needs, and either live
@@ -214,7 +212,7 @@ I'm not going to say much more of the precisely tailored styles:
 you'll know if those are what you want. The rest of this chapter
 surveys some of the standard (and a few of the other available
 `general' styles) to help you understand what they provide. It's
-helpful to consider them family-by-family. But do bear in mind that
+helpful to consider them family-by-family. But bear in mind that
 the main strength and purpose of \biblatex\ is not in its in-built
 styles, which are intended rather as starting points for adjustment
 than as a bibliographic \emph{dernier cri}. Still, much of what is
@@ -289,6 +287,7 @@ when you load \biblatex.\intref{See chapter~\ref{ch:sorting} for much
 \cs{cite\{c,a,b\}}     & [3, 1, 2]        & [1--3]                              \\
 \bottomrule
 \end{tabular}
+\vspace{3pt}
 \caption{Effect of compressing and sorting}
 \end{margintable}
 \newthought{That takes us to the form and order of references}, and at
@@ -322,20 +321,19 @@ you have three options:
 \item Load \biblatex\ with the option \verb|autocite=superscript| and
   then use the \cs{autocite} citation command instead of \cs{cite}.
 \item Remap \cs{cite} to \cs{supercite} (or to \cs{autocite} with the
-  \verb|superscript| option set.
+  \verb|superscript| option set).
 \end{enumerate}
 
 \index{bibliography style!numeric!punctuation}
 Changing the \emph{punctuation between multiple citations} is easy. By
 default it's a comma. You change it by redefining
-\cs{multicitedelim}.\intref{See further, chapter \ref{ch:recipes}.} So
+\cs{multicitedelim}.\intref{See further, chapter \ref{ch:recipes}} So
 if you want a semicolon, you would put (in your preamble)
 \begin{center}
 \verb|\renewcommand{\multicitedelim}{\addsemicolon\space}|
 \end{center}
 
-Occasionally one sees styles where the label is in
-bold\marginnote{[\textbf{1}, \textbf{2}]} or some other
+Occasionally one sees styles where the label is in bold or some other
 funny font. If you have to do that, you need to provide field formats
 for \verb|labelprefix|, \verb|labelnumber| and
 \verb|entrysetcount|. Each takes the same form (in the preamble of
@@ -348,8 +346,7 @@ Or whatever other format you want.
 If you want to use \emph{parentheses} instead of brackets around
 citation labels ---so you get (1) instead of [1]---or if you want to
 dispense with these delimiters altogether, you need to do rather more
-work. This topic is covered in some detail below.\intref{Page
-  \pageref{recipe:brackets}.}
+work. This topic is covered in some detail below.\intref{p~\pageref{recipe:brackets}}
 \indexstop{bibliography styles!numeric!standard}
 \indexstart{bibliography styles!alphanumeric!standard}
 \section{Alphanumeric Labels}
@@ -441,11 +438,11 @@ variation.
 \section{Author/Year Styles}
 
 Author/year styles set citations in a form such as (Bloggs 1982). They
-are very common in many humanities subjects. Where an author has more
+are common in many humanities subjects. Where an author has more
 than one work in the same year, alphabetic labels are added to make it
 clear which work is which (Bloggs 1982a, Bloggs 1982b). Labels are
 usually placed directly in the text, not in footnotes. The
-bibliography is obviously necessary in order to provide detailed
+bibliography is necessary in order to provide detailed
 bibliographical information that is lacking in the text: it is usually
 organised to as to put author and year first in each entry, where it
 can easily be found.
@@ -456,7 +453,7 @@ can easily be found.
 \end{figure}
 
 \indexstart{bibliography style!author/year!standard} The standard
-biblatex styles offer a small selection of different author/year
+\biblatex\ styles offer a small selection of different author/year
 citation styles. (Among the other available styles, the APA style, and
 the Chicago style if loaded with the \verb|authordate|
 option\footnote{The \package{Chicago} style is loaded with
@@ -502,8 +499,7 @@ much room for simple customization; but there are three things you may
 wish to adjust.
 
 \index{bibliography style!author/year!names}
-First, the number of names that get printed.\intref{See further, page
-  \pageref{recipes:maxnames}.}  By default, up to three names will be
+First, the number of names that get printed.\intref{See further, p~\pageref{recipes:maxnames}}  By default, up to three names will be
 printed, both in the citations and in the bibliography. If there are
 more than three names, they will be abbreviated to one name `et al'
 --- again, both in the citations and the bibliography. So, for
@@ -517,8 +513,14 @@ instance, the entry:
   ...
 }
 \end{Verbatim}
-will produce `Goosens, Mittelbach, and Samarin 1994'. If you prefer
-shorter lists of names, then use the option \verb|maxnames|: if
+will produce `Goosens, Mittelbach, and Samarin 1994'; but if one
+additional author were added, the citation would become `Goosens et
+al'.
+
+This behaviour can be altered,\intref{For further detail, see
+  p~\pageref{recipes:maxnames}} and it can be altered separately for
+references in the text and those in the bibliography list. If you
+prefer shorter lists of names, then use the option \verb|maxnames|: if
 \verb|maxnames=1| then no more than one name will be used, and so
 forth. You can, however, still have more than one name in the
 bibliography, because you can set \verb|maxbibnames| to a different
@@ -760,8 +762,8 @@ well outside the ambit of this chapter.
 
 \index{ibid!in verbose styles}\index{bibliography style!verbose!ibid}
 However there are some options which can be adjusted: the behaviour of
-\verb|ibid| (see above),\intref{citations:ibid} for example, or sorting schemes (see chapter
-\ref{ch:sorting}).
+\verb|ibid| (see above),\intref{p~\pageref{citations:ibid}} for
+example, or sorting schemes (see chapter \ref{ch:sorting}).
 \indexstop{bibliography style!verbose!standard}
 
 

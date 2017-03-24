@@ -3,20 +3,24 @@
 
 We are about to dive into the details of using \biblatex. As we go
 through them, we are going to be thinking a bit about
-customization. Before we do that, a stern lecture is in order.
+customization.
 
 \textsf{Biblatex} is highly customizable. That, in the end, is its
 point. At one extreme, if you are setting out to write a bibliography
-style you might be customizing a great deal. But at that point, of
-course, it gets very complicated. If you are trying to do anything
+style for general use you might be customizing a great deal. But at
+that point it gets very complicated. If you are trying to do anything
 that difficult you will really want to understand the internals of
-\biblatex---which will involve reading the manual
+\biblatex\ --- which will involve reading the manual
 carefully,\intref{\emph{Manual} \S~4} and also looking at some of the
 source code.\sidenote{Especially \texttt{standard.def} and the
   \texttt{.bbx} and \texttt{.cbx} files for the various standard
-  files.} This document is not trying to teach you how to do that. But
+  files.} This guide is not trying to teach you how to do that. But
 there are lots of customizations that are well within the reach of the
-`ordinary' user, and it does make sense to discuss them.
+`ordinary' user, and it makes sense to discuss them. This chapter
+provides a general introduction. Further details are given throughout
+the guide in the places where they make most sense, and there is a
+chapter\intref{Chapter \ref{ch:recipes}} that deals specifically with
+`recipes' for various commonly-needed changes.
 
 In order to keep things simple, I am going quite often to explain
 \emph{how} to obtain certain commonly needed changes, without
@@ -34,6 +38,7 @@ elsewhere about how to get \biblatex\ to do something, and they may
 well be just as good (or better) than the ways I have
 suggested. Generally, I've tried to keep things as simple as possible.
 
+\clearpage
 \section{The common methods}
 
 \indexstart{customization!general techniques}
@@ -51,13 +56,13 @@ the \verb|sorting| option to \verb|none|, by loading
 
 Apart from the package itself, some commands also have options. For
 instance, there are a number of options that can be given to the
-\cs{printbibliography}\intref{See chapter~\ref{ch:customize1}.}
+\cs{printbibliography}\intref{See chapter~\ref{ch:customize1}}
 command to affect how the bibliography is printed.
 
 \paragraph{Redefining a command.} It's quite common for a change to be
 made by redefining a command. For instance, in many cases \biblatex\
 uses a command to insert a piece of punctuation, so that if you want
-to change the punctuation,\intref{See p~\pageref{sec:punctuation}.}
+to change the punctuation,\intref{See p~\pageref{sec:punctuation}}
 you can redefine the command to produce a different punctuation mark.
 
 For instance, there's a command called \cs{multicitedelim} which
@@ -106,7 +111,7 @@ customization, use the various commands that \biblatex\ offers.
 \end{margintable}
 
 \index{spaces}
-\intref[3ex]{For spacing commands see the \emph{Manual} \S~4.7.4.}
+\intref[3ex]{For spacing commands see the \emph{Manual} \S~4.7.4}
 These (see table \ref{addcommands}) all take the form
 \cs{add...}. Where they often have the edge on simply using
 punctuation marks directly, is that they are context sensitive: they
@@ -140,11 +145,12 @@ by', \biblatex\ would produce `conjured by' we could alter the
 
 \index{formatting!field formats}
 \csindex{DeclareFieldFormat}
+\csindex{DeclareFieldFormat}
 \paragraph{Field formats.} Internally, when it prints some data from
 the \verb|.bib| file, \biblatex\ passes the data through a filter that
 is defined for that field and entry-type. Although there are some
 extra complexities about fields that hold names or lists, the basic
-filter is set up using a command \cs{DeclareFieldFormat}. The basic
+filter is set up using a command \cs{DeclareFieldFormat}.\manref{\S~4.4.2} The basic
 structure of this is
 \begin{pseudoverb}
 \cs{DeclareFieldFormat}[\angled{entrytype}]\{\angled{field}\}\{\angled{format}\}
@@ -165,22 +171,31 @@ would print the title surrounded by three asterisks, or
 \end{pseudoverb}
 would print the title in small capitals.
 
+\csindex{DeclareListFormat}\csindex{DeclareNameFormat}
+Because of the way that \biblatex\ works there are also formatting
+directives for lists and
+names.\marginnote{\cs{DeclareListFormat}\\\cs{DeclareNameFormat}}
+These are more complex; ordinary users are probably best to leave them
+alone; but they may be encountered from time to time in particular recipes.
+
+\index{customization!hooks}
 \paragraph{Hooks.} There\intref{\emph{Manual} \S~4.10.6} are a number
 of `hooks' offered by \biblatex\ at which it is made relatively easy
 to insert user-defined commands which might do something useful. For
-instance \cs{AtEveryCitekey} allows one to execute some code whenever
-a source is about to be cited, at a time when its data is available
-but has not yet been handled; \cs{AtEveryBibitem} offers a similar
-facility in relation to the printing of bibliography
-items. Particularly useful, sometimes, is the hook \cs{AtDataInput},
+instance \cs{AtEveryCitekey}\csindex{AtEveryCitekey} allows one to
+execute some code whenever a source is about to be cited, at a time
+when its data is available but has not yet been handled;
+\cs{AtEveryBibitem}\csindex{Ateverybibitem} offers a similar facility
+in relation to the printing of bibliography items. Particularly
+useful, sometimes, is the hook \cs{AtDataInput},\csindex{AtDataInput}
 which is executed when data is first `read in' to become available for
 citation. From time to time you may be encouraged to use these hooks
 for various purposes.
 
 \index{sourcemap directive}
-\paragraph{Source mapping.} In fact,\intref{\emph{Manual} \S~4.5.2.}
+\paragraph{Source mapping.} In fact,\intref{\emph{Manual} \S~4.5.2}
 \biblatex\ can `get at' the data even before it is read in---indeed,
-while it is being processed by \package{biber}. The facilities
+while it is being processed by \package{Biber}. The facilities
 providing for source mapping enable one to play various useful tricks
 with the \verb|.bib| file. We've already seen an example of this on
 page \pageref{datamap}.
@@ -191,9 +206,7 @@ the redefinition of bibliography strings) are fairly simple, and
 intended for regular use. Some customizations take us deeper: into the
 internal workings of \biblatex. These things include the redefinition
 of citation commands, the redefinition of things called bibmacros, and
-ultimately the rewriting of bibliography drivers. Although we may
-touch on these from time to time, I'm not going to go into depth about
-them until chapter [x].
+ultimately the rewriting of bibliography drivers.
 \indexstop{customization!general techniques}
 
 \section{Where to put customizations}
@@ -219,7 +232,7 @@ intended to be used in all your documents.
   (most, but not all) bibliography options, using
   \cs{ExecuteBibliographyOptions}\braced{\angled{options}}. You
   cannot, however, set the bibliography style there: that at least you
-  must do when you load \biblatex.\index{customization!biblatex.cfg@\texttt{biblatex.cfg}}\index{files!biblatex.cfg@\texttt{biblatex.cfg}}
+  must do when you load \biblatex.\index{customization!biblatex.cfg@\texttt{biblatex.cfg}}\index{files!biblatex.cfg@\texttt{biblatex.cfg}}\csindex{ExexcuteBibliographyOptions}
 \item If\intref{\emph{Manual} \S~4.2} you get to the point that you
   are developing a comprehensive style, you will want to write |.bbx|,
   |.lbx| and |.cbx| files which can be loaded as a style. That,

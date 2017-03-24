@@ -1,15 +1,14 @@
-%!TEX root=biblatex-tutorial.tex
 \chapter{Citation Commands}\label{ch:citationcommands}
 
-
 The heart of any citation package, from the user’s point of view, is
-the citation commands. These are what you use most. Biblatex offers a
+the citation commands. These are what you use most. \biblatex\ offers a
 number of different commands. They follow a consistent pattern; so
 once you’ve mastered one it’s quite easy to grasp the others. Their
 exact output depends on the citation style you are using.
 
-Let’s start not with the commands themselves, but by looking at a
-citation. Consider the following:
+\index{citation!general form}
+Let's start not with the commands themselves, but by looking at some
+citations. Consider the following:
 
 \begin{quote}
 See also [1]
@@ -18,15 +17,16 @@ See also [1]
 
 cf [JJ90, ch. 3]
 
-see Jones, Combinatorial Aesthetics (London: Pubco, 1990)
+see Jones, \emph{Combinatorial Aesthetics} (London: Pubco, 1990)
 
 ibid. 202
 \end{quote}
 
-There’s a common pattern despite the differences. Each citation
+There's a common pattern behind the obvious differences. Each citation
 consists of up to three parts: an (optional) `signal' that introduces
-it; the citation itself; and an (optional) `pinpoint' which locates a
-particular part of the cited work.
+it; the citation itself, which directly or indirectly identifies a
+source; and an (optional) `pinpoint' which locates a particular part
+of the cited work.
 
 \begin{margintable}
 \begin{tabular}{lll}
@@ -43,6 +43,7 @@ see      &   Jones \ldots\    \\
 \caption{The structure of citations}
 \end{margintable}
 
+\index{citation!general pattern}\index{prenote}\index{postnote}
 The citation commands in \biblatex\ follow the same pattern: they have
 one mandatory argument, which specifies the `key' of the source cited,
 and two optional arguments. The primary optional argument is called
@@ -61,6 +62,7 @@ argument is called the \texttt{prenote} and specifies the `signal'.
 \cs{cite[see][]\{jones\}}        & see         &        & jones \\
 \bottomrule
 \end{tabular}
+\vspace{6pt}
 \caption{Citation command with prenotes and postnotes}
 \end{table}
 
@@ -73,20 +75,21 @@ we want a postnote and no prenote, we just use one optional
 argument. All the citation commands follow this format.
 
 \section{The Basic Five}
+\indexstart{citation!commands!general}
 
 There are five basic citation commands: \cs{cite}, \cs{footcite},
 \cs{parencite}, \cs{autocite} and \cs{textcite}. Exactly what each one
 does depends on the citation style. But the general idea of the
 circumstances in which you would use each is more or less the same.
 
-\paragraph{\textbackslash cite.} The \cs{cite} command is “basic”. It
+\paragraph{\textbackslash cite.}\csindex{cite} The \cs{cite} command is “basic”. It
 simply prints the particular style’s idea of a simple citation. So,
 for instance, with a numeric style, \cs{cite} prints [1], and with a
 verbose style it prints full bibliographical details (or ibid., or
 supra n. \ldots, if that would be correct).
 
 
-\paragraph{\textbackslash footcite and \textbackslash parencite.}The
+\paragraph{\textbackslash footcite and \textbackslash parencite.}\csindex{parencite} The
 \cs{footcite} command tries to put its citation in a footnote. So
 \cs{footcite\{jones\}} is equivalent to \cs{footnote\{\textbackslash
   cite\{jones\}.\}} --- syntactic sugar. The \cs{parencite} command
@@ -94,7 +97,7 @@ does a similar thing, but it wraps its citation in parentheses, so
 that it is equivalent to \texttt{(\cs{cite\{jones\}})}.
 
 
-\paragraph{\textbackslash autocite.} This is all very well. But what
+\paragraph{\textbackslash autocite.}\csindex{autocite} This is all very well. But what
 if you’re not sure whether you should use \cs{cite} or \cs{footcite}
 or \cs{parencite}. Suppose you write a paper, expecting to use
 numerical citations; but then you decide to use verbose citations
@@ -110,7 +113,7 @@ punctuation. It needs to be able to do this because where a citation
 appears relative to punctuation may vary. In English and American
 practice, for instance, footnotes appear after punctuation. So whereas
 a correct numerical citation would be `blah [1].' a correct verbose one
-would be `blah.$^1$' With `\cs{autocite\{jones\}}.' Biblatex will move
+would be `blah.$^1$' With `\cs{autocite\{jones\}}.' \biblatex\ will move
 punctuation from after the citation command to put the footnote marker
 in the right place.
 
@@ -124,7 +127,7 @@ sentence like
 \end{quote}
 will probably require some manual intervention.
 
-\paragraph{\textbackslash textcite.} Finally there is
+\paragraph{\textbackslash textcite.}\csindex{textcite} Finally there is
 \cs{textcite}. It’s not uncommon to have sentences like
 \begin{quote}
    \ldots\ as Jones (1990) remarks \ldots
@@ -146,7 +149,7 @@ But that's a bit wordy, and in author/year styles, this trick won't work:
 
 Although mainly intended for author/year styles, \cs{textcite} works
 rationally in any style; in verbose styles, the proper form involves
-printing something in the text (such as ``Jones'') and adding a
+printing something in the text (such as `Jones') and adding a
 footnote; if necessary punctuation will be moved for this purpose, so
 that
 \begin{Verbatim}
@@ -195,9 +198,11 @@ Jones (``Title'', p.~9) says                                                    
 \vspace{5pt}
 \caption{Common citation commands in standard styles\label{allcitations}}
 \end{table*}
+\indexstop{citation!commands!general}
 
 \section{Capital Forms}
 
+\indexstart{citation!commands!capital forms}
 Each of \cs{cite}, \cs{parencite} and \cs{autocite} have `capital'
 forms (\cs{Cite}, etc) which are appropriate for use where a capital
 would be required. You might wonder why, since most citations already
@@ -206,9 +211,11 @@ might be needed is if the citation begins with something like `von',
 and you want it capitalised. There is no special capital form of
 \cs{footcite} because it always assumes that the citation will begin a
 sentence so that a capital may be appropriate.
+\indexstop{citation!commands!capital forms}
 
 \section{Specific to Numerical Styles}
 
+\index{citation!commands!for numerical styles}\csindex{supercite}
 For numerical styles, the command \cs{supercite} prints citations as
 superscript numbers. It’s rather unusual to want both regular
 full-size labels and superscript labels in the same document; but if
@@ -226,18 +233,21 @@ If this happens, a warning will be given.
 
 \section{Using particular fields}
 
+\indexstart{citation!commands!particular fields}
 There are a number of citation commands that are not intended to print
 complete citations, but to pull potentially useful snippets out of a
 source record, and treat it is a citation. They are mostly, though not
 exclusively, useful in author/title and author/year styles, where
 citations are ofte quite tightly woven into the text.
 
+\csindex{citeauthor}\csindex{citetitle}\index{citation!commands!author}\index{author!citing name}\index{citation!commands!title}\index{title!citing title}
 \paragraph{Author or title alone.} The commands \cs{citeauthor} and
 \cs{Citeauthor} print the author's name (the latter with capitals
 forced, even if they would otherwise not be used). The commands
 \cs{citetitle} and \cs{citetitle*} print the title: abbreviated if
 possible in the regular form, but always in full in the starred form.
 
+\index{citation!commands!year}\csindex{citeyear}\csindex{citedate}\index{date!citing date}\index{year|see{date}}
 \paragraph{Year or date.} The\marginnote{{\ttfamily
     \cs{citeauthor\{key\}} published his roman a clef
     (\cs{citeyear*}\{key\}) in \cs{citeyear}\{key\}} \gives\ Locke
@@ -250,25 +260,28 @@ say, five works by a particular author in one year,
 \verb|\citeyear{prolific86c}| would print `1986', whereas
 \verb|citeyear{prolific86c}| would print `1986c'.
 
+\index{citation!commands!url}\index{URL!citing}\csindex{citeurl}
 \paragraph{URLs.} The \cs{citeurl} command will print any url.
 
 \paragraph{Others.} Apart from these commands, which the standard
 styles already provide, it is possible to construct your own `partial'
-commands, using \cs{citename}, \cs{citelist} and \cs{citefield}. There
-are three commands because \biblatex\ distinguishes between
-\verb|name| fields (like \texttt{author} and \texttt{editor}), list
-fields (like \texttt{institution} and \texttt{publisher}) and other
-fields. The commands are not really suitable or intended for direct
-use: they would need to be `wrapped' in some more user-friendly
-command for use in a document. Details are given in the \biblatex\
-manual at [*].
+commands,\manref{\S~3.8.7} using \cs{citename}, \cs{citelist} and
+\cs{citefield}. There are three commands because \biblatex\
+distinguishes between \verb|name| fields (like \texttt{author} and
+\texttt{editor}), list fields (like \texttt{institution} and
+\texttt{publisher}) and other fields. The commands are not really
+suitable or intended for direct use: they would need to be `wrapped'
+in some more user-friendly command for use in a document.
+\indexstop{citation!commands!particular fields}
 
 \section{Entry sets}
 
+\index{citation!commands!entry sets}\index{sets of sources cited together|see{entryset}}\index{entryset@\texttt{entryset}}
 In some disciplines it is common to have a single numeric citation
 refer to a group of sources. This is supported in \biblatex\ by the
-entry-set.
+entry-set.\manref{\S~3.12.5}
 
+\index{entryset@\texttt{entryset}!bib file in@in \texttt{.bib} file}
 There are two ways to define such a set. One way is to define them as
 a |key| in the |.bib| file. Thus, for instance, your |.bib| file might
 define
@@ -282,6 +295,7 @@ You can then use |\cite{set1}| to get output as in figure \ref{entryset1}.
 \caption{An \texttt{entryset}\label{entryset1}}
 \end{figure}
 
+\csindex{defbibentryset}\index{entryset@\texttt{entryset}!using defbibentryset@using \cs{defbibentryset}}
 The alternative, and usually more convenient approach, is to define
 such sets `on the fly' in each document. This can be done using the
 command
@@ -290,23 +304,22 @@ command
     \ldots\ key$_{n}$}\}
 \end{pseudoverb}
 so that
-\begin{Verbatim}
-\defbibentryset{set1}{augustine, cotton}
-\end{Verbatim}
+\begin{pseudoverb}
+  \centering
+\cs{defbibentryset}\{set1\}\{augustine, cotton\}
+\end{pseudoverb}
 will produce the same output as figure \ref{entryset1}.
-
-Different styles will print entry sets in different ways. For
-instance, the \package{biblatex-chem} wil
 
 \section{Pinpoints}
 
+\indexstart{citation!postnote}\index{pinpoints|see{citation, postnote}}
 It usually makes sense to give pinpoint citations to a particular work
 primarily by reference to one type of marker. So, for instance, books
 are normally cited by page. How such references are styled depend on
 the particular scheme. Some schemes want `p. 23', others want `p 23',
-others just want `23'. To save effort, Biblatex will insert
+others just want `23'. To save effort, \biblatex\ will insert
 appropriate default labels. So if you just type \cs{cite[23]\{key\}},
-Biblatex will produce `p. 23' (or whatever is appropriate to your
+\biblatex\ will produce `p. 23' (or whatever is appropriate to your
 style). It works also for multiple pages: \cs{cite[22, 23]\{key\}}
 will print `pp. 22, 23' and \cs{cite[22--25]\{key\}} will print
 `pp. 22--25', and do forth.
@@ -315,16 +328,14 @@ will print `pp. 22, 23' and \cs{cite[22--25]\{key\}} will print
 What if you want some different prefix? If the problem is with a
 particular citation, you can just enter the prefix manually. For
 instance, if you want to cite chapter 3, just type
-\cs{cite[ch.\textasciitilde 3]\{key\}}. Since Biblatex only adds a
+\cs{cite[ch.\textasciitilde 3]\{key\}}. Since \biblatex\ only adds a
 prefix where you have provided a reference which consists only of
 numbers, your postnote will be printed as you have entered it.
-
-
 
 \newthought{This is neat and tidy.} But, as so often there are special
 cases and customisations.
 
-
+\index{citation!postnote!suppress prefixes}
 \paragraph{No prefixes} You don't want prefixes, even when you enter a
 purely numerical postnote: you want \cs{cite[22]\{key\}} to produce
 `\angled{key}, 22'. There are a number of ways to achieve this,
@@ -349,15 +360,17 @@ To stop all additions, for every source:
 This is most appropriate when you are customizing \biblatex\ for a
 style which does not use any prefixes in general.
 
+\index{citation!postnote!force prefixes}
 \paragraph{Forcing prefixes} You want to enter a postnote with a
 non-numerical character, and still get a prefix added. For instance,
 you have a source with pages which have letters, like `1234a'. Again,
 there are a number of solutions.
 
+\csindex{pno}\csindex{ppno}
 The\marginnote{\cs{cite[p.\textasciitilde 12a]\{key\}} \gives\
   \angled{key}, p.~12a} easiest thing to do in such cases is simply to
 type the prefix yourself: \cs{cite[p.\textasciitilde
-  1234a]\{key\}}. But if you think it’s worth getting Biblatex to do
+  1234a]\{key\}}. But if you think it’s worth getting \biblatex\ to do
 it for you, you can use \cs{pno}\marginnote{\cs{cite[\textbackslash
     pno 12a]\{key\}} \gives\ \angled{key}, p.~12a} (for a single page)
 and \cs{ppno}\marginnote{\cs{cite[\textbackslash ppno
@@ -367,6 +380,7 @@ pages). (In theory, the \cs{pno} and \cs{ppno} commands could be
 adjust automatically. In the real world, there's probably not much
 practical advantage.
 
+\index{citation!postnote!latin gadgets}\csindex{psq}\csindex{psqq}
 \paragraph{Latin gadgets for multiple pages}There is one special
 common case. Suppose you want `p.~20~ff.' or `p.~20 et seq.'  You
 could of course enter the whole postnote manually. But you can also
@@ -395,7 +409,7 @@ this command:
 \verb|\renewcommand{\sqspace}{}|
 \end{center}
 
-\paragraph{Correcting \biblatex's guesses} \textsf{Biblatex} tries to
+\paragraph{Correcting \biblatex's guesses} \biblatex\ tries to
 guess whether to add `p.' or `pp.' by working out whether you have
 cited a single page or a range of pages. But occasionally the form of
 a citation might confuse \biblatex, so that it adds `p.' when you need
@@ -403,6 +417,7 @@ a citation might confuse \biblatex, so that it adds `p.' when you need
 yourself, or use the \cs{pno} or \cs{ppno} commands, as explained
 above.
 
+\index{citation!postnote!customization}\index{customization!postnote}
 \paragraph{You want something \ldots\ but not `pp.'} Some sources
 don't use pages for pinpoint citations. For instance, suppose you are
 citing a work which is normally referred to by section, not page. In
@@ -410,7 +425,7 @@ such a case, you can still use the convenience of having automatic
 prefixes. What you need to do is to set the pagination field of the
 source in the \texttt{.bib} file to `section'. A list of the types of
 pagination recognised, and their results, is shown in table
-\ref{pagination:types}.
+\ref{pagination:types}.\index{pagination!in postnote}
 \begin{margintable}
 \begin{tabular}{lll}
   \toprule
@@ -437,7 +452,7 @@ references in the form `Art. x', so that \cs{cite[2]\{key\}} gives us
 just get `p.', because \texttt{article} is not a
 pagination type that \biblatex\ knows.
 
-How can we “teach” Biblatex a new pagination type? We simply need to
+How can we `teach' \biblatex\ a new pagination type? We simply need to
 define two bibstrings: article and articles:
 
 \begin{verbatim}
@@ -459,9 +474,11 @@ exist. So, for instance, if you wanted the abbreviation for page to be
  {page = {pg},
   pages = {pgs}}
 \end{verbatim}
+\indexstop{citation!postnote}
 
 \section{Multiple citations}
 
+\indexstart{citation!multiple}\csindex{cites}
 You've probably worked out by now that even the standard citation
 commands will handle multiple citations: \cs{cite\{key1, key2\}} will
 produce `[1, 2]' or `Jones 1990; Smith 2010', or whatever is in
@@ -488,11 +505,11 @@ keeping with the style you have chosen.
 \end{margintable}
 
 
-This is fine; but it does'nt handle pre- and postnotes very nicely. If
-we did \cs{cite[prenote][postnote]\{key1,key2\}} we will get [prenote
-1, 2, postnote]---which will rarely make sense. For this purpose,
-\biblatex\ offers a selection of commands tailored for multiple
-citations.
+This is fine; but it doesn't handle pre- and postnotes very nicely. If
+we enter \cs{cite[see][11]\{key1,key2\}} we get something `[see 1;
+2, p.~11]' --- which will only make sense if the page reference is
+to the last work cited. For this purpose, \biblatex\ offers a
+selection of commands tailored for multiple citations.
 
 The pattern is set by the \cs{cites} command. If we type
 \begin{center}
@@ -500,7 +517,7 @@ The pattern is set by the \cs{cites} command. If we type
 \end{center}
 we would get (in a numeric style)
 \begin{center}
-[see 1, p.\ 10, cf 2, p.\ 20, 3, p. 30]
+[see 1, p.\ 10; cf 2, p.\ 20; 3, p. 30]
 \end{center}
 or (in an alphabetic style)
 \begin{center}
@@ -508,7 +525,7 @@ see Smith 1990, p.\ 10; cf Jones 2000, p.\ 20; Bloggs 2010, p.\ 30
 \end{center}
 
 It's not hard to see what's happening here: basically \biblatex\ is
-interpreting the command as a set of individual \cs{cite} commands,
+interpreting \cs{cites} as a set of individual \cs{cite} commands,
 each with its own pre- and/or postnote, but also understanding that
 they form a unit (so, for instance, the numeric style places them in
 one set of brackets).
@@ -519,7 +536,7 @@ one set of brackets).
 \colorbox{blue!30}{[30]\{key3\}}
 \end{center}
 
-Just to make things even more exciting, you can also have a pre- or
+To make things even more exciting, you can also have a pre- or
 postnote for the \emph{entire} multiple citation: you just place them
 (before anything else) in parentheses:
 \begin{center}
@@ -531,43 +548,46 @@ giving
 see: Smith 1990, p.\ 10; Jones 2000, p.\ 20, among others
 \end{center}
 
-There's one catch. As it scans forwards, the \cs{cites} command will
+But there's one catch. As it scans forwards, the \cs{cites} command will
 be `tricked' if it sees a square bracket (\texttt[) or a brace
 (\texttt\{) which is not intended to start a citation. For instance,
-if you wrote:
+in:
 \begin{center}
 \ttfamily
 \cs{cites}\colorbox{red!30}{[10]\{key
   1\}}\,\colorbox{green!30}{[20]\{key2\}}
 \colorbox{blue!30}{[`{}`the principal works'{}']}
 \end{center}
-a human being can quickly see that the blue portion is not another
+a human can quickly see that the blue portion is not another
 citation, but some text in brackets. But \biblatex\ won't appreciate
 this (a space is not enough), and will complain that you have a
 defective citation. The trick in such cases is to put \cs{relax} at
 the end of the list:
 \begin{center}
-\verb|\cites[10]{key1}[20]{key2}\relax [``the principal works'']|
+\verb|\cites[10]{key1}[20]{key2}\relax [`the principal works']|
 \end{center}
 
 All the main citation commands (and their capitalized forms) have
 multiple versions, consistently named: see table \ref{multicites}.
+\indexstop{citation!multiple}
 
-\section{Citation commands that ... don't}
+\section{Citation commands that \ldots\ don't}
 
+\csindex{nocite}
 Finally we have to consider a small family of odd citation
 commands. Normally the point of including a citation is to have
 \emph{some sort} of information about the source in question. It
 might, therefore, seem odd that there are citation commands which
 don't print anything. But they are sometimes needed. For instance, you
 might want to include a work in the bibliography without actually
-citing it in the text. To do that you can use the \cs{nocite}
+printing any citation in the text. To do that you can use the \cs{nocite}
 command. So \cs{nocite\{angled{key}\}} will place \emph{key} in the
 bibliography without citing it. You can also use \cs{nocite\{*\}},
 which will put \emph{every source} in your bibliography file into the
 bibliography.
 
-Another potentially useful command is \cs{mancite}. You use this
+\csindex{mancite}
+Another occasionally useful command is \cs{mancite}. You use this
 command to tell \biblatex\ that you have manually cited a work. You
 might like to do this if you want to weave the citation into the text
 in a way that is too complex to achieve using the various citation
@@ -591,14 +611,6 @@ above){\bfseries\cs{mancite}\{smith\}} hardly meets this point; but this is\\
 not Jones's main objection \cs{parencite}[45]\{jones\}. ...
 \end{pseudoverb}
 Generally, however, it's better to avoid such implicit citations.
-
-\section{Other commands}
-
-There are a number of other commands, each with a particular and
-specialised purpose. They are hardly essential, however: they are
-generally ways of doing in one command what could, in any case, be
-done without much difficulty in two or three. You can read about them
-in the \biblatex\ manual.\intref{\emph{Manual}}
 
 %%% Local Variables:
 %%% coding: utf-8

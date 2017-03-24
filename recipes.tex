@@ -1,4 +1,3 @@
-%!TEX root=biblatex-tutorial.tex
 \chapter{Recipes}\label{ch:recipes}
 
 A comprehensive guide to customization is outside the scope of this
@@ -8,6 +7,7 @@ recipes.
 
 \section{Names}
 
+\index{customization!names}
 \paragraph{I want at most 1/2/3/4 names printed before `and
   others'.}\label{recipes:maxnames} You need to change the value of
 |maxbibnames|, |maxcitenames|, |minbibnames| and/or |mincitenames|. As
@@ -55,6 +55,7 @@ is shown in table \ref{maxnames}.
 \caption{Effect of \texttt{maxnames} and \texttt{minnames}\label{maxnames}}
 \end{table}
 
+\index{customization!et al@\emph{et al}}
 \paragraph{I want something different from `et al' printed when names
   are truncated.} What gets printed in this case depends on the
 setting of two bibliography strings, and one delimeter:
@@ -104,15 +105,18 @@ purpose you would need the more extensive changes shown in figure
 \caption{Introduction of `and others' and `and another'\label{andothers}}
 \end{figure}
 
+\index{customization!dashes in bibliography}\index{dash!in bibliography|see{customization, dashes}}
 \paragraph{I want/don't want multiple references to a single author to
   appear as a long dash.} In the author/year, author/title and verbose
 styles, you can control this with the option |dashed=true| or
 |dashed=false| when loading \biblatex. Non-standard styles are not
 obliged to provide this option, but most will do so.
 
+\index{customization!initials}
 \paragraph{I want to have all names abbreviated to initials.} Set the
 option |firstinits=true| when loading \biblatex.
 
+\index{customization!initials}
 \paragraph{I want to have initials printed in a different way.} By
 default, the standard styles of \biblatex\ print initials with spaces
 and abbreviation dots:
@@ -141,6 +145,7 @@ entered) with full stops and spaces, regardless of the settings of
 they are beyond the scope of this section: the curious might look at
 the OSCOLA package code, which does something along these lines.)
 
+\index{customization!names}
 \paragraph{I want names printed in bold/italic/small capitals etc.}
 How names are printed depends on four standard commands:
 \cs{mkbibnamegiven} (which prints the initials or first names),
@@ -202,10 +207,9 @@ And obtain results as shown in figure \ref{namestyle}.
 Of course, it's usually unnecessary to have so many different
 definitions. A much more common approach would be to have all the
 various parts of a name formatted in the same way. But the flexibility
-is there if you need it.
+is there if you need it.\intref{Biblatex Manual § 12}
 
-\intref{Biblatex Manual § 12}
-
+\index{customization!names}
 \paragraph{I want the names to be printed `Firstname Lastname', but
   I'm getting `Lastname, Firstname'} Although there is, in theory,
 infinite flexibility, in practice there are three common patterns to
@@ -232,6 +236,7 @@ in which case you \emph{also} need (in your preamble)
 \cs{AtBeginBibliography}\{\cs[...]{DeclareNameAlias}\}
 \end{pseudoverb}
 
+\index{customization!list of own papers}\index{CV!list of papers}
 \paragraph{I want to produce a publication list of my own papers.}
 People writing CVs often want to produce a bibliography of their own
 papers, but modifying the name format so that instead of placing their
@@ -241,12 +246,14 @@ the \package{biblatex-publist} style, which is specifically designed
 for it. You tell the package your name (using the \cs{omitname}) macro
 (or package option).
 
+\indexstart{punctuation}\index{customization!punctuation|see{punctuation}}
 \section{Punctuation issues}\label{sec:punctuation}
 
 There are many configurable punctuation marks in \biblatex---too many
 to deal with comprehensively here. In this section I'm only going to
 cover some particularly common cases.
 
+\index{punctuation!before postnote}
 \paragraph{I want different punctuation before a postnote.}
 \begin{marginfigure}[12ex]
 \fbox{\includegraphics{examples/punctcite.pdf}}
@@ -271,6 +278,7 @@ inserted:\begin{marginfigure}[12ex]
      \renewcommand{\postnotedelim}{\space--\space}
 \end{Verbatim}
 
+\index{punctuation!author/year}
 \paragraph{I am using an author/year style, and I want a colon/a
   comma/nothing between the author and the year.}
 \begin{marginfigure}[4ex]
@@ -293,6 +301,7 @@ to produce the revised punctuation that is marked in figure
 \caption{\cs{nameyeardelim} revised}\label{punctcite4}
 \end{marginfigure}
 
+\index{punctuation!multiple citations}
 \paragraph{I have multiple citations and I want different punctuation
   between them.} As can be seen from figure \ref{punctcite5}
 \begin{marginfigure}[4ex]
@@ -321,6 +330,7 @@ Between \smallcaps{superscript citations} the delimiter is not
 \cs{multicitedelim}, but \cs{supercitedelim}, so if you use
 superscript citations it is this that you will have to redefine.
 
+\index{punctuation!after `In'}
 \paragraph{I don't want punctuation after `In'.} Standard \biblatex\
 styles print a colon after `In:' This is produced by
 \cs{intitlepunct}, as shown in figure \ref{punctcite7}.
@@ -335,6 +345,7 @@ You can therefore redefine \cs{intitlepunct}, for instance to
 \end{Verbatim}
 to avoid any punctuation being added at that point.
 
+\index{customization!labels in parentheses}
 \paragraph{I am using a numeric style, but I want my citations to
   appear in parentheses (1) instead of brackets
   [1].}\label{recipe:brackets}
@@ -368,6 +379,7 @@ as follows:\footnote{Using the clever method devised by Audrey
 \DeclareFieldFormat{labelformat}{\mkbibbrackets{#1}}
 \end{Verbatim}
 
+\index{customization!citations in brackets}
 \paragraph{I am using an author/year style: I want to replace round
   parentheses with square brackets: [Author 1978] instead of (Author
   1978).} This is more-or-less the opposite problem to the last one,
@@ -410,6 +422,7 @@ in the bibliography, you need this in addition:
   \newunit}
 \end{Verbatim}
 
+\index{punctuation!within entry}
 \paragraph{I would like the parts of a bibliographical entry to be
   separated by commas, but the standard styles use full stops.} The
 division between the main parts of an entry are marked by
@@ -431,6 +444,7 @@ capitalization adjust automatically.\begin{figure}
 \end{figure} It may, however, sometimes be necessary to adjust other
 punctuation marks to ensure a really smooth result.
 
+\index{punctuation!quotation marks}
 \paragraph{I am not happy with the way quotation marks are being put
   around article names.} This is largely a function of how
 \package{csquotes} is loaded.
@@ -448,10 +462,11 @@ punctuation marks to ensure a really smooth result.
 Of course, you can equally use \package{csquotes} with «\,French\,»,
 ,,German``, «Spanish», or any other style of quotation.
 
-\newcommand{\sublimetextsux}[2]{}\sublimetextsux''
+%''
 
 \section{Issues about what gets printed}
 
+\index{customization!URL!font}\index{customization!font!url}
 \paragraph{I don't want to print \smallcaps{urls}\slash
   \smallcaps{eprint}\slash \smallcaps{doi}s.} These can be controlled
 with the options |url|, |doi| and |eprint|. By default all of these
@@ -459,6 +474,8 @@ are set |true|; to turn off any of them set the relevant option to
 |false|. If you want links to be created you should load the
 \package{hyperref} package.
 
+\index{customization!date}
+\index{date!customization}
 \paragraph{I want to control how dates get printed.}
 \package{Biblatex} may print a number of different dates at various
 points in a citation, and the format for each of them can be
@@ -511,6 +528,7 @@ printed in an abbreviated form (15th Jan.\ 2000), and the |datezeros|
 option |true| to have numeric dates printed with leading zeros
 (2000-01-15), or |false| to have them printed without.
 
+\index{customization!suppressing information}
 \paragraph{There's some other information I don't want printed.} At
 this point we are beginning to enter the realm of serious changes,
 which are arguably beyond the sort of simple customization that this
