@@ -8,3 +8,9 @@ cleanup and indexing.
 
 All files are licensed under a CC Attribution-ShareAlike license CC BY-SA: 
 http://creativecommons.org/licenses/by-sa/3.0/
+
+# Compilation
+
+The files include makefiles in both the main and the /examples directories 
+which will generate the (many) required files. Nothing else is required beyond an
+up-to-date LaTeX distribution.

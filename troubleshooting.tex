@@ -1,4 +1,3 @@
-%!TEX root=biblatex-tutorial.tex
 \chapter{When Things Go Wrong}\label{ch:troubleshooting}
 
 Things go wrong, and when they go wrong it can be quite infuriating
@@ -11,15 +10,18 @@ changes to \biblatex\ styles, but with the sort of thing that goes
 rather obviously wrong for an ordinary user running properly written
 styles. The manifestation of this problem is nearly always the same:
 instead of citations, you have labels in square brackets in the
-printed brackets (as in figure \ref{nussbaum3}; you see warnings in
+printed brackets (as in figure \ref{nussbaum1}; you see warnings in
 the \LaTeX\ log file telling you
 \begin{verbatim} 
 Citation 'blah' on page x undefined on input line y
 \end{verbatim}
-and at the end of the log file you are encourated to |(re)run Biber|.
+and at the end of the log file you are encouraged to |(re)run Biber|.
+\index{errors|see{debugging}}
+\index{debugging!empty citations}
 
 \section{A Systematic Approach}
 
+\indexstart{debugging!general approach}
 The first thing to do in this situation is, paradoxically, to start
 with a clean slate.\marginnote{If you use \package{latexmk} you can
   clean all these files away with the command \texttt{latexmk -c}.}
@@ -40,9 +42,9 @@ load a non-existent bibliography style, you can't expect to produce
 citations. Once the document compiles (with, as expected, warnings
 about undefined references), you can move on to the next stage.
 
-\subsection{Run \package{biber}}
+\subsection{Run \package{Biber}}
 
-The next task is to run \package{biber}.  This time, you should
+The next task is to run \package{Biber}.  This time, you should
 examine your output, either on the console or in the log file (which
 will have the extension |.blg|). If all has gone well you will see
 something like figure \ref{biber:run}.
@@ -70,12 +72,12 @@ INFO - Output to punctcite13.bbl
 \caption{Log of a successful \package{biber} run\label{biber:run}}
 \end{figure}
 
-If \package{biber} has run successfully, you can go on to the next
+If \package{Biber} has run successfully, you can go on to the next
 step. If you see any lines in the log which begin |ERROR| or |WARN|
 then there was some sort of problem, and you will need to do more
 digging.
 
-\newthought{Once \package{biber} has actually run}, even with
+\newthought{Once \package{Biber} has actually run}, even with
 warnings, you will find that the log provides a useful diagnostic
 tool. The most common errors are set out in table \ref{biber:errors},
 together with their meanings and the action you should take. But this
@@ -99,6 +101,7 @@ ERROR - BibTeX subsystem: \angled{filename} ... syntax error: found "title", exp
 \caption{Biber errors, and what they mean\label{biber:errors}}
 \end{table*}
 
+\index{debugging!errors in bib file@errors in \texttt{.bib} file}
 To diagnose such an error, proceed as follows:
 \begin{itemize}
 \item Rename your existing |.bib| file.
@@ -119,15 +122,15 @@ To diagnose such an error, proceed as follows:
   re-entering the entry will usually sort it out.
 \end{itemize}
 
-Once you have corrected any errors, re-run \package{biber}. If you had
+Once you have corrected any errors, re-run \package{Biber}. If you had
 to correct an error in your \emph{source file} (e.g. to add or change
 an \cs{addbibresource} command), you will need to re-run (pdf)-\LaTeX,
-and then \package{biber}. If you only had to change entries in the
-|.bib| file, you should be OK with just running \package{biber}.
+and then \package{Biber}. If you only had to change entries in the
+|.bib| file, you should be OK with just running \package{Biber}.
 
 \subsection{Finally, run \LaTeX\ again}
 
-Once you manage to run \package{biber} without errors or warnings,
+Once you manage to run \package{Biber} without errors or warnings,
 re-run \LaTeX. This time you should get a complete compilation,
 without any warnings.
 
@@ -140,6 +143,7 @@ especially) when unicode is used (via |\usepackage[utf8]{inputenc}|)
 there can be occasional incompatibilities. If you see this sort of
 trouble, try running \package{biber} with the option
 |--output_safechars|.
+\indexstop{debugging!general approach}
 
 \section{A less systematic approach}
 
@@ -148,12 +152,12 @@ bibliography have all been compiling correctly, but suddenly you start
 to see problems, particularly with one or two entries, go back and
 check those particular entries. If those look correct (the label is
 correctly spelled in the |.tex| source, the entry seems correct in the
-|.bib| file) it's worth carrying out a manual run of \package{biber}
-to check that you haven't been caught by the cache problem described
-on page \pageref{cache}.
+|.bib| file) it's worth carrying out a manual run of \package{Biber}
+just to check it is working correctly.
 
 \section{Problems with output}
 
+\indexstart{debugging!output problems}
 Problems with output have three possible sources. (a) It may be that
 your bibliography style is, in some way, not to your taste. This is
 not really a `bug' as such: it may well be that the style is doing
@@ -187,6 +191,43 @@ John Smith and A. U. Thor and Joe Bloggs
  \item Forgetting to put braces around a word whose capitalization should not be changed, so that |German| becomes |german|
  \item Inadvertently muddling similar fields, such as |pages| and
    |pagination|, |journaltitle| and |series|, |volume| and |part|.
+\end{itemize}
+\indexstop{debugging!output problems}
+
+\section{Further help}
+The main source of help on \biblatex\ is its manual, which can be
+found either online or, on a properly installed \TeX\ system, by
+typing |texdoc biblatex| at the command line. Individual styles also
+have their own documentation, which is sometimes extensive. That too
+can be found using the |texdoc| command, adding the name of the
+package.
+
+When the going gets tough, it's sometimes helpful to have an experienced person look at the problem. If you don't have such a guru on tap, you can always ask a question at \url{http://tex.stackexchange.com}. If you decide to do that, please consider the following:
+\begin{itemize}
+\item Do post some code which illustrates the problem.
+\item But \emph{don't} just post or provide a link to a huge file. Make a new file, using a standard class (such as |article|) which shows it. Similarly, remove all packages that seem to be irrelevant to the problem. Preparing such a document may well help you to isolate it. For instance, if you can't reproduce the problem unless you add some odd package or antiquated class file, the solution may be obvious.
+\item Include a minimal bibliography file in the example
+  itself. There's an easy way to do this:
+  \begin{itemize}
+  \item Add |\usepackage{filecontents}| to your preamble.
+  \item Place the necessary bibliography entries, just as in your
+    |.bib| file, within an environment that begins
+    |\begin{\filecontents}{\jobname.bib}| and
+      |\end{filecontents}|. This will cause \LaTeX\ to create such a
+    file on its first run.
+  \item Use |\addbibresource{\jobname.bib}| to load that file.
+  \end{itemize}
+\item Be absolutely specific about what the problem is, and what a
+  solution would look like.
+\item Needless to say, don't post a question unless you have carried
+  out a reasonable search for answers to similar questions first. But
+  \ldots\
+\item Don't take it amiss if someone on the site manages to see that
+  your question is a duplicate, and points that out. This is not an
+  agressive gesture. It's sometimes hard for anyone other than an
+  expert even to \emph{realise} that what look like two different
+  problems are really just different manifestations of the same
+  difficulty.
 \end{itemize}
 
 %%% Local Variables:

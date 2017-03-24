@@ -1,4 +1,3 @@
-%!TEX root=biblatex-tutorial.tex
 \chapter{Tools and Editors}\label{chapter:tools}
 
 Most people who use \LaTeX\ use a specialised editor (or a special
@@ -12,6 +11,7 @@ need `coaxing' to encourage them to work easily with \biblatex.
 
 \section{In the shell}
 
+\index{compiling}
 I think it is important, whatever editor you use, to know how to
 compile a file from the command line. Even the best tools sometimes
 fail, and it's surprising how often (especially with a complex
@@ -19,20 +19,20 @@ project) a basic compilation from a shell will help diagnose
 problems. So every user should know how to open a shell, navigate to
 the directory in which the source file is found, and run
 \begin{pseudoverb}
-pdflatex \angled{name}\\
+pdflatex\footnote{or \texttt{xelatex} or \texttt{lualatex}} \angled{name}\\
 biber \angled{name}\\
 pdflatex \angled{name}\\
 pdflatex \angled{name}
 \end{pseudoverb}
 The only trick is with \angled{name} component: |pdflatex| wants to
-get to work on a file with a |.tex| extension; |biber| wants to get to
+get to work on a file with a |.tex| extension; |Biber| wants to get to
 work on a file with the extension |.bcf|\footnote{\texttt{bcf} stands
   for bibliography control file.} (`Old-timers' may erroneously try to
-run |biber| on the |.aux| file, which is what \bibtex\ would use.) But
-all problems can be simply avoided by running the program in question
-on the `basename': the filename \emph{without any extension}. So the
-following are equivalent, if our source code is in a file called
-|myfile.tex|:
+run |biber| on the |.aux| file, which is what \bibtex\ would use.)
+But, so long as you use standard extensions, problems can be
+avoided by running the program in question on the `basename': the
+filename \emph{without any extension}. So the following are
+equivalent, if our source code is in a file called |myfile.tex|:
 \begin{pseudoverb}
 \begin{tabbing}
 pdflatex myfile.tex\qquad   \= pdflatex myfile\\
@@ -42,11 +42,11 @@ pdflatex myfile.tex \> pdflatex myfile
 \end{tabbing}
 \end{pseudoverb}
 You won't \emph{always} need all these runs. You generally only need
-to run \package{biber} if you have either cited a new source or
-significantly changed your bibliography options. And you won't always
-need to run \LaTeX\ twice after using \package{biber}. In any case,
-you get useful messages at the end of compilation, telling you what to
-do.
+to run \package{Biber} if you have either cited a new source or
+significantly changed your bibliography options (for instance the
+sorting). And you won't always need to run \LaTeX\ twice after using
+\package{biber}. In any case, you get useful messages at the end of
+compilation, telling you what to do.
 
 Nevertheless, for a project of any complexity, this sort of need to
 carry out multiple runs becomes tiresome, and you may want to look at
@@ -57,8 +57,10 @@ reasonable way to go. But there are two \LaTeX\ specific tools which
 are more likely to help you.
 
 \subsection{Latexmk}
+
+\index{latexmk@\package{latexmk}}
 First is \package{latexmk}, which is a Perl script. It therefore
-requries Perl to be installed. It always will be on Linux or Mac OS X
+requries Perl to be installed. Perl always will be on Linux or Mac OS X
 machines, but Windows users will need to download it (e.g. from
 \url{strawberryperl.com}). In principle, and for reasonably simple
 projects at least, you can substitute all the commands given above
@@ -69,17 +71,18 @@ latexmk myfile
 The script will then run \LaTeX, and auxiliary programs such as
 \package{biber} and \package{makeindex}, as many times as necessary to
 produce a stable result (if that's possible). The \package{latexmk}
-script is `\package{biber} aware': it will detect if it needs to run
-\package{biber} (or \bibtex) and proceed accordingly. There are many
+script is `\package{Biber} aware': it will detect if it needs to run
+\package{Biber} (or \bibtex) and proceed accordingly. There are many
 options (described in the documentation).
 
 \subsection{Arara}
 
+\index{Arara@\package{Arara}}
 The alternative modern approach is a program called
-\package{arara}. This is a Java program (and therefore requires a Java
+\package{Arara}. This is a Java program (and therefore requires a Java
 command line to be installed). Instead of attempting to `detect' what
 needs to be done to produce the final printable version,
-\package{arara} enables you to place commented instructions in your
+\package{Arara} enables you to place commented instructions in your
 source file, which essentially tell the program how to go about
 processing it. So, for instance, you might put the following at the
 start of your file:
@@ -99,28 +102,30 @@ but in a conveniently simple form and in the file you will
 compile. You have to be explicit about them, but you may find this an
 advantage over the sort of `black box' that \package{latexmk}
 offers. Again, there are all sorts of bells and whistles -- but
-\package{arara} is, as the example above shows, `\package{biber}
+\package{Arara} is, as the example above shows, `\package{biber}
 aware'.
 
 \subsection{Texify}
 
+\index{Texify@\package{Texify}}
 The \package{mikTeX} distribution comes with a command called
 |texify|, which is intended to do something along the lines of
 |latexmk|, but without the need to install Perl. This is \emph{not}
-\package{biber}-friendly: it assumes you will run \bibtex. Although it
-is reputed to be possible to convert it to run \package{biber} by
+\package{Biber}-friendly: it assumes you will run \bibtex. Although it
+is reputed to be possible to convert it to run \package{Biber} by
 setting the environment variable |BIBTEX| to |biber|, I have not had
 any success doing so. In my view, it's better to install and use
-either \package{latexmk} or \package{arara}.
+either \package{latexmk} or \package{Arara}.
 
 \section{Editors}
 
+\index{editors}
 There are many different editors available and commonly used for
 \LaTeX, most of which offer at least some support for the use of
-\package{biber} and \package{biblatex}. For some, such as
+\package{Biber} and \biblatex. For some, such as
 \package{Emacs} with \package{AUC\TeX}, support is already built
 in. In other cases it is necessary to add or adjust the editor's
-setting in order to configure it to use \package{biber} rather than
+setting in order to configure it to use \package{Biber} rather than
 \bibtex. Given the vast number of editors, each slightly different,
 and the speed at which they change, it's not practical to give
 detailed instructions here. Information, periodically updated, may be
@@ -128,13 +133,14 @@ found at
 \url{http://tex.stackexchange.com/questions/154751/biblatex-with-biber-configuring-my-editor-to-avoid-undefined-citations}.
 
 A practical alternative to configuring your editor to use
-\package{biber} is to configure it to use \package{latexmk} or
-\package{arara}, as described above.
+\package{Biber} is to configure it to use \package{latexmk} or
+\package{Arara}, as described above.
 
 \section{Maintaining Databases}
 
+\index{BibDesk@\package{BibDesk}}\index{JabRef@\package{JabRef}}
 You can always maintain a database yourself, through a decent text
-editor. Some editors (such as Emacs) have a special mode for editing
+editor. Some editors (such as \package{Emacs}) have a special mode for editing
 \bibtex\ datatabase files, which makes the process much smoother. But
 there is also software designed to do this for you. Two commonly used
 tools are \package{JabRef} and (for Mac OSX) \package{BibDesk}. Each
