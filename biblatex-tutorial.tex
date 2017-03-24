@@ -82,6 +82,8 @@
 
 \makeindex[columns=2]
 
+\newcommand{\releasedate}{2017}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % INCLUSIONS
 
@@ -105,13 +107,44 @@
              }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Biblatex}
+\title{Biblatex}             
 
 \author{Paul Stanley}
 
 \date{2017}
 
 \begin{document}
+
+% The following code to deal with subtitles is adapted from
+% Ryan Spencer's post at
+% https://groups.google.com/forum/#!topic/tufte-latex/fPP20IOzPP0
+\makeatletter
+\newcommand{\subtitle}[1]{
+  \gdef\@subtitle{#1}}
+
+\renewcommand{\maketitlepage}[0]{%
+  \cleardoublepage%
+  {%
+   \sffamily%
+   \begin{fullwidth}%
+     \fontsize{18}{20}\selectfont\par\noindent\textcolor{darkgray}%
+     {\allcaps{\thanklessauthor}}%
+   \vspace{11.5pc}%
+   \fontsize{24}{40}\selectfont
+   \par\noindent\textcolor{darkgray}{\allcaps{\thanklesstitle}}%
+    \ifdefined\@subtitle
+     {\fontsize{14}{38}\selectfont
+      \par\noindent\textcolor{darkgray}{\allcaps{\@subtitle}}}%
+    \fi
+      \vfill%
+    \fontsize{14}{16}\selectfont\par\noindent\allcaps{\releasedate}%
+    \end{fullwidth}%
+    }
+    \thispagestyle{empty}%
+    \clearpage}
+\makeatother
+  
+\subtitle{An Easier Read}
 
 \frontmatter
 \include{frontmatter}
