@@ -38,8 +38,8 @@ do this' approach, which will work in many cases.
  \begin{pseudoverb}
  \cs{usepackage}[utf8]\{inputenc\}
  \end{pseudoverb}
-\item Load \package{babel}\footnote{Or, if you use it,
-    \package{polyglossia}.} with your preferred
+\item Load \package{babel}, or, if you use it,
+    \package{polyglossia}, with your preferred
   language.\marginnote{\newcommand{\english}{{\normalfont
         (English)}}The language options are: \ttfamily american
     \english, australian \english, austrian, brazil, british \english,
@@ -49,6 +49,7 @@ do this' approach, which will work in many cases.
  \begin{pseudoverb}
    \cs{usepackage}[\angled{language}]\{babel\}
  \end{pseudoverb}
+ This should be done, and any language selection made, \emph{before} loading \biblatex.
 \item Load \package{csquotes} with an appropriate quotation style:
  \begin{pseudoverb}
    \cs{usepackage}[style=\angled{language}]\{csquotes\}

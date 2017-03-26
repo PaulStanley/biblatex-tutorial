@@ -40,6 +40,7 @@ see      &   Jones \ldots\    \\
          &   ibid.        &  202 \\
 \bottomrule
 \end{tabular}
+\vspace{3pt}
 \caption{The structure of citations}
 \end{margintable}
 
@@ -91,7 +92,7 @@ supra n. \ldots, if that would be correct).
 
 \paragraph{\textbackslash footcite and \textbackslash parencite.}\csindex{parencite} The
 \cs{footcite} command tries to put its citation in a footnote. So
-\cs{footcite\{jones\}} is equivalent to \cs{footnote\{\textbackslash
+\cs{footcite\{jones\}} is means the same thing as \cs{footnote\{\textbackslash
   cite\{jones\}.\}} --- syntactic sugar. The \cs{parencite} command
 does a similar thing, but it wraps its citation in parentheses, so
 that it is equivalent to \texttt{(\cs{cite\{jones\}})}.
@@ -453,7 +454,7 @@ references in the form `Art. x', so that \cs{cite[2]\{key\}} gives us
 just get `p.', because \texttt{article} is not a
 pagination type that \biblatex\ knows.
 
-How can we `teach' \biblatex\ a new pagination type? We simply need to
+How can we `teach' \biblatex\ a new pagination type? In this example, we simply need to
 define two bibstrings: article and articles:
 
 \begin{verbatim}
@@ -464,7 +465,7 @@ define two bibstrings: article and articles:
 \end{verbatim}
 Now all will work as intended. 
 
-\paragraph{Modifying standard prefixes} To change change the standard
+\paragraph{Modifying standard prefixes} To change the standard
 prefixes, you can use essentially the same trick -- only you don't
 need to define the relevant bibliography strings because they already
 exist. So, for instance, if you wanted the abbreviation for page to be

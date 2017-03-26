@@ -259,12 +259,14 @@ If that doesn't look right for you, you will need either to try to
 identify an existing numeric bibliography style which is correct, or
 to adapt the standard in some way.
 
-\index{bibliography style!numeric!sorting citations}\index{bibliography style!numeric!compressing citations}
+\index{bibliography style!numeric!sorting
+  citations}\index{bibliography style!numeric!compressing citations}
 \newthought{Sorting is the next thing} to consider. In \biblatex\ that
 is dealt with by a package option which specifies the sorting method
-to be used. If you are used to \package{bibtex} this will be
-unfamiliar to you, because traditionally \package{bibtex} `baked in'
-the sorting mechanism to the bibliography style.
+to be used. If you are used to \bibtex\ this will be unfamiliar to
+you, because traditionally \bibtex\ `baked in' the sorting mechanism
+to the bibliography style, whereas in \biblatex\ it can easily be
+changed.
 
 By default, the numeric styles in \biblatex\ sort the references into
 alphabetical order: looking first at the name of the author or editor,
@@ -625,7 +627,7 @@ three questions:
   do, then
 \begin{quote}
 \ttfamily
-Some \verb|\parencite{smith}}| have pointed out that this is an unnecessarily
+Some \verb|\parencite{smith}| have pointed out that this is an unnecessarily
 complex range of options \verb|\parencite[100]{smith}|.
 \end{quote}
 will give you 
@@ -659,7 +661,7 @@ citations sorted but not compressed, you can use an uncompressed style
 but set the \verb|sortcites| option.)
 
 \newthought{Customization} is not often required, but resembles that
-for the author/year styles.\intref{And see chapter \ref{ch:recipes}.}
+for the author/year styles.\intref{And see chapter \ref{ch:recipes}}
 \begin{itemize}
 \item \index{bibliography style!author/title!names} Customization of
   the number of names printed in citations and the bibliography is
@@ -673,7 +675,7 @@ for the author/year styles.\intref{And see chapter \ref{ch:recipes}.}
 \end{verbatim}
 \item The delimiter between multiple citations is usually a
   semicolon. To change it, redefine \cs{multicitedelim}.
-\item If you are using ibid,\intref{Page \pageref{ibidtracking}.} you
+\item If you are using ibid,\intref{Page \pageref{ibidtracking}} you
   can configure it using the options given above.
 \end{itemize}
 \indexstop{bibliography style!author/title!standard}
