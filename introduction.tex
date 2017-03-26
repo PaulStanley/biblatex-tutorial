@@ -1,12 +1,16 @@
-%!Tex Root = biblatex-tutorial.tex
-\chapter{What is \package{Biblatex}?}
+\chapter{What is \package{Biblatex}?}\label{ch:introduction}
 
 This chapter has two different sections, intended for different
 audiences. If you are new to automated bibliography tools in \LaTeX,
-then you should read the first section.\intref{p~\pageref{newbie}} If you
-already have experience of using automated bibliography tools in
+then you should read the first section.\intref{p~\pageref{newbie}} If
+you already have experience of using automated bibliography tools in
 \LaTeX, such as \bibtex\ and \package{Natbib}, then you can probably
-jump straight to the second section.\intref{p~\pageref{expert}}
+turn straight to the second section.\intref{p~\pageref{expert}} If you
+are prefer to jump in and start getting your hands dirty without much
+explanation, there is a quickstart section at the back of this
+guide,\intref{p~\pageref{ch:quickstart}} along with an aide memoire to
+the frequently used commands and
+options.\intref{p~\pageref{ch:cheatsheet}}
 
 \section{For the true neophyte}
 
@@ -97,7 +101,7 @@ you may wish to cite. The format of such a file is described in
 chapter \ref{ch:database}. It is a plain text file, which you can
 either produce by hand (using a text editor, such as the one you use
 to write \LaTeX\ source code) or can be maintained by one of a number
-of available `helper' programs.\intref{chapter:tools}
+of available `helper' programs.\intref{Chapter \ref{ch:tools}}
 
 The \LaTeX\ source file conventionally has the suffix \texttt{.tex}
 and contains all your text, marked up in \LaTeX\ format. It also
@@ -179,9 +183,9 @@ file (I'll call mine \texttt{test.tex}):\intref[1.5in]{Much more about
 \addbibresource{handbook.bib}
 \begin{document}
 
-As Nussbaum comments \cite[17]{nussbaum:95}: ``The utilitarian 
-picture of human beings and of rationality is familiar enough in
-theory''.
+As Nussbaum comments \cite[17]{nussbaum:95}: 
+\enquote{The utilitarian picture of human beings and 
+of rationality is familiar enough in theory}.
 
 \printbibliography
 \end{document}
@@ -202,9 +206,8 @@ citation, it doesn't yet have the data that will enable it to
 construct that citation, since \package{Biber} has not been run.
 
 Now, from a terminal window opened in the same directory, run
-\begin{verbatim}
-biber test
-\end{verbatim}
+\framebox{\parbox{\linewidth}{\texttt
+biber test}}
 
 Hopefully, you will see a number of messages marked as `INFO', ending
 with \texttt{INFO -- Output to test.bbl}.
@@ -230,10 +233,11 @@ questions:\marginnote{\textit{Debugging}\\1. \cs{addbibresource}?\\2. Run
   chapter~\ref{ch:troubleshooting}.} (1) have I told \biblatex\ where
 to find the bibliography file (using |\addbibresource{}|? (2) Have I
 run \LaTeX\ then \package{Biber} then \LaTeX\ again? (3) Did
-\package{Biber} report any errors? (4) Is my citation \emph{key}
-correct (e.g., you haven't typed |nusbaum| for |nussbaum| in the
-\LaTeX\ source? (5) Does the |.bib| file include that citation? (6) Is
-the syntax of the citation correct?
+\package{Biber} report any errors? (If you like, you can check the logfile at
+\angled{jobname}|.blg|) (4) Is my citation \emph{key} correct (e.g.,
+you haven't typed |nusbaum| for |nussbaum| in the \LaTeX\ source? (5)
+Does the |.bib| file include that citation? (6) Is the syntax of the
+citation correct?
 
 \subsection{What next}
 
@@ -264,7 +268,7 @@ page \pageref{bibtex:simple:eg}.)
 
 \subsection{Differences}
 
-So, what are the main differences?
+So, what are the main differences?\footnote{See also \url{http://tex.stackexchange.com/questions/25701/bibtex-vs-biber-and-biblatex-vs-natbib}}
 \begin{itemize}
 \item There is a big difference in the essential way in which
   \biblatex\ and traditional \bibtex-based systems work. In
@@ -293,10 +297,12 @@ fall anto one of three groups.
 Some people \emph{need} to stick with traditional \bibtex. For
 instance, if you are submitting work to a journal which has a \bibtex\
 style which it requires you to use, then you should \emph{not} switch
-to \biblatex, at least for that paper. And if you frequently or
-sometimes need to use \bibtex, you should try to keep your |.bib|
-files compatible with it (for instance, continue to use |year| rather
-than |date| fields).
+to \biblatex, at least for that paper. Many journals are in just that
+position, and very few (if any) have adopted \biblatex. And if you
+frequently or sometimes need to use \bibtex, you should try to keep
+your |.bib| files compatible with it (for instance, continue to use
+|year|, |journal| and |address| rather than |date|, |journaltitle| and
+|location| fields).
 
 Some people \emph{don't need} to switch. If you have existing \bibtex\
 styles which work for you, and do everything you need, then there is

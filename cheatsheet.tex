@@ -1,6 +1,4 @@
-%!TEX root=biblatex-tutorial.tex
-\chapter{In brief}
-
+\chapter{Aide memoire and cheat sheet}\label{ch:cheatsheet}
 
 \paragraph{Load \biblatex\ and \package{csquotes}}
 \begin{pseudoverb}
@@ -19,10 +17,11 @@ Always add a bibliography file with
 \cs{usepackage}[\angled{language}]\{babel\}\\
 \emph{or} \cs{usepackage}\{polyglossia\}
 \end{pseudoverb}
+Load these before \biblatex.
 
 \paragraph{Encodings and accents} Use \smallcaps{utf-8} in |.bib|
 file, or use \TeX\ accent commands |\`| etc. Prefer unicode. Set input
-encoding of |.tex| file with \package{inputenc}.
+encoding of |.tex| file with \package{inputenc}, or use Xe\TeX\ or Lua\TeX.
 
 \paragraph{Citations}
 Use |\autocite| and |\cite| in all styles. Use |\textcite| for
@@ -45,7 +44,7 @@ Citation commands take the form:
 \begin{itemize}
 \item Run \LaTeX.
 \item Run \package{Biber}.
-\item Run \LaTeX\ twice more.
+\item Run \LaTeX\ once or twice more.
 \end{itemize}
 
 \paragraph{Database} Entries take the form

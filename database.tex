@@ -1,4 +1,3 @@
-%!TEX root=biblatex-tutorial.tex
 \chapter{The Database File}\label{ch:database}
 
 This chapter is intended as a basic introduction to database files. It
@@ -473,6 +472,7 @@ We therefore enter:
   maintitle = {Elementary Stylistics},
   title     = {Grammatical Solecisims},
   subtitle  = {Dangling Participles and Misplaced Modifiers},
+  volume    = 234,
 }
 \end{Verbatim}
 It is better to divide title and sub-title in this way because,
@@ -747,13 +747,21 @@ The publication details are entered using fields for:
 \item |issue| for the journal's issue (if any) (such as `Spring' --
   there are also |issuetitle| and |issuesubtitle| fields, which can be
   used where a particular issue has a special title which ought to be
-  cited.
+  cited). Use |number| strictly for numerical subdivisions and |issue|
+  for anything else. No matter that the journal you are dealing with
+  call this its `Christmas number': you will call it the |issue = {Christmas}|.
+  And no matter the journal says this is volume 5, \emph{issue}
+  2: you will call it |number = 2|.
+\item |pages| for the pages occupied by the article in question.
+\item |date| for the date of the publication.
+\item |year| available only for backward compatibility with
+  \bibtex. Unless you need that, use the |date| field.
 \item |month| for the journal's month, if that matters for
   citation. This should be either an integer (1 = January, and so
   forth) \emph{or} a three letter code which should be entered
-  \emph{without} braces: |jan| not |{jan}|.
-\item |pages| for the pages occupied by the article in question.
-\item |date| for the date of the publication.
+  \emph{without} braces: |jan| not |{jan}|. It is only there for
+  backward compatibility with \bibtex. Unless you need that, you can just include the month as part of the |date|.
+
 \end{itemize}
 
 So we can complete our partial citation:

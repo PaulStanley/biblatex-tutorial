@@ -1,0 +1,177 @@
+\chapter{Quick start guide}\label{ch:quickstart}
+
+\biblatex\ is a modern, and vastly more flexible, replacement for
+\bibtex\ for those needing to automate bibliography production in
+\LaTeX. These pages provide a very quick `quick start' guide. A rather
+more carefully explained guide is found in
+chapter~\ref{ch:introduction}, and of course much more information
+throughout the guide, and in the \biblatex\ manual.
+
+\section{Step 1: Create a \texttt{.bib} file}
+Containing the bibliographical data. \biblatex\ follows the basic
+structure of \bibtex, but expands on
+it.\intref{Chapter~\ref{ch:database}} An example is shown in figure~\ref{quickstart:bib}.
+
+\begin{figure}
+\strut
+  \begin{minipage}[t]{0.7\linewidth}
+    \ttfamily
+ @book\{\colorbox{blue!15}{work:1},\tikz{\node(iskeynode)[shape=coordinate]{};}\\
+  author       = \{Aristotle\},\\
+  title        = \{De Anima\},\\
+  date         = 1907,\\
+  editor       = \{Hicks, Robert Drew\},\\
+  publisher    = \{CUP\},\\
+  location     = \{Cambridge\},\\
+\}\\
+\end{minipage}\begin{minipage}[t]{0.7\linewidth}
+  \small\sffamily\strut\vspace{1pc}
+  
+  \tikz{\node(iskeycommentnode)[shape=coordinate]{};} Key: a unique
+key chosen by you and used in \cs{cite} commands to refer to this
+source.
+\end{minipage}
+\begin{tikzpicture}[overlay, line width=1pt]
+  \draw[red, arrows=<-] (iskeynode) -- (iskeycommentnode);
+\end{tikzpicture}
+\caption{A sample \texttt{.bib} file entry}
+\label{quickstart:bib}
+\end{figure}
+
+\section{Step 2: Write source file}
+
+Prepare your source file, loading the \biblatex\ package, adding your
+|.bib| file as a resource, and including citations and a
+bibliography. An annotated same file appears in
+figure~\ref{quickstart:tex}.
+
+\begin{figure}
+\begin{minipage}[t]{0.7\linewidth}
+  \ttfamily
+  \cs[article]{documentclass}\\
+  \vspace{1pc}
+  \colorbox{blue!15}{\parbox{0.67\textwidth}{
+  \cs[polyglossia]{usepackage}\\
+  \cs[english]{setdefaultlanguage}\tikz{\node(polyglossianode)[shape=coordinate]{};}}}\\
+  \vspace{1pc}
+  \colorbox{blue!15}{\cs[csquotes]{usepackage}}\tikz{\node(csquotenode)[shape=coordinate]{};}\\
+  \vspace{1pc}
+  \colorbox{blue!15}{\parbox{0.65\textwidth}{
+  \cs[T1][fontenc]{usepackage}\\
+  \cs[utf8][inputenc]{usepackage}}}\tikz{\node(encodingnode)[shape=coordinate]{};}\\
+  \vspace{4pc}
+  \colorbox{blue!15}{\cs[\colorbox{blue!30}{\tikz{\node(optionsnode)[shape=coordinate]{};}style=authoryear}][biblatex]{\raisebox{6pt}{\tikz{\node(biblatexnode)[shape=coordinate]{};}}usepackage}}\\
+   \vspace{4pc}
+  \colorbox{blue!15}{\cs[\colorbox{blue!30}{\tikz{\node(bibfilenamenode)[shape=coordinate]{};}refs.bib}]{\raisebox{6pt}{\tikz{\node(addbibnode)[shape=coordinate]{};}}addbibresource}}\\ 
+  \vspace{1pc}
+  \cs[document]{begin}\\
+  \vspace{2pc}
+  In \colorbox{blue!15}{\cs
+    [\colorbox{blue!30}{work:1}]
+    {\raisebox{6pt}{\tikz{\node(citenode)[shape=coordinate]{};}}cite}} someone
+  said something interesting. And also in\\
+  \colorbox{blue!15}{\cs[\colorbox{blue!30}{\tikz{\node(keynode)[shape=coordinate]{};}work:2}]{cite}}.\\
+  \vspace{2pc}
+  \colorbox{blue!15}{\cs{printbibliography}}\tikz{\node(printbibliographynode)[shape=coordinate]{};}\\
+  \vspace{1pc}
+  \cs[document]{end}
+\end{minipage}%
+\begin{minipage}[t]{0.7\linewidth}
+  \sffamily\small
+  \vspace{1pc}
+  \tikz{\node(langnode)[shape=coordinate]{};} It is not necessary to use \texttt{polyglossia} or \texttt{babel},
+  but if they are used they should be loaded first. For more
+  information on \biblatex\ and languages, see chapter
+  \ref{ch:languages}.
+  \vspace{1pc}
+  
+  \tikz{\node(csqoptionalnode)[shape=coordinate]{};} Optional,
+  but a good idea.
+
+  \vspace{1pc} \tikz{\node(encodingcommentnode)[shape=coordinate]{};}
+  Optional (and only applicable to \textsc{pdf}\TeX). But
+  desirable to enable the use of unicode-encoded input files and
+  modern fonts. An alternative is to use Xe\TeX\ or Lua\TeX\, which
+  handle these matters natively.
+
+  \vspace{1pc}
+
+  \tikz{\node(biblatexcommentnode)[shape=coordinate]{};} Load \biblatex.
+  \vspace{1pc}
+  
+  Here we use the
+  \texttt{style} option to choose a style for citations
+  \tikz{\node(optionscommentnode)[shape=coordinate]{};}and
+  bibliography. There are numerous options to customize in various ways.
+
+  \vspace{1pc}
+  \strut\raisebox{6pt}{\tikz{\node(addbibcommentnode)[shape=coordinate]{};}}
+  Identify the files where the bibliographical data will be found. Can
+  have multiple \cs{addbibresource} statements.
+  
+  \vspace{0.5pc}
+  \tikz{\node(bibfilenamecommentnode)[shape=coordinate]{};} Include the
+  full filename, including extension (conventionally
+  \texttt{.bib}. For detail about the format of this file see chapter~\ref{ch:database}.
+
+  \vspace{1.3pc}
+  \tikz{\node(citecommentnode)[shape=coordinate]{};} Citations use
+  \cs{cite} commands: for other possibilities see
+  chapter~\ref{ch:citationcommands}
+
+  \vspace{2.2pc}
+  \tikz{\node(keycommentnode)[shape=coordinate]{};} Key as defined in
+  the |.bib| file.
+
+  \vspace{2pc}
+  \tikz{\node(printbibcommentnode)[shape=coordinate]{};} Print
+  the bibliography. See chapter~\ref{ch:bibliographyformat}.
+
+\end{minipage}
+\begin{tikzpicture}[overlay,line width=1pt]
+  \draw[red, arrows=<-] (polyglossianode.south) -- (langnode.west);
+  \draw[red, arrows=<-] (csquotenode.east) -- (csqoptionalnode.west);
+  \draw[red, arrows=<-] (encodingnode.east) --
+  (encodingcommentnode.west);
+  \draw[red, arrows=<-] (addbibnode.south) |- (addbibcommentnode.north);
+  \draw[red, arrows=<-] (bibfilenamenode.south) |-  (bibfilenamecommentnode.south);
+  \draw[red, arrows=<-] (biblatexnode.north) |-
+  (biblatexcommentnode.north);
+  \draw[red, arrows=<-] (optionsnode.south) |-
+  (optionscommentnode.south);
+  \draw[red, arrows=<-] (citenode.north) |- (citecommentnode.west);
+  \draw[red, arrows=<-] (keynode.south) |- (keycommentnode.south);
+  \draw[red, arrows=<-] (printbibliographynode.east) -- (printbibcommentnode.west);
+\end{tikzpicture}
+\caption{A sample \texttt{.tex} file.}
+\label{quickstart:tex}
+\end{figure}
+
+\section{Step 3: Compile the \LaTeX\ source}
+
+Compile the \LaTeX\ source file, using |pdflatex|, |xelatax|, or
+|lualatex|.
+
+\section{Step 4: Run \package{Biber}}
+
+Run the \package{Biber} program to prepare bibliographical data. Do
+this by running
+\begin{pseudoverb}
+  \centering
+  biber \angled{basename}\\
+  {\normalfont\itshape or} \\
+  biber \angled{basename}.bcf
+\end{pseudoverb}
+
+\section{Steps 5 \ldots: Run \LaTeX\ at least once more}
+
+Run \LaTeX\ at least once, and sometimes twice more. It will read in
+the citation data that \package{Biber} has prepared, produce the
+bibliography and citations, and prepare the final text.
+
+
+%%% Local Variables: 
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-master: "biblatex-tutorial"
+%%% End: 
