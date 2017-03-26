@@ -55,6 +55,22 @@ is shown in table \ref{maxnames}.
 \caption{Effect of \texttt{maxnames} and \texttt{minnames}\label{maxnames}}
 \end{table}
 
+Sometimes you will find that you get results which are not what you
+are expecting. When it truncates a name, \biblatex\ can be configured
+to consider whether the resulting list is unique. If it isn't,
+\biblatex\ may add extra names in order to produce a unique list. For
+example, suppose you are citing one work by Tom, Dick, and Harry; and
+one work by Tom, Dick, and Harriet, and have set |maxnames| to 2 and
+|minnames| to 1. Simply applying the ordinary rules, each work would
+end up with the authors given as `Tom et al.' But in some styles it
+may sometimes make sense to bend the rules if by doing so it is
+possible to produce a `unique' citation. This is done by setting the
+option |uniquelist=true|.\manref{3.6.1} In fact many standard styles
+(such as author/year and author/title styles \emph{already do
+  that}. So if you think that \biblatex\ is `disobeying' your
+instructions about truncation, you might try adding the option
+|uniquelist=false| when loading it.
+
 \index{customization!et al@\emph{et al}}
 \paragraph{I want something different from `et al' printed when names
   are truncated.} What gets printed in this case depends on the
@@ -114,7 +130,7 @@ obliged to provide this option, but most will do so.
 
 \index{customization!initials}
 \paragraph{I want to have all names abbreviated to initials.} Set the
-option |firstinits=true| when loading \biblatex.
+option |giveninits=true| when loading \biblatex.
 
 \index{customization!initials}
 \paragraph{I want to have initials printed in a different way.} By
@@ -138,12 +154,12 @@ While by combining |terseinits=false| with |\renewcommand{\bibinitperiod}{}| you
 
 There is, however, a catch. None of these changes will operate unless
 \biblatex\ is producing the initials. In other words, none works
-unless the |firstinits| option is in effect. Where names are being
+unless the |giveninits| option is in effect. Where names are being
 printed in full, initials that you have entered will be printed (as
 entered) with full stops and spaces, regardless of the settings of
 |terseinits| or |\bibinitperiod|. (There are ways around this, but
 they are beyond the scope of this section: the curious might look at
-the OSCOLA package code, which does something along these lines.)
+the \package{\textsc{oscola}} package code, which does something along these lines.)
 
 \index{customization!names}
 \paragraph{I want names printed in bold/italic/small capitals etc.}
@@ -215,21 +231,21 @@ is there if you need it.\intref{Biblatex Manual § 12}
 infinite flexibility, in practice there are three common patterns to
 how names are printed:
 \begin{itemize}
-\item In `ordinary' order: first name then last name --- Joe Bloggs
+\item In `ordinary' order: given name then family name --- Joe Bloggs
   and John Doe.
-\item In `reverse' order: last name then first name --- Bloggs, Joe
+\item In `reverse' order: family name then given name --- Bloggs, Joe
   and Doe, John.
-\item With the first name in the list reversed, but the other in
+\item With the given name in the list reversed, but the other in
   ordinary order --- Bloggs, Joe and John Doe.
 \end{itemize}
 Styles generally set these sensibly, but if you do not like the
 choice, you can usually change it without much difficulty. The command
 you need is
 \begin{pseudoverb}
-  \cs[sortname]{DeclareNameAlias}\{\cs[order]{angled}
+  \cs[sortname]{DeclareNameAlias}\{\angled{order}\}
 \end{pseudoverb}
-Where \angled{order} can be |first-last| (for ordinary order),
-|last-first| (for reversed order) or |last-first/first-last| (for the
+Where \angled{order} can be |given-family| (for ordinary order),
+|family-given| (for reversed order) or |family-given/given-family| (for the
 hybrid form). Some styles reset this at the start of the bibliography,
 in which case you \emph{also} need (in your preamble)
 \begin{pseudoverb}
@@ -251,11 +267,15 @@ for it. You tell the package your name (using the \cs{omitname}) macro
 
 There are many configurable punctuation marks in \biblatex---too many
 to deal with comprehensively here. In this section I'm only going to
-cover some particularly common cases.
+cover some particularly common cases.\marginnote[-8ex]{In general, I use the
+  technique of redefining macros. An alternative method, using
+  \cs{DeclareDelimFormat} is also possible, and may be better if you are
+  writing a complex style. For an example see p
+  \pageref{declaredelim}.}
 
 \index{punctuation!before postnote}
 \paragraph{I want different punctuation before a postnote.}
-\begin{marginfigure}[12ex]
+\begin{marginfigure}
 \fbox{\includegraphics{examples/punctcite.pdf}}
 \vspace{3pt}%
 \caption{Citation punctuation}\label{punctcite}
@@ -344,6 +364,35 @@ You can therefore redefine \cs{intitlepunct}, for instance to
    \renewcommand{\intitlepunct}{\addspace\nopunct}
 \end{Verbatim}
 to avoid any punctuation being added at that point.
+
+\index{customization!in@`In'!removal}
+\paragraph{I want to remove the reference to `in' altogether.}
+
+In that case
+\begin{verbatim}
+\renewbibmacro{in:}{}
+\end{verbatim}
+
+The trouble with this is that it removes `in' not only from, say,
+articles, but also from other types of source (such as |incollection|)
+where it may still be needed. In that case, you need a more complex
+revision.\footnote{Thanks to Herbert:
+  \url{http://tex.stackexchange.com/questions/10682/suppress-in-biblatex}},
+using \cs[\angled{type}]{ifentrytype}. The following, for instance will
+suppress `in' for |article| and |inproceedings| only, and you should
+be able to work out how to adapt it.
+\begin{verbatim}
+\renewbibmacro{in:}{%
+  \ifboolexpr{%
+     test {\ifentrytype{article}}%
+     or
+     test {\ifentrytype{inproceedings}}%
+  }
+   {}%<-nothing
+   {\printtext{\bibstring{in}\intitlepunct}}%<-normal 'in' with punctuation
+}
+\end{verbatim}
+
 
 \index{customization!labels in parentheses}
 \paragraph{I am using a numeric style, but I want my citations to

@@ -534,15 +534,26 @@ A second adjustment you might want to make is to
 punctuation:\intref{See generally, chapter \ref{ch:recipes}.}
 \begin{itemize}
 \item You might change the punctuation between author and the year. By
-  default it is a space; but you can change it by renewing the
-  \verb|\nameyeardelim|. For instance, if you wanted to place a colon,
-  rather than a comma, you would
+  default it is a space; one way to change it is by renewing the
+  \verb|\nameyeardelim|.\intref{For more information about delimiters,
+    and some more complex ways of handling them, see \emph{Manual},
+    \S~3.10.2} For instance, if you wanted to place a colon, rather
+  than a comma, you would
 \begin{verbatim}
-\renewcommand{\nameyear}{\addcolon\space}
+\renewcommand{\nameyeardelim}{\addcolon\space}
 \end{verbatim}
-and citations would become `Author: 1980', and so forth.
+  and citations would become `Author: 1980', and so forth. Another way
+  of changing it uses the command
+  \cs{DeclareDelimFormat}\manref{3.10.2}. So the same result is
+  achived with\label{declaredelim}
+\begin{verbatim}
+\DeclareDelimFormat{nameyeardelim}{\addcolon\space}
+\end{verbatim}
+  Note that if you used the |\DeclareDelimFormat| method, the name of
+  the delimiter is not preceded by a backslash.
 \item You can change the punctuation between multiple citations, by
-  changing \verb|\multicitedelim|.
+  changing \verb|\multicitedelim|, either using |\renewcommand| or
+  using |\DeclareDelimFormat|.
 \end{itemize}
 
 \index{bibliography style!author/year!ibid}\index{ibid!ibidtracker option@\texttt{ibidtracker} option}

@@ -57,7 +57,7 @@ argument is called the \texttt{prenote} and specifies the `signal'.
                    & \textsf{prenote}  & \textsf{postnote} &  \textsf{key} \\
 \midrule
 \cs{cite[See also][]\{jones\}}   & See also    &        & jones \\
-\cs{cite[p. 24]\{jones\}}        &             & p. 24  & jones \\
+\cs{cite[24]\{jones\}}           &             & p. 24  & jones \\
 \cs{cite[cf.][ch. 3]\{jones\}}   & cf.         & ch. 3  & jones \\
 \cs{cite[see][]\{jones\}}        & see         &        & jones \\
 \bottomrule
@@ -202,16 +202,17 @@ Jones (``Title'', p.~9) says                                                    
 
 \section{Capital Forms}
 
-\indexstart{citation!commands!capital forms}
-Each of \cs{cite}, \cs{parencite} and \cs{autocite} have `capital'
-forms (\cs{Cite}, etc) which are appropriate for use where a capital
-would be required. You might wonder why, since most citations already
-begin with a capital, or with a number. The only time capitalisation
-might be needed is if the citation begins with something like `von',
-and you want it capitalised. There is no special capital form of
-\cs{footcite} because it always assumes that the citation will begin a
-sentence so that a capital may be appropriate.
-\indexstop{citation!commands!capital forms}
+\indexstart{citation!commands!capital forms} Each of \cs{cite},
+\cs{parencite} and \cs{autocite} have `capital' forms (\cs{Cite}, etc)
+which are appropriate for use where a capital would be required. You
+might wonder why, since most citations already begin with a capital,
+or with a number. The only time capitalisation might be needed is if
+the citation begins with something like `von', and you want it
+capitalised, or if the footnote reads `ibid' and you need
+`Ibid'. There is no special capital form of \cs{footcite} because it
+always assumes that the citation will begin a sentence so that a
+capital may be appropriate.  \indexstop{citation!commands!capital
+  forms}
 
 \section{Specific to Numerical Styles}
 
