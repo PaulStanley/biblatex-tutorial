@@ -446,7 +446,7 @@ relevant code is as follows (to go in the preamble).
 
 \AtEveryCite{%
   \let\parentext=\parentexttrack%
-  \let\bibopenbracket=\bibopenparen%o
+  \let\bibopenbracket=\bibopenparen%
   \let\bibclosebracket=\bibcloseparen}
 
 \makeatother
@@ -503,8 +503,8 @@ punctuation marks to ensure a really smooth result.
 \item Loaded with the option |style=american|, you will get doubt
    quotation marks: ``Like This''.
 \item If, in addition to loading \package{csquotes} with the option
-   |style=american| you either load \package{babel} with the
-   |american| you will get the American style of handling punctuation
+   |style=american| you load \package{babel} or \package{polyglossia} with the
+   |american| language you will get the American style of handling punctuation
    and quotations, where punctuation is moved inside the quotation:
    ``like this,'' in most cases.
 \end{itemize}
@@ -596,6 +596,8 @@ publisher: just the place of publication. One way to do this is to
 \end{figure}
 
 For this purpose we use a \emph{sourcemap}, as follows
+
+\begin{minipage}{\textwidth}
 \begin{Verbatim}
 \DeclareSourcemap{
   \maps[datatype=bibtex]{
@@ -605,6 +607,9 @@ For this purpose we use a \emph{sourcemap}, as follows
   }
 }
 \end{Verbatim}
+\end{minipage}
+
+\vspace{1ex}
 What this basically means is that for any |.bib| file, the publisher
 field of each entry is to be set empty (|null|). This will be done by
 \package{biber} before any data enters the system. No publisher is
