@@ -51,9 +51,8 @@ figure~\ref{quickstart:tex}.
   \cs[article]{documentclass}\\
   \vspace{1pc}
   \colorbox{blue!15}{\parbox{0.67\textwidth}{
-  \cs[polyglossia]{usepackage}\\
-  \cs[english]{setdefaultlanguage}\tikz{\node(polyglossianode)[shape=coordinate]{};}}}\\
-  \vspace{1pc}
+  \cs[english][babel]{usepackage}\tikz{\node(polyglossianode)[shape=coordinate]{};}}}\\
+  \vspace{2pc}
   \colorbox{blue!15}{\cs[csquotes]{usepackage}}\tikz{\node(csquotenode)[shape=coordinate]{};}\\
   \vspace{1pc}
   \colorbox{blue!15}{\parbox{0.65\textwidth}{
@@ -82,7 +81,7 @@ figure~\ref{quickstart:tex}.
   \tikz{\node(langnode)[shape=coordinate]{};} It is not necessary to use \texttt{polyglossia} or \texttt{babel},
   but if they are used they should be loaded first. For more
   information on \biblatex\ and languages, see chapter
-  \ref{ch:languages}.
+  \ref{ch:languages}. 
   \vspace{1pc}
   
   \tikz{\node(csqoptionalnode)[shape=coordinate]{};} Optional,
