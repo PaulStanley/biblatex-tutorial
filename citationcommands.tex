@@ -454,13 +454,14 @@ references in the form `Art. x', so that \cs{cite[2]\{key\}} gives us
 just get `p.', because \texttt{article} is not a
 pagination type that \biblatex\ knows.
 
-How can we `teach' \biblatex\ a new pagination type? In this example, we simply need to
-define two bibstrings: article and articles:
+How can we `teach' \biblatex\ a new pagination type? In this example,
+we simply need to define two bibliography strings---article and
+articles:
 
 \begin{verbatim}
-\NewBibstring{article, articles}
-\DefineBibstrings{american}{% or relevant language
-   article = {Art\adddot}
+\NewBibliographyString{article, articles}
+\DefineBibliographyStrings{american}{% or your language
+   article  = {Art\adddot}
    articles = {Arts\adddot}}
 \end{verbatim}
 Now all will work as intended. 
@@ -472,8 +473,8 @@ exist. So, for instance, if you wanted the abbreviation for page to be
 “pg”, you could redefine the relevant strings as follows
 
 \begin{verbatim}
-\DefineBibstrings{american}% or your language
- {page = {pg},
+\DefineBibliographyStrings{american}{% or your language
+  page  = {pg},
   pages = {pgs}}
 \end{verbatim}
 \indexstop{citation!postnote}
