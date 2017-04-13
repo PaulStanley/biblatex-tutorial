@@ -8,7 +8,7 @@ you already have experience of using automated bibliography tools in
 \LaTeX, such as \bibtex\ and \package{Natbib}, then you can probably
 turn straight to the second section.\intref{p~\pageref{expert}} If you
 are prefer to jump in and start getting your hands dirty without much
-explanation, there is a quick-start section at the back of this
+explanation, there is a quick start section at the back of this
 guide,\intref{p~\pageref{ch:quickstart}} along with an aide memoire to
 the frequently used commands and
 options.\intref{p~\pageref{ch:cheatsheet}}
@@ -136,7 +136,8 @@ following things to happen:
   assuming that you will use a program called \package{Biber}.
 \item Run \LaTeX\ again, to `read in' the data that has now been put
   in digestible form, and produce the citations and bibliography.
-\item (Sometimes), run \LaTeX\ yet \emph{again} to finalise cross-references.
+\item (Sometimes), run \LaTeX\ yet \emph{again} to finalise
+  cross-references.
 \end{itemize}
 
 This `pattern' (\LaTeX, \package{Biber}, \LaTeX, [\LaTeX]) is repeated
@@ -207,14 +208,13 @@ citation, it doesn't yet have the data that will enable it to
 construct that citation, since \package{Biber} has not been run.
 
 Now, from a terminal window opened in the same directory, run
-\framebox{\parbox{\linewidth}{\texttt
-biber test}}
+\framebox{\parbox{\linewidth}{\texttt biber test}}
 
 Hopefully, you will see a number of messages marked as `INFO', ending
 with \texttt{INFO -- Output to test.bbl}.
 
-Now run \LaTeX\ again on the source file \verb|test.tex|. And if all
-is going well, you should now see output like figure \ref{nussbaum2}.
+Now run \LaTeX\ again on the source file |test.tex|. And if all is
+going well, you should now see output like figure \ref{nussbaum2}.
 
 \begin{figure}
 \fbox{\includegraphics{./examples/nussbaum2u.pdf}}
