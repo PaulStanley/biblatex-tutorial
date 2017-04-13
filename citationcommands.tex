@@ -3,7 +3,7 @@
 The heart of any citation package, from the user’s point of view, is
 the citation commands. These are what you use most. \biblatex\ offers a
 number of different commands. They follow a consistent pattern; so
-once you’ve mastered one it’s quite easy to grasp the others. Their
+once you've mastered one it’s quite easy to grasp the others. Their
 exact output depends on the citation style you are using.
 
 \index{citation!general form}
@@ -240,7 +240,7 @@ There are a number of citation commands that are not intended to print
 complete citations, but to pull potentially useful snippets out of a
 source record, and treat it is a citation. They are mostly, though not
 exclusively, useful in author/title and author/year styles, where
-citations are ofte quite tightly woven into the text.
+citations are often quite tightly woven into the text.
 
 \csindex{citeauthor}\csindex{citetitle}\index{citation!commands!author}\index{author!citing name}\index{citation!commands!title}\index{title!citing title}
 \paragraph{Author or title alone.} The commands \cs{citeauthor} and
@@ -359,7 +359,7 @@ To stop all additions, for every source:
 \begin{center}
 \verb|\DeclareFieldFormat{postnote}{#1}|
 \end{center}
-This is most appropriate when you are customizing \biblatex\ for a
+This is most appropriate when you are customising \biblatex\ for a
 style which does not use any prefixes in general.
 
 \index{citation!postnote!force prefixes}
@@ -382,7 +382,7 @@ pages). (In theory, the \cs{pno} and \cs{ppno} commands could be
 adjust automatically. In the real world, there's probably not much
 practical advantage.
 
-\index{citation!postnote!latin gadgets}\csindex{psq}\csindex{psqq}
+\index{citation!postnote!Latin gadgets}\csindex{psq}\csindex{psqq}
 \paragraph{Latin gadgets for multiple pages}There is one special
 common case. Suppose you want `p.~20~ff.' or `p.~20 et seq.'  You
 could of course enter the whole postnote manually. But you can also
@@ -419,7 +419,7 @@ a citation might confuse \biblatex, so that it adds `p.' when you need
 yourself, or use the \cs{pno} or \cs{ppno} commands, as explained
 above.
 
-\index{citation!postnote!customization}\index{customization!postnote}
+\index{citation!postnote!customisation}\index{customisation!postnote}
 \paragraph{You want something \ldots\ but not `pp.'} Some sources
 don't use pages for pinpoint citations. For instance, suppose you are
 citing a work which is normally referred to by section, not page. In
@@ -448,7 +448,7 @@ pagination recognised, and their results, is shown in table
 
 
 That’s fine so long as \biblatex\ recognises the pagination type. But if
-it doesn’t, you will get odd results. For instance, suppose we want
+it doesn't, you will get odd results. For instance, suppose we want
 references in the form `Art. x', so that \cs{cite[2]\{key\}} gives us
 `Art. 2'. If we enter the pagination as \texttt{article}, however, we
 just get `p.', because \texttt{article} is not a
@@ -570,7 +570,7 @@ the end of the list:
 \verb|\cites[10]{key1}[20]{key2}\relax [`the principal works']|
 \end{center}
 
-All the main citation commands (and their capitalized forms) have
+All the main citation commands (and their capitalised forms) have
 multiple versions, consistently named: see table \ref{multicites}.
 \indexstop{citation!multiple}
 
