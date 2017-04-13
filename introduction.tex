@@ -1,3 +1,4 @@
+
 \chapter{What is \package{Biblatex}?}\label{ch:introduction}
 
 This chapter has two different sections, intended for different
@@ -7,7 +8,7 @@ you already have experience of using automated bibliography tools in
 \LaTeX, such as \bibtex\ and \package{Natbib}, then you can probably
 turn straight to the second section.\intref{p~\pageref{expert}} If you
 are prefer to jump in and start getting your hands dirty without much
-explanation, there is a quickstart section at the back of this
+explanation, there is a quick-start section at the back of this
 guide,\intref{p~\pageref{ch:quickstart}} along with an aide memoire to
 the frequently used commands and
 options.\intref{p~\pageref{ch:cheatsheet}}
@@ -57,7 +58,7 @@ there are disadvantages to doing that:
   change all the numbering. Or if you follow a system which uses
   abbreviations such as `ibid', `op.\ cit.' or references back to
   earlier notes, adding a single footnote can throw everything out. In
-  such systems it's not possible to finalize references until the
+  such systems it's not possible to finalise references until the
   document is complete: and every change can easily introduce errors.
 \end{itemize}
 
@@ -135,7 +136,7 @@ following things to happen:
   assuming that you will use a program called \package{Biber}.
 \item Run \LaTeX\ again, to `read in' the data that has now been put
   in digestible form, and produce the citations and bibliography.
-\item (Sometimes), run \LaTeX\ yet \emph{again} to finalize cross-references.
+\item (Sometimes), run \LaTeX\ yet \emph{again} to finalise cross-references.
 \end{itemize}
 
 This `pattern' (\LaTeX, \package{Biber}, \LaTeX, [\LaTeX]) is repeated
@@ -200,7 +201,7 @@ typeset document, it should look something like figure
 \caption{Before running \package{Biber}}\label{nussbaum1}
 \end{figure}
 
-The reference `[\textbf{nussbaum:95}]' appears in square brackets
+The reference `[\textbf{sebum:95}]' appears in square brackets
 because although \LaTeX\ can `see' that there is going to be a
 citation, it doesn't yet have the data that will enable it to
 construct that citation, since \package{Biber} has not been run.
@@ -233,7 +234,7 @@ questions:\marginnote{\textit{Debugging}\\1. \cs{addbibresource}?\\2. Run
   chapter~\ref{ch:troubleshooting}.} (1) have I told \biblatex\ where
 to find the bibliography file (using |\addbibresource{}|? (2) Have I
 run \LaTeX\ then \package{Biber} then \LaTeX\ again? (3) Did
-\package{Biber} report any errors? (If you like, you can check the logfile at
+\package{Biber} report any errors? (If you like, you can check the log file at
 \angled{jobname}|.blg|) (4) Is my citation \emph{key} correct (e.g.,
 you haven't typed |nusbaum| for |nussbaum| in the \LaTeX\ source? (5)
 Does the |.bib| file include that citation? (6) Is the syntax of the
@@ -292,7 +293,7 @@ So, what are the main differences?\footnote{See also \url{http://tex.stackexchan
 \indexstop{Biblatex!compared to bibtex}
 
 You may well be asking: should I use \biblatex? Most users probably
-fall anto one of three groups.
+fall into one of three groups.
 
 Some people \emph{need} to stick with traditional \bibtex. For
 instance, if you are submitting work to a journal which has a \bibtex\
@@ -317,7 +318,7 @@ before you are due to submit your doctoral thesis.
 Some people \emph{need} \biblatex. This is probably true if you work
 in the humanities and need sophisticated and complex styles such as
 traditional footnote-based citations systems, if you want to cite
-non-standard sources, if you need to handle large volumes of non-ascii
+non-standard sources, if you need to handle large volumes of non-ASCII
 characters or have complex sorting requirements, if you need to work
 in multiple languages.
 
