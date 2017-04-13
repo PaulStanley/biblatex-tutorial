@@ -1,13 +1,12 @@
-%!TEX root=biblatex-tutorial.tex
-\chapter{Customization: A Short Tour}\label{ch:customize1}
+\chapter{Customisation: A Short Tour}\label{ch:customize1}
 
 We are about to dive into the details of using \biblatex. As we go
 through them, we are going to be thinking a bit about
-customization.
+customisation.
 
-\textsf{Biblatex} is highly customizable. That, in the end, is its
+\textsf{Biblatex} is highly customisable. That, in the end, is its
 point. At one extreme, if you are setting out to write a bibliography
-style for general use you might be customizing a great deal. But at
+style for general use you might be customising a great deal. But at
 that point it gets very complicated. If you are trying to do anything
 that difficult you will really want to understand the internals of
 \biblatex\ --- which will involve reading the manual
@@ -15,7 +14,7 @@ carefully,\intref{\emph{Manual} \S~4} and also looking at some of the
 source code.\sidenote{Especially \texttt{standard.def} and the
   \texttt{.bbx} and \texttt{.cbx} files for the various standard
   files.} This guide is not trying to teach you how to do that. But
-there are lots of customizations that are well within the reach of the
+there are lots of customisations that are well within the reach of the
 `ordinary' user, and it makes sense to discuss them. This chapter
 provides a general introduction. Further details are given throughout
 the guide in the places where they make most sense, and there is a
@@ -41,11 +40,11 @@ suggested. Generally, I've tried to keep things as simple as possible.
 \clearpage
 \section{The common methods}
 
-\indexstart{customization!general techniques}
+\indexstart{customisation!general techniques}
 \index{Biblatex!package options|see{options}}
 \index{options}
 \paragraph{Using an option.}\intref{\emph{Manual} \S~3.1}
-Many `customizations' can be achieved simply by setting one of
+Many `customisations' can be achieved simply by setting one of
 \biblatex's package options. This is done when you load \biblatex. For
 instance, to change the way the bibliography is sorted, you might set
 the \verb|sorting| option to \verb|none|, by loading
@@ -81,11 +80,11 @@ will find yourself spending quite a bit of time fiddling with
 punctuation. It's not easy, but \biblatex\ has some rather
 sophisticated ways of helping you.
 
-When setting punctuation in biblatex commands, it's often best
+When setting punctuation in \biblatex\ commands, it's often best
 \emph{not} to use punctuation marks directly: for although they will
 work, they don't `play' nicely with some of the clever tricks
 \biblatex\ uses to keep punctuation straight. Instead, when engaged in
-customization, use the various commands that \biblatex\ offers.
+customisation, use the various commands that \biblatex\ offers.
 
 \csindex{adddot}\csindex{addperiod}\csindex{addcomma}\csindex{addcolon}\csindex{addsemicolon}
 \csindex{addspace}\csindex{addnbspace}\csindex{addexclam}\csindex{addquestion}
@@ -178,7 +177,7 @@ names.\marginnote{\cs{DeclareListFormat}\\\cs{DeclareNameFormat}}
 These are more complex; ordinary users are probably best to leave them
 alone; but they may be encountered from time to time in particular recipes.
 
-\index{customization!hooks}
+\index{customisation!hooks}
 \paragraph{Hooks.} There\intref{\emph{Manual} \S~4.10.6} are a number
 of `hooks' offered by \biblatex\ at which it is made relatively easy
 to insert user-defined commands which might do something useful. For
@@ -203,42 +202,42 @@ page \pageref{datamap}.
 \paragraph{Deeper and darker.}
 All these techniques (options, redefinition of `hook' commands, and
 the redefinition of bibliography strings) are fairly simple, and
-intended for regular use. Some customizations take us deeper: into the
+intended for regular use. Some customisations take us deeper: into the
 internal workings of \biblatex. These things include the redefinition
 of citation commands, the redefinition of things called bibmacros, and
 ultimately the rewriting of bibliography drivers.
-\indexstop{customization!general techniques}
+\indexstop{customisation!general techniques}
 
-\section{Where to put customizations}
+\section{Where to put customisations}
 
-\indexstart{customization!file locations}
-This all depends on whether your customizations are `one off' or
+\indexstart{customisation!file locations}
+This all depends on whether your customisations are `one off' or
 intended to be used in all your documents.
 \begin{itemize}
-\item For one off customizations:
+\item For one off customisations:
 \begin{itemize}
-\item customization by options should go in the options that you list
+\item customisation by options should go in the options that you list
   when loading \biblatex.\index{options}
-\item most other customizations should go in the document preamble, after
+\item most other customisations should go in the document preamble, after
   \biblatex\ has been loaded but before |\begin{document}|. In a \emph{very
   few} cases it's better to put them at some other point. Where that is so
-  I specifically mention it.\index{customization!in preamble}
+  I specifically mention it.\index{customisation!in preamble}
 \end{itemize}
 \item If you want a standard set of options to apply to all your
   documents, put them in a file called |biblatex.cfg|, which should be
   put in your \emph{local} \textsc{texmf} tree at
   |/tex/latex/biblatex|. If there is such a file it will be loaded
-  after biblatex. It can be used to redefine commands and to set
+  after \biblatex. It can be used to redefine commands and to set
   (most, but not all) bibliography options, using
   \cs{ExecuteBibliographyOptions}\braced{\angled{options}}. You
   cannot, however, set the bibliography style there: that at least you
-  must do when you load \biblatex.\index{customization!biblatex.cfg@\texttt{biblatex.cfg}}\index{files!biblatex.cfg@\texttt{biblatex.cfg}}\csindex{ExexcuteBibliographyOptions}
+  must do when you load \biblatex.\index{customisation!biblatex.cfg@\texttt{biblatex.cfg}}\index{files!biblatex.cfg@\texttt{biblatex.cfg}}\csindex{ExecuteBibliographyOptions}
 \item If\intref{\emph{Manual} \S~4.2} you get to the point that you
   are developing a comprehensive style, you will want to write |.bbx|,
   |.lbx| and |.cbx| files which can be loaded as a style. That,
   however, is beyond the scope of this document.
 \end{itemize}
-\indexstop{customization!file locations}
+\indexstop{customisation!file locations}
 
 %%% Local Variables:
 %%% coding: utf-8
